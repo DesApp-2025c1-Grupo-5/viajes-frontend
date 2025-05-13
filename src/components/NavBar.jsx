@@ -17,6 +17,7 @@ const NavBar = () => {
                   />
                 }
                 name="Dashboard"
+                
               />
             </li>
             <li>
@@ -29,6 +30,7 @@ const NavBar = () => {
                   />
                 }
                 name="Vehículos"
+                path="/vehiculos"
               />
             </li>
             <li>
