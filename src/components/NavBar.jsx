@@ -17,7 +17,7 @@ const NavBar = () => {
                   />
                 }
                 name="Dashboard"
-                
+                path="/"
               />
             </li>
             <li>
@@ -43,6 +43,7 @@ const NavBar = () => {
                   />
                 }
                 name="Choferes"
+                path="/choferes"
               />
             </li>
             <li>
@@ -51,6 +52,7 @@ const NavBar = () => {
                   <path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"></path>
                 }
                 name="Depósitos"
+                path="/depositos"
               />
             </li>
             <li>
@@ -63,6 +65,7 @@ const NavBar = () => {
                   />
                 }
                 name="Transportistas"
+                path="/transportistas"
               />
             </li>
             <li>
@@ -75,6 +78,7 @@ const NavBar = () => {
                   />
                 }
                 name="Viajes"
+                path="/viajes"
               />
             </li>
           </ul>
