@@ -1,6 +1,6 @@
 const Tabla = ({ viajes }) => {
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto mt-5">
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
             <tr>

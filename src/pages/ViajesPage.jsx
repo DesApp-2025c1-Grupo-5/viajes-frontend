@@ -1,9 +1,11 @@
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Title from "../components/Title";
-//import Card from "../components/Card"
 import Tabla from "../components/Tabla";
-import { useEffect, useState } from "react";
+import SearchBar from "../components/SearchBar"
+import TableTitle from "../components/TableTitle"
+import New from "../components/New"
+
 
 const tablaViajes = [{
     id: 1234,
@@ -40,10 +42,18 @@ const ViajesPage = () => {
         </div>
         <div className="flex-1 p-6">
             <Title color="text-pink-600" title="Viajes" description="Gestiona los viajes entre depósitos"></Title>
-            <Tabla viajes={tablaViajes} />
+            <div>
+                <div className="flex items-center justify-between">
+                    <TableTitle color="text-gray-700" title="Lista de viajes" description="Todos los viajes registrados en el sistema"></TableTitle>
+                    <New path="/nuevoViaje" bgColor="bg-pink-300"></New>
+                </div>
+                <SearchBar></SearchBar>
+                <Tabla viajes={tablaViajes}/>
+            </div>
+            
         </div>
       </div>
-        </>
+    </>
     );
 }
  
