@@ -1,5 +1,13 @@
+import Header from "../components/Header";
+import NavBar from "../components/NavBar";
+
 const ChoferesPage = () => {
-    return ( <p>choferes</p> );
+     return (
+        <>
+        <Header></Header>
+        <NavBar></NavBar>
+        </>
+    );
 }
  
 export default ChoferesPage;

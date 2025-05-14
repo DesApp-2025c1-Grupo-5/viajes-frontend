@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Header = () => {
   return (
     // falta aplicar el degradado

@@ -1,5 +1,13 @@
+import Header from "../components/Header";
+import NavBar from "../components/NavBar";
+
 const ViajesPage = () => {
-    return ( <p>viajes</p> );
+     return (
+        <>
+        <Header></Header>
+        <NavBar></NavBar>
+        </>
+    );
 }
  
 export default ViajesPage;

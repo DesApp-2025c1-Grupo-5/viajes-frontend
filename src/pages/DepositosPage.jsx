@@ -1,5 +1,13 @@
+import Header from "../components/Header";
+import NavBar from "../components/NavBar";
+
 const DepositosPage = () => {
-    return ( <p>depósitos</p> );
+     return (
+        <>
+        <Header></Header>
+        <NavBar></NavBar>
+        </>
+    );
 }
  
 export default DepositosPage;
