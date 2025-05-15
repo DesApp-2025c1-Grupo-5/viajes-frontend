@@ -29,6 +29,7 @@ const DashboardPage = () => {
             colorPlus="bg-pink-300"
             colorHover="hover:bg-pink-500"
             icono={Map}
+            path="/nuevoViaje"
           ></Card>
           <div className="grid grid-cols-2 gap-2 mt-4">
             <Card
@@ -42,6 +43,7 @@ const DashboardPage = () => {
               colorIcono="text-red-500"
               colorHover="hover:bg-red-700"
               icono={Truck}
+              path="/nuevoVehiculo"
             />
             <Card
               ancho="max-w-sm"
@@ -54,6 +56,7 @@ const DashboardPage = () => {
               colorPlus="bg-emerald-400"
               colorHover="hover:bg-emerald-600"
               icono={User}
+              path="/nuevoChofer"
             />
             <Card
               ancho="max-w-sm"
@@ -66,6 +69,7 @@ const DashboardPage = () => {
               colorIcono="text-orange-500"
               colorHover="hover:bg-orange-500"
               icono={Home}
+              path="/nuevoDeposito"
             />
             <Card
               ancho="max-w-sm"
@@ -78,6 +82,7 @@ const DashboardPage = () => {
               colorIcono="text-purple-500"
               colorHover="hover:bg-purple-600"
               icono={Building}
+              path="/nuevoTransportista"
             />
           </div>
         </div>

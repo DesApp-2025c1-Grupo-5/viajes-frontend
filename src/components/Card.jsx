@@ -1,20 +1,30 @@
-import { Plus, Map } from "lucide-react";
+import { Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Card = (props) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(props.path);
+  };
+
+  const Icono = props.icono;
+
   return (
     <div
-      className={`${props.ancho} ${props.alto} bg-white rounded-2xl shadow-md px-4 py-3 flex items-center justify-between border-l-4 ${props.colorBorde} mt-8`}
+      className={`${props.ancho} ${props.alto} bg-white rounded-2xl shadow-2xl px-4 py-4 flex items-center justify-between border-l-4 ${props.colorBorde} mt-8`}
     >
       <div>
-        <p className="text-sm text-black-600">{props.tituloDeLaCarta}</p>
+        <p className="text-xl text-gray-600">{props.tituloDeLaCarta}</p>
         <p className="text-xl font-bold text-gray-800">{props.cantidad}</p>
       </div>
-      <div className="bg-pink-100 rounded-full p-2">
-        <Map className="h-6 w-6 text-pink-500" />
+      <div className={`${props.bgIcono} rounded-full p-2`}>
+        {Icono && <Icono className={`h-6 w-6 ${props.colorIcono}`} />}
       </div>
       <div>
         <button
-          className={`${props.colorPlus} hover:bg-pink-600 text-white rounded-full p-2`}
+          onClick={handleClick}
+          className={`${props.colorPlus} ${props.colorHover} text-white rounded-full p-2`}
         >
           <Plus className="h-5 w-5" />
         </button>
