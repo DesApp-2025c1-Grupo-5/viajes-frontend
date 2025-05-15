@@ -45,7 +45,7 @@ const DepositosPage = () => {
             <div>
                 <div className="flex items-center justify-between">
                     <TableTitle color="text-gray-700" title="Lista de depósitos" description="Todos los depósitos registrados en el sistema"></TableTitle>
-                    <New path="/nuevoDeposito" bgColor="bg-orange-300"></New>
+                    <New path="/nuevoDeposito" bgColor="bg-orange-400"></New>
                 </div>
                 <SearchBar></SearchBar>
                 <TablaDepositos depositos={tablaDepositos}/>

@@ -41,7 +41,7 @@ const ViajesPage = () => {
             <NavBar />
         </div>
         <div className="flex-1 p-6">
-            <Title color="text-pink-600" title="Viajes" description="Gestiona los viajes entre depósitos"></Title>
+            <Title color="text-pink-300" title="Viajes" description="Gestiona los viajes entre depósitos"></Title>
             <div>
                 <div className="flex items-center justify-between">
                     <TableTitle color="text-gray-700" title="Lista de viajes" description="Todos los viajes registrados en el sistema"></TableTitle>

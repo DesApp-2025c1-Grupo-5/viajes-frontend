@@ -41,11 +41,11 @@ const ChoferesPage = () => {
             <NavBar />
         </div>
         <div className="flex-1 p-6">
-            <Title color="text-green-400" title="Choferes" description="Gestiona los choferes de la empresa"></Title>
+            <Title color="text-emerald-400" title="Choferes" description="Gestiona los choferes de la empresa"></Title>
             <div>
                 <div className="flex items-center justify-between">
                     <TableTitle color="text-gray-700" title="Lista de choferes" description="Todos los choferes registrados en el sistema"></TableTitle>
-                    <New path="/nuevoChofer" bgColor="bg-green-300"></New>
+                    <New path="/nuevoChofer" bgColor="bg-emerald-400"></New>
                 </div>
                 <SearchBar></SearchBar>
                 <TablaChoferes choferes={tablaChoferes}/>

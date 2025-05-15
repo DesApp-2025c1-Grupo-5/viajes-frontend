@@ -44,7 +44,7 @@ const TransportistasPage = () => {
             <div>
                 <div className="flex items-center justify-between">
                     <TableTitle color="text-gray-700" title="Lista de transportistas" description="Todos los transportistas registrados en el sistema"></TableTitle>
-                    <New path="/nuevoTransportista" bgColor="bg-purple-300"></New>
+                    <New path="/nuevoTransportista" bgColor="bg-purple-400"></New>
                 </div>
                 <SearchBar></SearchBar>
                 <TablaTransportistas transportistas={tablatransportistas}/>

@@ -1,9 +1,13 @@
-const SearchBard = () => {
+const SearchBar = () => {
   return (
-    <div className="max-w-3xl bg-white rounded-2xl shadow-md px-4 py-3 flex items-center justify-between text-gray-400">
-      Buscar
-    </div>
+    <input
+      type="search"
+      className="max-w-3xl bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center justify-between text-gray-900"
+      placeholder="Buscar"
+      aria-label="Search"
+      aria-describedby="button-addon2"
+    ></input>
   );
 };
 
-export default SearchBard;
+export default SearchBar;

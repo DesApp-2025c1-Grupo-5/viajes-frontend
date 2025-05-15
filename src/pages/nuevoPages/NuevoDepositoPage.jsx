@@ -12,7 +12,7 @@ const NuevoDepositoPage = () => {
           <div className="flex-1 p-6">
             <div className="flex items-center gap-2 mb-6">
               <BackButton path="/depositos"/>
-              <TitleNew color="text-pink-600" title="Nuevo Depósito" />
+              <TitleNew color="text-orange-400" title="Nuevo Depósito" />
             </div>
           </div>
         </div>

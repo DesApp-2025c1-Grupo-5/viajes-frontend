@@ -12,7 +12,7 @@ const NuevoChoferPage = () => {
           <div className="flex-1 p-6">
             <div className="flex items-center gap-2 mb-6">
               <BackButton path="/choferes"/>
-              <TitleNew color="text-pink-600" title="Nuevo Chofer" />
+              <TitleNew color="text-emerald-400" title="Nuevo Chofer" />
             </div>
           </div>
         </div>
