@@ -1,9 +1,9 @@
-import Header from "../components/Header"
-import NavBar from "../components/NavBar"
-import TitleNew from "../components/TitleNew"
-import {ArrowLeft} from 'lucide-react';
+import BackButton from "../../components/BackButton";
+import Header from "../../components/Header"
+import NavBar from "../../components/NavBar"
+import TitleNew from "../../components/TitleNew"
 
-const NuevoViaje = () => {
+const NuevoViajePage = () => {
      return (
       <>
         <Header></Header>
@@ -11,7 +11,7 @@ const NuevoViaje = () => {
           <NavBar></NavBar>
           <div className="flex-1 p-6">
             <div className="flex items-center gap-2 mb-6">
-              <ArrowLeft className="w-7 h-7 cursor-pointer" />
+              <BackButton path="/viajes"/>
               <TitleNew color="text-pink-600" title="Nuevo Viaje" />
             </div>
           </div>
@@ -20,4 +20,4 @@ const NuevoViaje = () => {
      );
 }
  
-export default NuevoViaje;
+export default NuevoViajePage;

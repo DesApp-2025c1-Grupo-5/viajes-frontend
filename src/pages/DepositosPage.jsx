@@ -41,11 +41,11 @@ const DepositosPage = () => {
             <NavBar />
         </div>
         <div className="flex-1 p-6">
-            <Title color="text-orange-400" title="Depositos" description="Gestiona los depositos de la empresa"></Title>
+            <Title color="text-orange-400" title="Depósitos" description="Gestiona los depósitos de la empresa"></Title>
             <div>
                 <div className="flex items-center justify-between">
-                    <TableTitle color="text-gray-700" title="Lista de depositos" description="Todos los depositos registrados en el sistema"></TableTitle>
-                    <New path="/nuevoViaje" bgColor="bg-orange-300"></New>
+                    <TableTitle color="text-gray-700" title="Lista de depósitos" description="Todos los depósitos registrados en el sistema"></TableTitle>
+                    <New path="/nuevoDeposito" bgColor="bg-orange-300"></New>
                 </div>
                 <SearchBar></SearchBar>
                 <TablaDepositos depositos={tablaDepositos}/>

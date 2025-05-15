@@ -40,11 +40,11 @@ const TransportistasPage = () => {
             <NavBar />
         </div>
         <div className="flex-1 p-6">
-            <Title color="text-purple-400" title="Empresas Transportistas" description="Gestiona los transportistas de la empresa"></Title>
+            <Title color="text-purple-400" title="Transportistas" description="Gestiona los transportistas de la empresa"></Title>
             <div>
                 <div className="flex items-center justify-between">
                     <TableTitle color="text-gray-700" title="Lista de transportistas" description="Todos los transportistas registrados en el sistema"></TableTitle>
-                    <New path="/nuevoViaje" bgColor="bg-purple-300"></New>
+                    <New path="/nuevoTransportista" bgColor="bg-purple-300"></New>
                 </div>
                 <SearchBar></SearchBar>
                 <TablaTransportistas transportistas={tablatransportistas}/>

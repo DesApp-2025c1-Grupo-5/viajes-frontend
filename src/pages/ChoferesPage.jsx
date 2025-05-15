@@ -45,7 +45,7 @@ const ChoferesPage = () => {
             <div>
                 <div className="flex items-center justify-between">
                     <TableTitle color="text-gray-700" title="Lista de choferes" description="Todos los choferes registrados en el sistema"></TableTitle>
-                    <New path="/nuevoViaje" bgColor="bg-green-300"></New>
+                    <New path="/nuevoChofer" bgColor="bg-green-300"></New>
                 </div>
                 <SearchBar></SearchBar>
                 <TablaChoferes choferes={tablaChoferes}/>

@@ -12,7 +12,7 @@ const DashboardPage = () => {
             <NavBar />
         </div>
         <div className="flex-1 p-6">
-            <Title color="text-blue-600" title="Dashboard" description="Bienvenidos al sistema de logistica Acme SRL"></Title>
+            <Title color="text-blue-600" title="Dashboard" description="Bienvenidos al sistema de logística Acme SRL"></Title>
             <Card ancho="max-w-3xl" alto="h-15" tituloDeLaCarta="Viajes en curso" cantidad ="10" colorBorde="border-pink-400" colorPlus="bg-pink-500"></Card>
             <div className="grid grid-cols-2 gap-2 mt-4">
               <Card ancho="max-w-sm" alto="h-40" tituloDeLaCarta="Vehículos activos" cantidad="42" colorBorde="border-red-400" colorPlus="bg-red-400" />
