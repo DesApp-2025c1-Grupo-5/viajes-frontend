@@ -15,6 +15,7 @@ const DropdownButton = ({ titulo, buttonText, onClick, className }) => {
           text-gray-700
           bg-white hover:bg-gray-100
           shadow-lg
+          cursor-pointer
           focus:ring-4 focus:outline-none focus:ring-blue-300
           font-medium rounded-full
           text-sm px-5 py-2.5
