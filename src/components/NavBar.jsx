@@ -4,7 +4,7 @@ import { Truck, Users, Warehouse, Building2, Map, Home } from "lucide-react";
 const NavBar = () => {
   return (
     <div className="">
-      <div className="h-screen w-full max-w-[16rem] p-4 shadow-xl shadow-blue-gray-900/5 bg-blue-600">
+      <div className="min-h-screen h-full w-full max-w-[16rem] p-4 shadow-xl shadow-blue-gray-900/5 bg-blue-600">
         <div>
           <ul className="space-y-8">
             <li>
