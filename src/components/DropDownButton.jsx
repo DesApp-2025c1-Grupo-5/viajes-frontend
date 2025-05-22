@@ -2,7 +2,7 @@ const DropdownButton = ({ titulo, buttonText, onClick, className }) => {
   return (
     <div>
       {}
-      <span className="block mb-2 text-sm font-medium text-gray-700">
+      <span className="block mb-2 mt-8 text-sm font-medium text-gray-700">
         {titulo}
       </span>
       {}
@@ -10,8 +10,8 @@ const DropdownButton = ({ titulo, buttonText, onClick, className }) => {
         type="button"
         onClick={onClick}
         className={`
-          max-w-3xs
-          min-w-md
+          max-w-full
+          w-sm
           text-white
           bg-blue-700 hover:bg-blue-800
           focus:ring-4 focus:outline-none focus:ring-blue-300

@@ -7,6 +7,7 @@ import Input from "../../components/Input";
 import DropdownButton from "../../components/DropDownButton";
 import FormButtonSave from "../../components/FormButtonSave";
 import FormButtonCancel from "../../components/FormButtonCancel";
+import TextArea from "../../components/TextArea";
 
 const NuevoChoferPage = () => {
   return (
@@ -24,8 +25,12 @@ const NuevoChoferPage = () => {
             title="Información del chofer"
             description="Ingresa los datos del nuevo chofer a registrar en el sistema"
           ></TableTitle>
-          <div className="grid grid-cols-2">
-            <Input placeholder="Ej: Juan" title="Nombre" id="idNombre"></Input>
+          <div className="grid grid-cols-2 gap-8 max-w-5xl">
+            <Input 
+              placeholder="Ej: Juan" 
+              title="Nombre" 
+              id="idNombre"
+            ></Input>
             <Input
               placeholder="Ej: Gonzales"
               title="Apellido"
@@ -53,15 +58,17 @@ const NuevoChoferPage = () => {
               title="Estado"
               id="idEstado"
             ></Input>
-            <Input
+            <TextArea
               placeholder="Ej: Informacion sobre el chofer"
               title="Observaciones"
               id="idObservaciones"
-            ></Input>
-          </div>
-          <div className="grid grid-cols-2">
-            <FormButtonCancel></FormButtonCancel>
-            <FormButtonSave></FormButtonSave>
+            ></TextArea>
+            <div></div>
+            <div></div>
+            <div className="flex justify-end w-full gap-8">
+              <FormButtonCancel></FormButtonCancel>
+              <FormButtonSave></FormButtonSave>
+            </div>
           </div>
         </div>
       </div>
