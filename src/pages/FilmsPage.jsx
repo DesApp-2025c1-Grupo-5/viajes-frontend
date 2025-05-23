@@ -1,4 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Typography, Box, styled, Button, Chip } from "@mui/material";
+import { cyan, teal } from "@mui/material/colors";
+import { range } from 'lodash';
+import { addFilm, getAllFilms } from "../services/FilmService";
+import { AddFilmDialog } from "../components/AddFilmDialog";
 
 function ColoredLineTableCell(props) {
   return <TableCell sx={{ borderBottomColor: teal[300], borderBottomWidth: 2, ...(props.sx || {}) }} {...props} />;
