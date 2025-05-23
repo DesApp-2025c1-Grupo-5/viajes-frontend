@@ -4,6 +4,11 @@ import NavBar from "../../components/NavBar";
 import TitleNew from "../../components/TitleNew";
 import TableTitle from "../../components/TableTitle";
 import DropdownButton from "../../components/DropDownButton";
+import DateTimePicker from "../../components/DataTimePicker";
+import Input from "../../components/Input";
+import FormButtonCancel from "../../components/FormButtonCancel";
+import FormButtonSave from "../../components/FormButtonSave";
+import TextArea from "../../components/TextArea";
 
 const NuevoViajePage = () => {
   return (
@@ -23,7 +28,7 @@ const NuevoViajePage = () => {
               description="Ingresa los datos del nuevo viaje a registrar en el sistema"
             ></TableTitle>
           </div>
-          <div className="grid grid-cols-2 gap-2 mt-8">
+          <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <DropdownButton
               titulo="Deposito origen"
               buttonText="Seleccionar"
@@ -34,6 +39,39 @@ const NuevoViajePage = () => {
               buttonText="Seleccionar"
               onClick={() => alert("clicked!")}
             ></DropdownButton>
+            <DateTimePicker title="Fecha de salida"></DateTimePicker>
+            <DateTimePicker title="Fecha de Llegada"></DateTimePicker>
+            <Input
+              placeholder="Ej: Volvo FH16"
+              title="Vehículo"
+              id="idVehiculo"
+            ></Input>
+            <Input
+              placeholder="Ej: Miguel Perez"
+              title="Chofer"
+              id="idChoferes"
+            ></Input>
+            <Input
+              placeholder="Ej: Productos electronicos"
+              title="Descripcion de carga"
+              id="idProductosElectronicos"
+            ></Input>
+            <Input
+              placeholder="Ej: Pendiente"
+              title="Estado"
+              id="idEstado"
+            ></Input>
+            <TextArea
+              placeholder="Ej: Informacion sobre el chofer"
+              title="Observaciones"
+              id="idObservaciones"
+            ></TextArea>
+            <div></div>
+            <div></div>
+            <div className="flex justify-end w-full gap-8">
+              <FormButtonCancel></FormButtonCancel>
+              <FormButtonSave></FormButtonSave>
+            </div>
           </div>
         </div>
       </div>
