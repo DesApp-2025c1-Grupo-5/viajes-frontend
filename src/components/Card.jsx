@@ -12,7 +12,7 @@ const Card = (props) => {
 
   return (
     <div
-      className={`${props.ancho} ${props.alto} bg-white rounded-2xl shadow-2xl px-4 py-4 flex items-center justify-between border-l-4 ${props.colorBorde} mt-8`}
+      className={`${props.ancho} ${props.alto} bg-white rounded-2xl shadow-2xl px-4 py-4 flex items-center justify-between border-l-4 ${props.colorBorde} border-t-1 border-t-gray-300 border-r-1 border-r-gray-300 border-b-1 border-b-gray-300 mt-8 hover:scale-103 transition-transform duration-200`}
     >
       <div className="w-4/5">
         <p className="text-xl text-gray-600">{props.tituloDeLaCarta}</p>
