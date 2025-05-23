@@ -22,8 +22,8 @@ const NuevoDepositoPage = () => {
           </div>
           <TableTitle
             color="black"
-            title="Información del chofer"
-            description="Ingresa los datos del nuevo chofer a registrar en el sistema"
+            title="Información del depósito"
+            description="Ingresa los datos del nuevo depósito a registrar en el sistema"
           ></TableTitle>
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <Input
