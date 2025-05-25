@@ -57,7 +57,7 @@ const ViajesPage = () => {
               <New
                 path="/nuevoViaje"
                 bgColor="bg-pink-300"
-                colorHover="hover:bg-pink-500"
+                colorHover="hover:bg-pink-400"
               ></New>
             </div>
             <SearchBar></SearchBar>

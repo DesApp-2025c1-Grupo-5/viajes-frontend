@@ -37,9 +37,9 @@ const DashboardPage = () => {
               tituloDeLaCarta="Vehículos activos"
               cantidad="42"
               bgIcono="bg-red-100"
-              colorBorde="border-red-500"
-              colorPlus="bg-red-500"
-              colorIcono="text-red-500"
+              colorBorde="border-red-400"
+              colorPlus="bg-red-400"
+              colorIcono="text-red-400"
               colorHover="hover:bg-red-600"
               icono={Truck}
               path="/nuevoVehiculo"
