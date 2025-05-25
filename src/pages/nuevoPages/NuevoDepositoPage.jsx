@@ -5,6 +5,7 @@ import TitleNew from "../../components/TitleNew";
 import FormTitle from "../../components/FormTitle";
 import Input from "../../components/Input";
 import DropdownButton from "../../components/DropDownButton";
+import TimePicker from "../../components/TimePicker";
 import TextArea from "../../components/TextArea";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
@@ -63,6 +64,7 @@ const NuevoDepositoPage = () => {
               ></Input>
             </div>
             <DropdownButton titulo="Tipo" required={true}></DropdownButton>
+            <TimePicker title="Horario" required={true}></TimePicker>
             <DropdownButton titulo="Restriccion de acceso"  required={true} />
             <TextArea
               placeholder="Ej: Informacion sobre el depósito"
