@@ -30,7 +30,7 @@ const TablaVehiculos = ({ vehiculos }) => {
                   path={`/nuevoVehiculo`}
                   className="text-blue-600 hover:text-blue-800 mr-4"
                 >
-                  <FilePen size={25} className="align-middle inline-block" />
+                  <FilePen size={25} className="align-middle cursor-pointer inline-block" />
                 </a>
                 <Trash2
                   size={25}

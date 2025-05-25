@@ -3,7 +3,7 @@ const Header = () => {
     // falta aplicar el degradado
     <header className="g-whiteb-600 px-6 py-4 shadow-md">
       <div>
-        <h1 className="text-3xl text-blue-600 font-bold">Logística Acme SRL</h1>
+        <h1 className="text-3xl text-blue-600 font-bold cursor-pointer">Logística Acme SRL</h1>
       </div>
     </header>
   );
