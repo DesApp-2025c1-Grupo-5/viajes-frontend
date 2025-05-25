@@ -1,10 +1,13 @@
 const Input = (props) => {
   return (
     <>
-      <div className="mb-2 text-sm font-medium text-gray-700 mt-8 ">
-        <label htmlFor={props.id}>{props.title}</label>
+      <div className="mb-2 text-sm font-medium text-gray-700 mt-4 ">
+        <label htmlFor={props.id}>
+          {props.title}
+          {props.required && <span className="text-red-500 text-bold"> *</span>}
+        </label>
         <input
-          required
+          required={props.required}
           placeholder={props.placeholder}
           id={props.id}
           type="text"

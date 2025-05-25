@@ -9,9 +9,7 @@ const DashboardPage = () => {
     <>
       <Header />
       <div className="flex">
-        <div>
-          <NavBar />
-        </div>
+        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-blue-600"
@@ -20,7 +18,6 @@ const DashboardPage = () => {
           ></Title>
           <div className="grid grid-cols-1 max-w-5xl">
           <Card
-            // ancho="max-w-3xl"
             alto="h-30"
             tituloDeLaCarta="Viajes en curso"
             cantidad="10"
@@ -36,7 +33,6 @@ const DashboardPage = () => {
           <div className="grid grid-cols-2 gap-8 mt-4"
           >
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Vehículos activos"
               cantidad="42"
@@ -50,7 +46,6 @@ const DashboardPage = () => {
               pathSeccion="/vehiculos"
             />
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Choferes disponibles"
               cantidad="18"
@@ -64,7 +59,6 @@ const DashboardPage = () => {
               pathSeccion="/choferes"
             />
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Depósitos"
               cantidad="10"
@@ -78,7 +72,6 @@ const DashboardPage = () => {
               pathSeccion="/depositos"
             />
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Empresas transportistas"
               cantidad="6"

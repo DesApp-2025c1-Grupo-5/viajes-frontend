@@ -2,7 +2,7 @@ import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import TitleNew from "../../components/TitleNew";
-import TableTitle from "../../components/TableTitle";
+import FormTitle from "../../components/FormTitle";
 import Input from "../../components/Input";
 import DropdownButton from "../../components/DropDownButton";
 import FormButtonSave from "../../components/FormButtonSave";
@@ -20,43 +20,53 @@ const NuevoChoferPage = () => {
             <BackButton path="/choferes" />
             <TitleNew color="text-emerald-400" title="Nuevo Chofer" />
           </div>
-          <TableTitle
+          <FormTitle
             color="black"
             title="Información del chofer"
             description="Ingresa los datos del nuevo chofer a registrar en el sistema"
-          ></TableTitle>
+          ></FormTitle>
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <Input 
               placeholder="Ej: Juan" 
               title="Nombre" 
               id="idNombre"
+              required={true}
             ></Input>
             <Input
               placeholder="Ej: Gonzales"
               title="Apellido"
               id="idApellido"
+              required={true}
             ></Input>
-            <Input placeholder="Ej: 12345678" title="DNI" id="idDni"></Input>
+            <Input 
+              placeholder="Ej: 12345678" 
+              title="DNI" 
+              id="idDni"
+              required={true}
+            ></Input>
             <Input
               placeholder="Ej: A-12345"
               title="Lencia de conductor"
               id="idLicenciaDeConductor"
+              required={true}
             ></Input>
             <Input
               placeholder="Ej: 1133224222"
               title="Telefono"
               id="idTelefono"
+              required={true}
             ></Input>
             <Input
               placeholder="Ej: 01/01/01"
               title="Fecha de nacimiento"
               id="idFechaDeNacimiento"
             ></Input>
-            <DropdownButton titulo="Empresa transportista"></DropdownButton>
+            <DropdownButton titulo="Empresa transportista" required={true}></DropdownButton>
             <Input
               placeholder="Ej: Activo"
               title="Estado"
               id="idEstado"
+              required={true}
             ></Input>
             <TextArea
               placeholder="Ej: Informacion sobre el chofer"
