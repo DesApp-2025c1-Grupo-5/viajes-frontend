@@ -1,7 +1,7 @@
 const Input = (props) => {
   return (
     <>
-      <div className="mb-2 text-sm font-medium text-gray-700 mt-4 ">
+      <div className="text-sm font-medium text-gray-700">
         <label htmlFor={props.id}>
           {props.title}
           {props.required && <span className="text-red-500 text-bold"> *</span>}

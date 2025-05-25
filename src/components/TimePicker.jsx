@@ -1,6 +1,6 @@
 const TimePicker = (props) => {
   return (
-    <div className="flex flex-col gap-1 mt-4">
+    <div className="flex flex-col gap-1">
       <label htmlFor={props.id} className="text-sm font-semibold">
         {props.title}
         {props.required && <span className="text-red-500 ml-1">*</span>}
