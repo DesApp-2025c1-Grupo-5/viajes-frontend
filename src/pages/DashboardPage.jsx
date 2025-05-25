@@ -25,7 +25,7 @@ const DashboardPage = () => {
             colorIcono="text-pink-500"
             colorBorde="border-pink-300"
             colorPlus="bg-pink-300"
-            colorHover="hover:bg-pink-500"
+            colorHover="hover:bg-pink-400"
             icono={Map}
             path="/nuevoViaje"
             pathSeccion="/viajes"
@@ -40,7 +40,7 @@ const DashboardPage = () => {
               colorBorde="border-red-500"
               colorPlus="bg-red-500"
               colorIcono="text-red-500"
-              colorHover="hover:bg-red-700"
+              colorHover="hover:bg-red-600"
               icono={Truck}
               path="/nuevoVehiculo"
               pathSeccion="/vehiculos"
@@ -53,7 +53,7 @@ const DashboardPage = () => {
               colorBorde="border-emerald-400"
               colorIcono="text-emerald-500"
               colorPlus="bg-emerald-400"
-              colorHover="hover:bg-emerald-600"
+              colorHover="hover:bg-emerald-500"
               icono={User}
               path="/nuevoChofer"
               pathSeccion="/choferes"
@@ -79,7 +79,7 @@ const DashboardPage = () => {
               colorBorde="border-purple-400"
               colorPlus="bg-purple-400"
               colorIcono="text-purple-500"
-              colorHover="hover:bg-purple-600"
+              colorHover="hover:bg-purple-500"
               icono={Building}
               path="/nuevoTransportista"
               pathSeccion="/transportistas"

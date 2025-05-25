@@ -29,7 +29,8 @@ const Card = (props) => {
           <div>
             <button
               onClick={handleClick}
-              className={`${props.colorPlus} ${props.colorHover} cursor-pointer text-white rounded-full p-2 ml-6`}
+              className={`${props.colorPlus} ${props.colorHover} cursor-pointer text-white rounded-full p-2 ml-6
+              hover:scale-110 transition-transform duration-200`}
             >
               <Plus className="h-5 w-5" />
             </button>
