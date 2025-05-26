@@ -43,7 +43,7 @@ const VehiculosPage = () => {
         </div>
         <div className="flex-1 p-6">
           <Title
-            color="text-red-500"
+            color="text-red-400"
             title="Vehículos"
             description="Gestiona los vehículos de la empresa"
           ></Title>
@@ -56,8 +56,8 @@ const VehiculosPage = () => {
               ></TableTitle>
               <New
                 path="/nuevoVehiculo"
-                bgColor="bg-red-500"
-                colorHover="hover:bg-red-700"
+                bgColor="bg-red-400"
+                colorHover="hover:bg-red-500"
               ></New>
             </div>
             <SearchBar></SearchBar>

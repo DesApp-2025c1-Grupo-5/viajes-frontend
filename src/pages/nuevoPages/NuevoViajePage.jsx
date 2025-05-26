@@ -2,7 +2,7 @@ import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import TitleNew from "../../components/TitleNew";
-import TableTitle from "../../components/TableTitle";
+import FormTitle from "../../components/FormTitle";
 import DropdownButton from "../../components/DropDownButton";
 import DateTimePicker from "../../components/DataTimePicker";
 import Input from "../../components/Input";
@@ -22,44 +22,50 @@ const NuevoViajePage = () => {
             <TitleNew color="text-pink-300" title="Nuevo Viaje" />
           </div>
           <div>
-            <TableTitle
+            <FormTitle
               color="black"
               title="Información del viaje"
               description="Ingresa los datos del nuevo viaje a registrar en el sistema"
-            ></TableTitle>
+            ></FormTitle>
           </div>
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <DropdownButton
               titulo="Deposito origen"
               buttonText="Seleccionar"
-              onClick={() => alert("clicked!")}
+              required={true}
+              // onClick={() => alert("clicked!")}
             ></DropdownButton>
             <DropdownButton
               titulo="Deposito destino"
               buttonText="Seleccionar"
-              onClick={() => alert("clicked!")}
+              required={true}
+              // onClick={() => alert("clicked!")}
             ></DropdownButton>
-            <DateTimePicker title="Fecha de salida"></DateTimePicker>
-            <DateTimePicker title="Fecha de Llegada"></DateTimePicker>
+            <DateTimePicker title="Fecha de salida" required={true}></DateTimePicker>
+            <DateTimePicker title="Fecha de Llegada" required={true}></DateTimePicker>
             <Input
               placeholder="Ej: Volvo FH16"
               title="Vehículo"
               id="idVehiculo"
+              required={true}
             ></Input>
             <Input
               placeholder="Ej: Miguel Perez"
               title="Chofer"
               id="idChoferes"
+              required={true}
             ></Input>
             <Input
               placeholder="Ej: Productos electronicos"
               title="Descripcion de carga"
               id="idProductosElectronicos"
+              required={true}
             ></Input>
             <Input
               placeholder="Ej: Pendiente"
               title="Estado"
               id="idEstado"
+              required={true}
             ></Input>
             <TextArea
               placeholder="Ej: Informacion sobre el chofer"

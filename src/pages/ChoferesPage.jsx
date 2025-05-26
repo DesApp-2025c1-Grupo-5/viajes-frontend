@@ -57,7 +57,7 @@ const ChoferesPage = () => {
               <New
                 path="/nuevoChofer"
                 bgColor="bg-emerald-400"
-                colorHover="hover:bg-emerald-600"
+                colorHover="hover:bg-emerald-500"
               ></New>
             </div>
             <SearchBar></SearchBar>

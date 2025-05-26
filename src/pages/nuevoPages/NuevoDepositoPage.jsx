@@ -2,9 +2,10 @@ import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
 import TitleNew from "../../components/TitleNew";
-import TableTitle from "../../components/TableTitle";
+import FormTitle from "../../components/FormTitle";
 import Input from "../../components/Input";
 import DropdownButton from "../../components/DropDownButton";
+import TimePicker from "../../components/TimePicker";
 import TextArea from "../../components/TextArea";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
@@ -20,27 +21,35 @@ const NuevoDepositoPage = () => {
             <BackButton path="/depositos" />
             <TitleNew color="text-orange-400" title="Nuevo Depósito" />
           </div>
-          <TableTitle
+          <FormTitle
             color="black"
             title="Información del depósito"
             description="Ingresa los datos del nuevo depósito a registrar en el sistema"
-          ></TableTitle>
+          ></FormTitle>
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <Input
               placeholder="Ej: Deposito Central"
               title="Nombre"
               id="idNombre"
+              required={true}
             ></Input>
-            <Input placeholder="Ej: Argentina" title="Pais" id="idPais"></Input>
+            <Input 
+              placeholder="Ej: Argentina" 
+              title="Pais" 
+              id="idPais"
+              required={true}
+            ></Input>
             <Input
               placeholder="Ej: Tucumán"
               title="Provincia"
               id="idProvincia"
+              required={true}
             ></Input>
             <Input
               placeholder="Ej: Av. Pronvincial 566"
               title="Dirección"
               id="idDireccion"
+              required={true}
             ></Input>
             <div className="flex gap-1">
               <Input
@@ -54,8 +63,9 @@ const NuevoDepositoPage = () => {
                 id="coordenada2"
               ></Input>
             </div>
-            <DropdownButton titulo="Tipo"></DropdownButton>
-            <DropdownButton titulo="Restriccion de acceso" />
+            <DropdownButton titulo="Tipo" required={true}></DropdownButton>
+            <TimePicker title="Horario" required={true}></TimePicker>
+            <DropdownButton titulo="Restriccion de acceso"  required={true} />
             <TextArea
               placeholder="Ej: Informacion sobre el depósito"
               title="Observaciones"

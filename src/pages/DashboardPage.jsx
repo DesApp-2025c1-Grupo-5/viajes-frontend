@@ -9,9 +9,7 @@ const DashboardPage = () => {
     <>
       <Header />
       <div className="flex">
-        <div>
-          <NavBar />
-        </div>
+        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-blue-600"
@@ -20,7 +18,6 @@ const DashboardPage = () => {
           ></Title>
           <div className="grid grid-cols-1 max-w-5xl">
           <Card
-            // ancho="max-w-3xl"
             alto="h-30"
             tituloDeLaCarta="Viajes en curso"
             cantidad="10"
@@ -28,27 +25,27 @@ const DashboardPage = () => {
             colorIcono="text-pink-500"
             colorBorde="border-pink-300"
             colorPlus="bg-pink-300"
-            colorHover="hover:bg-pink-500"
+            colorHover="hover:bg-pink-400"
             icono={Map}
             path="/nuevoViaje"
+            pathSeccion="/viajes"
           ></Card>
           <div className="grid grid-cols-2 gap-8 mt-4"
           >
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Vehículos activos"
               cantidad="42"
               bgIcono="bg-red-100"
-              colorBorde="border-red-500"
-              colorPlus="bg-red-500"
-              colorIcono="text-red-500"
-              colorHover="hover:bg-red-700"
+              colorBorde="border-red-400"
+              colorPlus="bg-red-400"
+              colorIcono="text-red-400"
+              colorHover="hover:bg-red-600"
               icono={Truck}
               path="/nuevoVehiculo"
+              pathSeccion="/vehiculos"
             />
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Choferes disponibles"
               cantidad="18"
@@ -56,12 +53,12 @@ const DashboardPage = () => {
               colorBorde="border-emerald-400"
               colorIcono="text-emerald-500"
               colorPlus="bg-emerald-400"
-              colorHover="hover:bg-emerald-600"
+              colorHover="hover:bg-emerald-500"
               icono={User}
               path="/nuevoChofer"
+              pathSeccion="/choferes"
             />
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Depósitos"
               cantidad="10"
@@ -72,9 +69,9 @@ const DashboardPage = () => {
               colorHover="hover:bg-orange-500"
               icono={Home}
               path="/nuevoDeposito"
+              pathSeccion="/depositos"
             />
             <Card
-              // ancho="max-w-sm"
               alto="h-40"
               tituloDeLaCarta="Empresas transportistas"
               cantidad="6"
@@ -82,9 +79,10 @@ const DashboardPage = () => {
               colorBorde="border-purple-400"
               colorPlus="bg-purple-400"
               colorIcono="text-purple-500"
-              colorHover="hover:bg-purple-600"
+              colorHover="hover:bg-purple-500"
               icono={Building}
               path="/nuevoTransportista"
+              pathSeccion="/transportistas"
             />
           </div>
 

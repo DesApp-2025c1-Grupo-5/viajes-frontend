@@ -1,9 +1,10 @@
-const DropdownButton = ({ titulo, buttonText, onClick, className }) => {
+const DropdownButton = ({ titulo, buttonText, onClick, className, required }) => {
   return (
     <div>
       {}
-      <span className="block mb-2 mt-8 text-sm font-medium text-gray-700">
+      <span className="block text-sm font-medium text-gray-700">
         {titulo}
+        {required && <span className="text-red-500 text-bold"> *</span>}
       </span>
       {}
       <button

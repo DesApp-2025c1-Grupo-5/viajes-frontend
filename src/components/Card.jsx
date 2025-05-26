@@ -1,37 +1,43 @@
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     navigate(props.path);
   };
 
   const Icono = props.icono;
 
   return (
-    <div
-      className={`${props.ancho} ${props.alto} bg-white rounded-2xl shadow-2xl px-4 py-4 flex items-center justify-between border-l-4 ${props.colorBorde} border-t-1 border-t-gray-300 border-r-1 border-r-gray-300 border-b-1 border-b-gray-300 mt-8 hover:scale-103 transition-transform duration-200`}
-    >
-      <div className="w-4/5">
-        <p className="text-xl text-gray-600">{props.tituloDeLaCarta}</p>
-        <p className="text-xl font-bold text-gray-800">{props.cantidad}</p>
-      </div>
-      <div className="flex ml-auto mr-12">
-        <div className={`${props.bgIcono} rounded-full p-2`}>
-          {Icono && <Icono className={`h-6 w-6 ${props.colorIcono}`} />}
+    <Link to={props.pathSeccion}>
+      <div
+        className={`${props.ancho} ${props.alto} bg-white rounded-2xl shadow-2xl px-4 py-4 flex items-center justify-between border-l-4 ${props.colorBorde} border-t-1 border-t-gray-300 border-r-1 border-r-gray-300 border-b-1 border-b-gray-300 mt-8 hover:scale-103 transition-transform duration-200`}
+      >
+        <div className="w-4/5">
+          <p className="text-xl text-gray-600">{props.tituloDeLaCarta}</p>
+          <p className="text-xl font-bold text-gray-800">{props.cantidad}</p>
         </div>
-        <div>
-          <button
-            onClick={handleClick}
-            className={`${props.colorPlus} ${props.colorHover} text-white rounded-full p-2 ml-6`}
-          >
-            <Plus className="h-5 w-5" />
-          </button>
+        <div className="flex ml-auto mr-12">
+          <div className={`${props.bgIcono} rounded-full p-2`}>
+            {Icono && <Icono className={`h-6 w-6 ${props.colorIcono}`} />}
+          </div>
+          <div>
+            <button
+              onClick={handleClick}
+              className={`${props.colorPlus} ${props.colorHover} cursor-pointer text-white rounded-full p-2 ml-6
+              hover:scale-110 transition-transform duration-200`}
+            >
+              <Plus className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

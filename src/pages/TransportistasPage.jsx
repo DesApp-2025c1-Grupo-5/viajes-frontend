@@ -54,7 +54,7 @@ const TransportistasPage = () => {
               <New
                 path="/nuevoTransportista"
                 bgColor="bg-purple-400"
-                colorHover="hover:bg-purple-600"
+                colorHover="hover:bg-purple-500"
               ></New>
             </div>
             <SearchBar></SearchBar>

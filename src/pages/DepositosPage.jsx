@@ -54,7 +54,7 @@ const DepositosPage = () => {
               <New
                 path="/nuevoDeposito"
                 bgColor="bg-orange-400"
-                colorHover="hover:bg-orange-600"
+                colorHover="hover:bg-orange-500"
               ></New>
             </div>
             <SearchBar></SearchBar>

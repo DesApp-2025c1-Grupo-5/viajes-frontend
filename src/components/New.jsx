@@ -11,7 +11,8 @@ const New = (props) => {
     <button
       onClick={handleClick}
       href={props.link}
-      className={`max-w-3xs ${props.bgColor} ${props.colorHover} text-white rounded-2xl shadow px-4 py-3 flex items-center justify-between mt-8 hover:scale-105`}
+      className={`max-w-3xs ${props.bgColor} ${props.colorHover} text-white rounded-2xl shadow px-4 py-3 flex items-center justify-between mt-8
+      cursor-pointer hover:scale-105`}
     >
       <p className="text-white">Nuevo +</p>
     </button>
