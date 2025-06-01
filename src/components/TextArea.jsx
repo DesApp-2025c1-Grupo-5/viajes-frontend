@@ -9,6 +9,10 @@ const TextArea = (props) => {
           id={props.id}
           rows={5}
           cols={40}
+          name={props.name}
+          onChange={props.onChange}
+          value={props.value}
+          required={props.required}
         ></textarea>
       </div>
     </>

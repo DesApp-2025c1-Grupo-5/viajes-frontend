@@ -7,12 +7,21 @@ const service = {};
 
 service.getAll = async () => {
   try {
-    const response = await axios.get(`${API_URL}/empresasTransportistas`);
-    return response.data;
+    const respuesta = await axios.get(`${API_URL}/empresasTransportistas`);
+    return respuesta.data;
   } catch (error) {
-    console.error("Error al obtener transportistas", error);
+    console.error("Error al obtener transportistas:", error);
     throw error;
   }
 };
+
+service.create = async (nuevaEmpresa) => {
+  try {
+    const respuesta = await axios.post(`${API_URL}/empresasTransportistas`, nuevaEmpresa);
+    return respuesta.data;
+  } catch (error) {
+    console.error("Error al crear la nueva empresa transportista:", error)
+  }
+}
 
 export default service;

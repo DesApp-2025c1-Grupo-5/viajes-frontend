@@ -9,6 +9,9 @@ const Input = (props) => {
         <input
           required={props.required}
           placeholder={props.placeholder}
+          name={props.name}
+          onChange={props.onChange}
+          value={props.value}
           id={props.id}
           type="text"
           className="w-full max-w-sm bg-white border-1 border-gray-300 rounded-2xl shadow-lg px-4 py-3 flex items-center justify-between text-gray-900"
