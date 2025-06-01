@@ -114,27 +114,28 @@ const NuevoTransportistaPage = () => {
               value={formData.provincia_estado}
               required={true}
             ></Input>
-            <Input
-              placeholder="Ej: Activo"
-              title="Domicilio Fiscal"
-              id="idDomicilioFiscal"
-              name="domicilio_fiscal"
-              onChange={handleChange}
-              value={formData.domicilio_fiscal}
-              required={true}
-            ></Input>
-            <div></div>
-            <TextArea
-              placeholder="Ej: Informacion sobre el chofer"
-              title="Observaciones"
-              name="observaciones"
-              onChange={handleChange}
-              value={formData.observaciones}
-              id="idObservaciones"
-            ></TextArea>
-            <div></div>
-            <div></div>
-            <div className="flex justify-end w-full gap-8">
+            <div className="col-span-2">
+              <Input
+                placeholder="Ej: Activo"
+                title="Domicilio Fiscal"
+                id="idDomicilioFiscal"
+                name="domicilio_fiscal"
+                onChange={handleChange}
+                value={formData.domicilio_fiscal}
+                required={true}
+              ></Input>
+            </div>
+            <div className="col-span-2">
+              <TextArea
+                placeholder="Ej: Informacion sobre el chofer"
+                title="Observaciones"
+                name="observaciones"
+                onChange={handleChange}
+                value={formData.observaciones}
+                id="idObservaciones"
+              ></TextArea>
+            </div>
+            <div className="col-span-2 flex justify-end w-full gap-8">
               <FormButtonCancel to="/transportistas" />
               <FormButtonSave/>
             </div>
