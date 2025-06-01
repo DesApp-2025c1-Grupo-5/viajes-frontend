@@ -135,7 +135,7 @@ const NuevoTransportistaPage = () => {
             <div></div>
             <div></div>
             <div className="flex justify-end w-full gap-8">
-              <FormButtonCancel />
+              <FormButtonCancel to="/transportistas" />
               <FormButtonSave/>
             </div>
           </form>
