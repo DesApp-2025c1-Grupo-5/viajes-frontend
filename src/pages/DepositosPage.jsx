@@ -35,9 +35,7 @@ const DepositosPage = () => {
     <>
       <Header></Header>
       <div className="flex">
-        <div>
-          <NavBar />
-        </div>
+        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-orange-400"

@@ -38,9 +38,7 @@ const VehiculosPage = () => {
     <>
       <Header></Header>
       <div className="flex">
-        <div>
-          <NavBar />
-        </div>
+        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-red-400"
