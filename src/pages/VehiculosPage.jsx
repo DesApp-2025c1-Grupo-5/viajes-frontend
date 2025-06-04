@@ -29,7 +29,7 @@ const VehiculosPage = () => {
     const resultadoFiltro = vehiculos.filter((texto) =>
       `${texto.patente} ${texto.modelo} ${texto.año} ${texto.capacidad} ${texto.tipo_de_vehiculo}`
         .toLowerCase()
-        .includes(busqueda)
+        .includes(busqueda.toLowerCase())
     );
     setVehiculosFiltrado(resultadoFiltro);
   }, [busqueda, vehiculos]);

@@ -53,7 +53,7 @@ const DepositosPage = () => {
     const resultadoFiltro = depositos.filter((texto) =>
       `${texto.nombre} ${texto.direccion} ${texto.provincia} ${texto.pais}`/*${texto.contacto} <-- FALTA AGREGAR ESTE*/
         .toLowerCase()
-        .includes(busqueda)
+        .includes(busqueda.toLowerCase())
     );
     setDepositosFiltrado(resultadoFiltro);
   }, [busqueda, depositos]);

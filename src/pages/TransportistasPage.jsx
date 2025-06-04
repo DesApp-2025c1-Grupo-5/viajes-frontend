@@ -30,7 +30,7 @@ const TransportistasPage = () => {
     const resultadoFiltro = transportistas.filter(texto => 
       `${texto.razon_social} ${texto.cuit_rut} ${texto.domicilio_fiscal} ${texto.email} ${texto.telefono}`
       .toLowerCase()
-      .includes(busqueda)
+      .includes(busqueda.toLowerCase())
     );
     setTransportistasFiltrado(resultadoFiltro);
   }, [busqueda, transportistas]);

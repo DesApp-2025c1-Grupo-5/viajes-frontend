@@ -29,7 +29,7 @@ const ChoferesPage = () => {
     const resultadoFiltro = choferes.filter((texto) =>
       `${texto.licencia} ${texto.nombre} ${texto.fecha_nacimiento} ${texto.DNI}`
         .toLowerCase()
-        .includes(busqueda)
+        .includes(busqueda.toLowerCase())
     );
     setChoferesFiltrado(resultadoFiltro);
   }, [busqueda, choferes]);
