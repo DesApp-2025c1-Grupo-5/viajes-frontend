@@ -1,6 +1,5 @@
 import { Trash2, FilePen } from "lucide-react";
 
-
 const TablaVehiculos = ({ vehiculos }) => {
   return (
     <div className="overflow-x-auto mt-5">
@@ -21,16 +20,23 @@ const TablaVehiculos = ({ vehiculos }) => {
             <tr key={vehiculos.id}>
               <td className="px-4 py-2 border-b">{vehiculos.patente}</td>
               <td className="px-4 py-2 border-b">{vehiculos.modelo}</td>
-              <td className="px-4 py-2 border-b">{vehiculos.anio}</td>
+              <td className="px-4 py-2 border-b">{vehiculos.año}</td>
               <td className="px-4 py-2 border-b">{vehiculos.capacidad}</td>
-              <td className="px-4 py-2 border-b">{vehiculos.tipo}</td>
-              <td className="px-4 py-2 border-b">{vehiculos.transportista}</td>
+              <td className="px-4 py-2 border-b">
+                {vehiculos.tipo_de_vehiculo}
+              </td>
+              <td className="px-4 py-2 border-b">
+                {vehiculos.nombre_transportista}
+              </td>
               <td className="px-4 py-2 border-b ">
                 <a
                   path={`/nuevoVehiculo`}
                   className="text-blue-600 hover:text-blue-800 mr-4"
                 >
-                  <FilePen size={25} className="align-middle cursor-pointer inline-block" />
+                  <FilePen
+                    size={25}
+                    className="align-middle cursor-pointer inline-block"
+                  />
                 </a>
                 <Trash2
                   size={25}

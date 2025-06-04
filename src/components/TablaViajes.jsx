@@ -23,13 +23,16 @@ const TablaViajes = ({ viajes }) => {
               <td className="px-4 py-2 border-b">{viajes.destino}</td>
               <td className="px-4 py-2 border-b">{viajes.fecha_salida}</td>
               <td className="px-4 py-2 border-b">{viajes.fecha_llegada}</td>
-              <td className="px-4 py-2 border-b">{viajes.vehiculo}</td>
+              <td className="px-4 py-2 border-b">{viajes.id_chofer}</td>
               <td className="px-4 py-2 border-b ">
                 <a
                   path={`/nuevoVehiculo`}
                   className="text-blue-600 hover:text-blue-800 mr-4"
                 >
-                  <FilePen size={25} className="align-middle cursor-pointer inline-block" />
+                  <FilePen
+                    size={25}
+                    className="align-middle cursor-pointer inline-block"
+                  />
                 </a>
                 <Trash2
                   size={25}

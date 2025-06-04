@@ -5,35 +5,36 @@ import SearchBar from "../components/SearchBar";
 import TableTitle from "../components/TableTitle";
 import New from "../components/New";
 import TablaViajes from "../components/TablaViajes";
-
-const tablaViajes = [
-  {
-    id: 1234,
-    origen: "Deposito Central",
-    destino: "Deposito Norte",
-    fecha_salida: "2023-04-12",
-    fecha_llegada: "2023-04-25",
-    vehiculo: "ABC-123",
-  },
-  {
-    id: 1235,
-    origen: "Deposito Sur",
-    destino: "Deposito Central",
-    fecha_salida: "2023-04-08",
-    fecha_llegada: "2023-04-09",
-    vehiculo: "GHI-789",
-  },
-  {
-    id: 1236,
-    origen: "Deposito Norte",
-    destino: "Deposito Sur",
-    fecha_salida: "2023-04-15",
-    fecha_llegada: "-",
-    vehiculo: "DEF-456",
-  },
-];
+import { useEffect, useState } from "react";
+import viajesService from "../services/ViajesService";
 
 const ViajesPage = () => {
+  
+  const [viajes, setViajes] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+  const [viajesFiltrado, setViajesFiltrado] = useState([]);
+
+  useEffect(() => {
+    const obtenerViajes = async () => {
+      try {
+        const datos = await viajesService.getAll();
+        setViajes(datos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    obtenerViajes();
+  }, []);
+
+  useEffect(() => {
+    const resultadoFiltro = viajes.filter((texto) =>
+      `${texto.id} ${texto.origen} ${texto.destino} ${texto.fecha_salida} ${texto.fecha_llegada} ${texto.id_chofer}`
+        .toLowerCase()
+        .includes(busqueda.toLowerCase())
+    );
+    setViajesFiltrado(resultadoFiltro);
+  }, [busqueda, viajes]);
+
   return (
     <>
       <Header></Header>
@@ -58,8 +59,8 @@ const ViajesPage = () => {
                 colorHover="hover:bg-pink-400"
               ></New>
             </div>
-            <SearchBar></SearchBar>
-            <TablaViajes viajes={tablaViajes} />
+            <SearchBar onSearch={setBusqueda} />
+            <TablaViajes viajes={viajesFiltrado} />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ const VehiculosPage = () => {
 
   useEffect(() => {
     const resultadoFiltro = vehiculos.filter((texto) =>
-      `${texto.patente} ${texto.modelo} ${texto.año} ${texto.capacidad} ${texto.tipo_de_vehiculo}`
+      `${texto.patente} ${texto.modelo} ${texto.año} ${texto.capacidad} ${texto.tipo_de_vehiculo} ${texto.nombre_transportista}`
         .toLowerCase()
         .includes(busqueda.toLowerCase())
     );

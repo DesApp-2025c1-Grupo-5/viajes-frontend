@@ -25,13 +25,18 @@ const TablaChoferes = ({ choferes }) => {
               </td>
               <td className="px-4 py-2 border-b">{choferes.dni}</td>
               <td className="px-4 py-2 border-b">{choferes.vehiculo}</td>
-              <td className="px-4 py-2 border-b">{choferes.transportista}</td>
+              <td className="px-4 py-2 border-b">
+                {choferes.id_empresa_transportista}
+              </td>
               <td className="px-4 py-2 border-b ">
                 <a
                   path={`/nuevoChofer`}
                   className="text-blue-600 hover:text-blue-800 mr-4"
                 >
-                  <FilePen size={25} className="align-middle cursor-pointer inline-block" />
+                  <FilePen
+                    size={25}
+                    className="align-middle cursor-pointer inline-block"
+                  />
                 </a>
                 <Trash2
                   size={25}
