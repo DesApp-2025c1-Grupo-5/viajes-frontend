@@ -5,35 +5,35 @@ import TablaChoferes from "../components/TablaChoferes";
 import SearchBar from "../components/SearchBar";
 import TableTitle from "../components/TableTitle";
 import New from "../components/New";
-
-const tablaChoferes = [
-  {
-    licencia: 1234,
-    nombre: "Juan Perez",
-    fecha_nacimiento: "30-10-1979",
-    dni: 3288912,
-    vehiculo: "ABC-123",
-    transportista: "Transportes Rápidos S.A",
-  },
-  {
-    licencia: 3333,
-    nombre: "Gaston Arevalo",
-    fecha_nacimiento: "14-3-1967",
-    dni: 3288912,
-    vehiculo: "DEF-657",
-    transportista: "LogiExpress",
-  },
-  {
-    licencia: 1234,
-    nombre: "María López",
-    fecha_nacimiento: "30-04-2003",
-    dni: 3288912,
-    vehiculo: "HGI-564",
-    transportista: "Transportes Rápidos S.A",
-  },
-];
+import { useEffect, useState } from "react";
+import choferesService from "../services/ChoferesService";
 
 const ChoferesPage = () => {
+  const [choferes, setChoferes] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+  const [choferesFiltrado, setChoferesFiltrado] = useState([]);
+
+  useEffect(() => {
+    const obtenerChoferes = async () => {
+      try {
+        const datos = await choferesService.getAll();
+        setChoferes(datos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    obtenerChoferes();
+  }, []);
+
+  useEffect(() => {
+    const resultadoFiltro = choferes.filter((texto) =>
+      `${texto.licencia} ${texto.nombre} ${texto.fecha_nacimiento} ${texto.DNI}`
+        .toLowerCase()
+        .includes(busqueda)
+    );
+    setChoferesFiltrado(resultadoFiltro);
+  }, [busqueda, choferes]);
+
   return (
     <>
       <Header></Header>
@@ -58,8 +58,8 @@ const ChoferesPage = () => {
                 colorHover="hover:bg-emerald-500"
               ></New>
             </div>
-            <SearchBar></SearchBar>
-            <TablaChoferes choferes={tablaChoferes} />
+            <SearchBar onSearch={setBusqueda} />
+            <TablaChoferes choferes={choferesFiltrado} />
           </div>
         </div>
       </div>
