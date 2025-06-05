@@ -5,6 +5,8 @@ import TablaDepositos from "../components/TablaDepositos";
 import SearchBar from "../components/SearchBar";
 import TableTitle from "../components/TableTitle";
 import New from "../components/New";
+import { useEffect, useState } from "react";
+import depositosService from "../services/DepositosService";
 
 const tablaDepositos = [
   {
@@ -31,13 +33,36 @@ const tablaDepositos = [
 ];
 
 const DepositosPage = () => {
+  const [depositos, setDepositos] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+  const [depositosFiltrado, setDepositosFiltrado] = useState([]);
+
+  useEffect(() => {
+    const obtenerDepositos = async () => {
+      try {
+        const datos = await depositosService.getAll();
+        setDepositos(datos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    obtenerDepositos();
+  }, []);
+
+  useEffect(() => {
+    const resultadoFiltro = depositos.filter((texto) =>
+      `${texto.nombre} ${texto.direccion} ${texto.provincia} ${texto.pais}`/*${texto.contacto} <-- FALTA AGREGAR ESTE*/
+        .toLowerCase()
+        .includes(busqueda.toLowerCase())
+    );
+    setDepositosFiltrado(resultadoFiltro);
+  }, [busqueda, depositos]);
+
   return (
     <>
       <Header></Header>
       <div className="flex">
-        <div>
-          <NavBar />
-        </div>
+        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-orange-400"
@@ -57,8 +82,8 @@ const DepositosPage = () => {
                 colorHover="hover:bg-orange-500"
               ></New>
             </div>
-            <SearchBar></SearchBar>
-            <TablaDepositos depositos={tablaDepositos} />
+            <SearchBar onSearch={setBusqueda} />
+            <TablaDepositos depositos={depositosFiltrado} />
           </div>
         </div>
       </div>

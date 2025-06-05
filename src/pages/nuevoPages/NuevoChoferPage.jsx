@@ -14,7 +14,7 @@ const NuevoChoferPage = () => {
     <>
       <Header></Header>
       <div className="flex">
-        <NavBar></NavBar>
+        <NavBar />
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/choferes" />

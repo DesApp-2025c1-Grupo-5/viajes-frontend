@@ -27,7 +27,10 @@ const TablaDepositos = ({ depositos }) => {
                   path={`/nuevoDeposito`}
                   className="text-blue-600 hover:text-blue-800 mr-4"
                 >
-                  <FilePen size={25} className="align-middle cursor-pointer inline-block" />
+                  <FilePen
+                    size={25}
+                    className="align-middle cursor-pointer inline-block"
+                  />
                 </a>
                 <Trash2
                   size={25}

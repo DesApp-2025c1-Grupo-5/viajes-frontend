@@ -21,7 +21,7 @@ const TablaTransportistas = ({ transportistas }) => {
               <td className="px-4 py-2 border-b">
                 {transportistas.razon_social}
               </td>
-              <td className="px-4 py-2 border-b">{transportistas.cuit}</td>
+              <td className="px-4 py-2 border-b">{transportistas.cuit_rut}</td>
               <td className="px-4 py-2 border-b">
                 {transportistas.domicilio_fiscal}
               </td>

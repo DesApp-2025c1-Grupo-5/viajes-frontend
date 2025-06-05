@@ -1,4 +1,4 @@
-const SearchBar = () => {
+const SearchBar = ({onSearch}) => {
   return (
     <input
       type="search"
@@ -6,6 +6,7 @@ const SearchBar = () => {
       placeholder="Buscar"
       aria-label="Search"
       aria-describedby="button-addon2"
+      onChange={(e) => onSearch(e.target.value)}
     ></input>
   );
 };

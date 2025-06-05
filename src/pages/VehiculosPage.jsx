@@ -5,42 +5,40 @@ import TablaVehiculos from "../components/TablaVehiculos";
 import SearchBar from "../components/SearchBar";
 import TableTitle from "../components/TableTitle";
 import New from "../components/New";
-
-const tablaVehiculos = [
-  {
-    patente: 1234,
-    modelo: "Volvo FH342",
-    anio: "2020",
-    capacidad: "32 toneladas",
-    tipo: "Camion",
-    transportista: "Transportes Rápidos S.A",
-  },
-  {
-    patente: 3333,
-    modelo: "Mercedes-Benz Actros",
-    anio: "2021",
-    capacidad: "882 toneladas",
-    tipo: "Camion",
-    transportista: "LogiExpress",
-  },
-  {
-    patente: 34342,
-    modelo: "Scania R450",
-    anio: "2003",
-    capacidad: "912 toneladas",
-    tipo: "Camion",
-    transportista: "Transportes Rápidos S.A",
-  },
-];
+import { useEffect, useState } from "react";
+import vehiculosService from "../services/VehiculosService";
 
 const VehiculosPage = () => {
+  const [vehiculos, setVehiculos] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+  const [vehiculosFiltrado, setVehiculosFiltrado] = useState([]);
+
+  useEffect(() => {
+    const obtenerVehiculos = async () => {
+      try {
+        const datos = await vehiculosService.getAll();
+        setVehiculos(datos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    obtenerVehiculos();
+  }, []);
+
+  useEffect(() => {
+    const resultadoFiltro = vehiculos.filter((texto) =>
+      `${texto.patente} ${texto.modelo} ${texto.año} ${texto.capacidad} ${texto.tipo_de_vehiculo} ${texto.nombre_transportista}`
+        .toLowerCase()
+        .includes(busqueda.toLowerCase())
+    );
+    setVehiculosFiltrado(resultadoFiltro);
+  }, [busqueda, vehiculos]);
+
   return (
     <>
       <Header></Header>
       <div className="flex">
-        <div>
-          <NavBar />
-        </div>
+        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-red-400"
@@ -60,8 +58,8 @@ const VehiculosPage = () => {
                 colorHover="hover:bg-red-500"
               ></New>
             </div>
-            <SearchBar></SearchBar>
-            <TablaVehiculos vehiculos={tablaVehiculos} />
+            <SearchBar onSearch={setBusqueda} />
+            <TablaVehiculos vehiculos={vehiculosFiltrado} />
           </div>
         </div>
       </div>
