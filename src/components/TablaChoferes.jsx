@@ -24,9 +24,9 @@ const TablaChoferes = ({ choferes }) => {
                 {choferes.fecha_nacimiento}
               </td>
               <td className="px-4 py-2 border-b">{choferes.dni}</td>
-              <td className="px-4 py-2 border-b">{choferes.vehiculo}</td>
+              <td className="px-4 py-2 border-b">{choferes.vehiculo?.patente || "Sin vehículo"}</td>
               <td className="px-4 py-2 border-b">
-                {choferes.id_empresa_transportista}
+                {choferes.empresaTransportista?.razon_social || "Sin empresa"}
               </td>
               <td className="px-4 py-2 border-b ">
                 <a

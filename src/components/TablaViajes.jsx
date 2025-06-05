@@ -23,7 +23,7 @@ const TablaViajes = ({ viajes }) => {
               <td className="px-4 py-2 border-b">{viajes.destino}</td>
               <td className="px-4 py-2 border-b">{viajes.fecha_salida}</td>
               <td className="px-4 py-2 border-b">{viajes.fecha_llegada}</td>
-              <td className="px-4 py-2 border-b">{viajes.id_chofer}</td>
+              <td className="px-4 py-2 border-b">{viajes.vehiculo?.patente || "Sin vehículo"}</td>
               <td className="px-4 py-2 border-b ">
                 <a
                   path={`/nuevoVehiculo`}
