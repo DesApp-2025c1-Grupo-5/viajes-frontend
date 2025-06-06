@@ -19,55 +19,8 @@ const ViajesPage = () => {
       try {
         const datos = await viajesService.getAll();
         console.log(datos);
-        console.log(JSON.stringify(datos));
-        setViajes([
-          {
-            id: 1,
-            origen: "Deposito Central",
-            destino: "Deposito Norte",
-            fecha_salida: "2023-04-12T00:00:00.000Z",
-            fecha_llegada: "2023-04-25T00:00:00.000Z",
-            id_vehiculo: 1,
-            carga: "12",
-            id_chofer: 1,
-            estado: "Despachado",
-            observaciones: "",
-            createdAt: "2025-06-06T21:03:07.019Z",
-            updatedAt: "2025-06-06T21:03:07.019Z",
-            vehiculo: { patente: "1234" },
-          },
-          {
-            id: 2,
-            origen: "Deposito Sur",
-            destino: "Deposito Central",
-            fecha_salida: "2023-04-08T00:00:00.000Z",
-            fecha_llegada: "2023-04-09T00:00:00.000Z",
-            id_vehiculo: 1,
-            carga: "soy una carga",
-            id_chofer: 1,
-            estado: "En Viaje",
-            observaciones: "",
-            createdAt: "2025-06-06T21:03:07.021Z",
-            updatedAt: "2025-06-06T21:03:07.021Z",
-            vehiculo: { patente: "1234" },
-          },
-          {
-            id: 3,
-            origen: "Deposito Norte",
-            destino: "Deposito Sur",
-            fecha_salida: "2023-04-15T00:00:00.000Z",
-            fecha_llegada: null,
-            id_vehiculo: 1,
-            carga: "66",
-            id_chofer: 1,
-            estado: "Completo",
-            observaciones: "",
-            createdAt: "2025-06-06T21:03:07.022Z",
-            updatedAt: "2025-06-06T21:03:07.022Z",
-            vehiculo: { patente: "66634" },
-          },
-        ]);
-        // setViajes(datos);
+        //console.log(JSON.stringify(datos));
+        setViajes(datos);
       } catch (error) {
         console.log(error);
       }
@@ -83,11 +36,18 @@ const ViajesPage = () => {
     );
     setViajesFiltrado(resultadoFiltro);
   }, [busqueda, viajes]);
+
+  const compararFechas = (fechaViaje, fechaFiltro) => {
+    const f1 = new Date(fechaViaje);
+    const f2 = new Date(fechaFiltro);
+    return f1 >= f2; 
+  }
+
   const filtrarViajes = (filtros) => {
     const filteredViajes = viajes.filter((viaje) => {
       const {
         tipoDeViaje,
-        fechaSalida,
+        fecha_salida,
         nroViaje,
         empresa,
         chofer,
@@ -96,17 +56,15 @@ const ViajesPage = () => {
         provinciaDestino,
       } = filtros;
 
-      const inicioViaje = new Date(viaje.fecha_salida);
-
-      return (
-        (!tipoDeViaje || viaje.tipoDeViaje === tipoDeViaje) &&
-        (!fechaSalida || inicioViaje >= new Date(fechaSalida)) &&
+      return (  
+        (!tipoDeViaje || viaje.tipoDeViaje == tipoDeViaje) &&
+        (!fecha_salida || compararFechas(viaje.fecha_salida, fecha_salida)) &&
         (!nroViaje || viaje.nroViaje.includes(nroViaje)) &&
-        (!empresa || viaje.empresa === empresa) &&
-        (!chofer || viaje.id_chofer === chofer) &&
-        (!patente || viaje.vehiculo.patente === patente) &&
-        (!provinciaOrigen || viaje.provinciaOrigen === provinciaOrigen) &&
-        (!provinciaDestino || viaje.provinciaDestino === provinciaDestino)
+        (!empresa || viaje.empresa == empresa) &&
+        (!chofer || viaje.id_chofer == chofer) &&
+        (!patente || viaje.vehiculo.patente == patente) &&
+        (!provinciaOrigen || viaje.provinciaOrigen == provinciaOrigen) &&
+        (!provinciaDestino || viaje.provinciaDestino == provinciaDestino)
       );
     });
 

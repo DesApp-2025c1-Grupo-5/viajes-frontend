@@ -3,7 +3,7 @@ import { useState } from 'react';
 const FilterBar = ({ onFilter }) => {
   const [filtros, setFiltros] = useState({
     tipoDeViaje: '',
-    fechaSalida: '',
+    fecha_salida: '',
     nroViaje: '',
     empresa: '',
     chofer: '',
@@ -39,9 +39,9 @@ const FilterBar = ({ onFilter }) => {
       {/* Fecha de salida */}
       <input
         type="date"
-        value={filtros.fechaSalida}
+        value={filtros.fecha_salida ? filtros.fecha_salida.split("T")[0] : ""}
         onChange={(e) =>
-          handleChange('fechaSalida', new Date(e.target.value).toISOString())
+          handleChange('fecha_salida', new Date(e.target.value).toISOString())
         }
         className="border rounded px-3 py-2"
       />
