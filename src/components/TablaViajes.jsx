@@ -1,6 +1,14 @@
 import { Trash2, FilePen } from "lucide-react";
 
 const TablaViajes = ({ viajes }) => {
+  const parseFecha = (isoString) => {
+    const date = new Date(isoString);
+    const pad = (n) => (n < 10 ? "0" + n : n);
+    return `${pad(date.getDate())}-${pad(
+      date.getMonth() + 1
+    )}-${date.getFullYear()}`;
+  };
+
   return (
     <div className="overflow-x-auto mt-5">
       <table className="min-w-full bg-white border border-gray-200">
@@ -21,8 +29,8 @@ const TablaViajes = ({ viajes }) => {
               <td className="px-4 py-2 border-b">{viajes.id}</td>
               <td className="px-4 py-2 border-b">{viajes.origen}</td>
               <td className="px-4 py-2 border-b">{viajes.destino}</td>
-              <td className="px-4 py-2 border-b">{viajes.fecha_salida}</td>
-              <td className="px-4 py-2 border-b">{viajes.fecha_llegada}</td>
+              <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_salida)}</td>
+              <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_llegada)}</td>
               <td className="px-4 py-2 border-b">{viajes.vehiculo?.patente || "Sin vehículo"}</td>
               <td className="px-4 py-2 border-b ">
                 <a
