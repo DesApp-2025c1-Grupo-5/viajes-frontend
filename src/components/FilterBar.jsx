@@ -24,17 +24,17 @@ const FilterBar = ({ onFilter }) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-wrap gap-3 p-4">
       {/* Tipo de Viaje */}
-      {/* <div className="relative">
+      <div className="relative">
         <select
           value={filtros.tipoDeViaje}
           onChange={(e) => handleChange('tipoDeViaje', e.target.value)}
           className="border rounded px-3 py-2"
         >
-          <option value="">Tipo de viaje</option>
-          <option value="nacional">Nacional</option>
-          <option value="internacional">Internacional</option>
+        
+          <option value="Nacional">Nacional</option>
+          <option value="Internacional">Internacional</option>
         </select>
-      </div> */}
+      </div>
 
       {/* Fecha de salida */}
       <input
@@ -47,22 +47,22 @@ const FilterBar = ({ onFilter }) => {
       />
 
       {/* Número de viaje */}
-      {/* <input
+      <input
         type="text"
         placeholder="N° de viaje"
         value={filtros.nroViaje}
         onChange={(e) => handleChange('nroViaje', e.target.value)}
         className="border rounded px-3 py-2"
-      /> */}
+      />
 
       {/* Empresa */}
-      {/* <input
+      <input
         type="text"
         placeholder="Empresa"
         value={filtros.empresa}
         onChange={(e) => handleChange('empresa', e.target.value)}
         className="border rounded px-3 py-2"
-      /> */}
+      />
 
       {/* Chofer */}
       <input
@@ -83,22 +83,22 @@ const FilterBar = ({ onFilter }) => {
       />
 
       {/* Provincia de Origen */}
-      {/* <input
+      <input
         type="text"
         placeholder="Provincia origen"
         value={filtros.provinciaOrigen}
         onChange={(e) => handleChange('provinciaOrigen', e.target.value)}
         className="border rounded px-3 py-2"
-      /> */}
+      />
 
       {/* Provincia de Destino */}
-      {/* <input
+      <input
         type="text"
         placeholder="Provincia destino"
         value={filtros.provinciaDestino}
         onChange={(e) => handleChange('provinciaDestino', e.target.value)}
         className="border rounded px-3 py-2"
-      /> */}
+      />
 
       {/* Filtrar button */}
       <button

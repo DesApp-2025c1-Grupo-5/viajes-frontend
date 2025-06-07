@@ -60,7 +60,7 @@ const ViajesPage = () => {
         (!tipoDeViaje || viaje.tipoDeViaje == tipoDeViaje) &&
         (!fecha_salida || compararFechas(viaje.fecha_salida, fecha_salida)) &&
         (!nroViaje || viaje.nroViaje.includes(nroViaje)) &&
-        (!empresa || viaje.empresa == empresa) &&
+        (!empresa || viaje.id_empresa_transportista == empresa) &&
         (!chofer || viaje.id_chofer == chofer) &&
         (!patente || viaje.vehiculo.patente == patente) &&
         (!provinciaOrigen || viaje.provinciaOrigen == provinciaOrigen) &&
