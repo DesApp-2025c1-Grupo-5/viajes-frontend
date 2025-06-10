@@ -61,7 +61,7 @@ const ViajesPage = () => {
       return (  
         (!tipoDeViaje || viaje.tipoDeViaje?.toLowerCase() === tipoDeViaje.toLowerCase()) &&
         (!fecha_salida || compararFechas(viaje.fecha_salida, fecha_salida)) &&
-        (!nroViaje || viaje.nroViaje?.toLowerCase().includes(nroViaje.toLowerCase())) &&
+        (!nroViaje || String(viaje.nroViaje).toLowerCase().includes(nroViaje.toLowerCase())) &&
         (!empresa || String(viaje.id_empresa_transportista).toLowerCase() === empresa.toLowerCase()) &&
         (!chofer || String(viaje.id_chofer).toLowerCase() === chofer.toLowerCase()) &&
         (!patente || viaje.vehiculo.patente?.toLowerCase() === patente.toLowerCase()) &&
