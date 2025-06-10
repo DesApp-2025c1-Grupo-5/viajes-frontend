@@ -30,9 +30,10 @@ const FilterBar = ({ onFilter }) => {
           onChange={(e) => handleChange('tipoDeViaje', e.target.value)}
           className="border rounded px-3 py-2"
         >
-        
-          <option value="Nacional">Nacional</option>
-          <option value="Internacional">Internacional</option>
+          
+          <option value="">Todos los Viajes</option>
+          <option value="Nacional">Viajes Nacionales</option>
+          <option value="Internacional">Viajes Internacionales</option>
         </select>
       </div>
 

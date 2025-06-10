@@ -30,11 +30,13 @@ const ViajesPage = () => {
 
   useEffect(() => {
     const resultadoFiltro = viajes.filter((texto) =>
-      `${texto.id} ${texto.origen} ${texto.destino} ${texto.fecha_salida} ${texto.fecha_llegada} ${texto.id_chofer}`
+      `${texto.id} ${texto.tipoDeViaje} ${texto.provinciaOrigen} ${texto.provinciaDestino} ${texto.fecha_salida} ${texto.fecha_llegada} ${texto.id_chofer}`
         .toLowerCase()
         .includes(busqueda.toLowerCase())
+        
     );
     setViajesFiltrado(resultadoFiltro);
+    
   }, [busqueda, viajes]);
 
   const compararFechas = (fechaViaje, fechaFiltro) => {
@@ -57,14 +59,14 @@ const ViajesPage = () => {
       } = filtros;
 
       return (  
-        (!tipoDeViaje || viaje.tipoDeViaje == tipoDeViaje) &&
+        (!tipoDeViaje || viaje.tipoDeViaje?.toLowerCase() === tipoDeViaje.toLowerCase()) &&
         (!fecha_salida || compararFechas(viaje.fecha_salida, fecha_salida)) &&
-        (!nroViaje || viaje.nroViaje.includes(nroViaje)) &&
-        (!empresa || viaje.id_empresa_transportista == empresa) &&
-        (!chofer || viaje.id_chofer == chofer) &&
-        (!patente || viaje.vehiculo.patente == patente) &&
-        (!provinciaOrigen || viaje.provinciaOrigen == provinciaOrigen) &&
-        (!provinciaDestino || viaje.provinciaDestino == provinciaDestino)
+        (!nroViaje || viaje.nroViaje?.toLowerCase().includes(nroViaje.toLowerCase())) &&
+        (!empresa || String(viaje.id_empresa_transportista).toLowerCase() === empresa.toLowerCase()) &&
+        (!chofer || String(viaje.id_chofer).toLowerCase() === chofer.toLowerCase()) &&
+        (!patente || viaje.vehiculo.patente?.toLowerCase() === patente.toLowerCase()) &&
+        (!provinciaOrigen || viaje.provinciaOrigen?.toLowerCase() === provinciaOrigen.toLowerCase()) &&
+        (!provinciaDestino || viaje.provinciaDestino?.toLowerCase() === provinciaDestino.toLowerCase())
       );
     });
 

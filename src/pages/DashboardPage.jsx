@@ -14,7 +14,7 @@ const DashboardPage = () => {
           <Title
             color="text-blue-600"
             title="Dashboard"
-            description="Bienvenidos al sistema de logística Acme SRL"
+            description="Bienvenidos al sistema de Logística Acme SRL"
           ></Title>
           <div className="grid grid-cols-1 max-w-5xl">
           <Card

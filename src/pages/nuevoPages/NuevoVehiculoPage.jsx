@@ -18,7 +18,7 @@ const NuevoVehiculoPage = () => {
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/vehiculos" />
-            <TitleNew color="text-red-500" title="Nuevo Vehículo" />
+            <TitleNew color="text-red-400" title="Nuevo Vehículo" />
           </div>
           <FormTitle
             color="black"
