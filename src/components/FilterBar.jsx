@@ -69,6 +69,7 @@ const FilterBar = ({ onFilter, viajes }) => {
       ),
     ]);
     setChoferes([
+      "Todos los choferes",
       ...new Set(viajes.map((v) => String(v.id_chofer)).filter(Boolean)),
     ]);
     setPatentes([
@@ -133,8 +134,8 @@ const FilterBar = ({ onFilter, viajes }) => {
       />
       <ComboboxField
         label="Chofer"
-        value={filtros.chofer}
-        onChange={(val) => handleChange("chofer", val)}
+        value={filtros.chofer === "" ? "Todos los choferes" : filtros.chofer}
+        onChange={(val) => handleChange("chofer", val === "Todos los choferes" ? "" : val)}
         options={choferes}
       />
       <ComboboxField
