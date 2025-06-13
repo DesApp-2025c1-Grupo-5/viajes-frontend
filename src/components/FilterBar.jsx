@@ -109,9 +109,12 @@ const FilterBar = ({ onFilter, viajes }) => {
         type="date"
         value={filtros.fecha_salida ? filtros.fecha_salida.split("T")[0] : ""}
         onChange={(e) =>
-          handleChange("fecha_salida", new Date(e.target.value).toISOString())
-        }
-        className="border rounded px-3 py-2"
+          handleChange(
+            "fecha_salida",
+            e.target.value ? new Date(e.target.value).toISOString() : ""
+          )
+        }   
+      className="border rounded px-3 py-2"
       />
 
       <input
