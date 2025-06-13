@@ -162,6 +162,23 @@ const FilterBar = ({ onFilter, viajes }) => {
       >
         Filtrar
       </button>
+      <button
+        type="button"
+        onClick={() => setFiltros({
+          tipoDeViaje: "",
+          fecha_salida: "",
+          nroViaje: "",
+          empresa: "",
+          chofer: "",
+          patente: "",
+          provinciaOrigen: "",
+          provinciaDestino: "",
+        })}
+        className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+      >
+        Limpiar
+      </button>
+
     </form>
   );
 };
