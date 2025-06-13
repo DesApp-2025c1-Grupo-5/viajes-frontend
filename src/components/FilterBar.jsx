@@ -164,7 +164,7 @@ const FilterBar = ({ onFilter, viajes }) => {
         Filtrar
       </button>
       <button
-        type="button"
+        type="submit"
         onClick={() => setFiltros({
           tipoDeViaje: "",
           fecha_salida: "",
