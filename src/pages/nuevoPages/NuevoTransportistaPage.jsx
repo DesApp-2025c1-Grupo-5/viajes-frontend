@@ -15,14 +15,14 @@ const NuevoTransportistaPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    razon_social:"",
-    cuit_rut:"",
-    email:"",
-    telefono:"",
-    pais:"",
-    provincia_estado:"",
-    domicilio_fiscal:"",
-    observaciones:""
+    razon_social: "",
+    cuit_rut: "",
+    email: "",
+    telefono: "",
+    pais: "",
+    provincia_estado: "",
+    domicilio_fiscal: "",
+    observaciones: "",
   });
 
   const handleChange = (e) => {
@@ -40,9 +40,7 @@ const NuevoTransportistaPage = () => {
     } catch (error) {
       console.error("No se pudo crear la empresa: ", error);
     }
-  }
-
-
+  };
 
   return (
     <>
@@ -96,9 +94,9 @@ const NuevoTransportistaPage = () => {
               value={formData.telefono}
               required={true}
             ></Input>
-            <Input 
-              placeholder="Ej: Argentina" 
-              title="Pais" 
+            <Input
+              placeholder="Ej: Argentina"
+              title="Pais"
               id="idPais"
               name="pais"
               onChange={handleChange}
@@ -135,9 +133,9 @@ const NuevoTransportistaPage = () => {
                 id="idObservaciones"
               ></TextArea>
             </div>
-            <div className="col-span-2 flex justify-end w-full gap-8">
+            <div className="col-span-2 flex justify-star w-full gap-8">
               <FormButtonCancel to="/transportistas" />
-              <FormButtonSave/>
+              <FormButtonSave />
             </div>
           </form>
         </div>

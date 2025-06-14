@@ -38,15 +38,15 @@ const NuevoVehiculoPage = () => {
               id="idModelo"
               required={true}
             ></Input>
-            <Input 
-              placeholder="Ej: Volvo" 
-              title="Marca" 
+            <Input
+              placeholder="Ej: Volvo"
+              title="Marca"
               id="idMarca"
               required={true}
             ></Input>
-            <Input 
-              placeholder="Ej: 2023" 
-              title="Año" 
+            <Input
+              placeholder="Ej: 2023"
+              title="Año"
               id="idAño"
               required={true}
             ></Input>
@@ -68,16 +68,17 @@ const NuevoVehiculoPage = () => {
               id="idEmpresaTransportista"
               required={true}
             ></Input>
-            <DropdownButton titulo="Tipo de vehículo" required={true}></DropdownButton>
+            <DropdownButton
+              titulo="Tipo de vehículo"
+              required={true}
+            ></DropdownButton>
             <TextArea
               placeholder="Ej: Informacion sobre el chofer"
               title="Observaciones"
               id="idObservaciones"
             ></TextArea>
-            <div></div>
-            <div></div>
-            <div className="flex justify-end w-full gap-8">
-              <FormButtonCancel></FormButtonCancel>
+            <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
+              <FormButtonCancel to="/vehiculos"></FormButtonCancel>
               <FormButtonSave></FormButtonSave>
             </div>
           </div>

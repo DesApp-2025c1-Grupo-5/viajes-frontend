@@ -41,8 +41,14 @@ const NuevoViajePage = () => {
               required={true}
               // onClick={() => alert("clicked!")}
             ></DropdownButton>
-            <DateTimePicker title="Fecha de salida" required={true}></DateTimePicker>
-            <DateTimePicker title="Fecha de Llegada" required={true}></DateTimePicker>
+            <DateTimePicker
+              title="Fecha de salida"
+              required={true}
+            ></DateTimePicker>
+            <DateTimePicker
+              title="Fecha de Llegada"
+              required={true}
+            ></DateTimePicker>
             <Input
               placeholder="Ej: Volvo FH16"
               title="Vehículo"
@@ -72,10 +78,8 @@ const NuevoViajePage = () => {
               title="Observaciones"
               id="idObservaciones"
             ></TextArea>
-            <div></div>
-            <div></div>
-            <div className="flex justify-end w-full gap-8">
-              <FormButtonCancel></FormButtonCancel>
+            <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
+              <FormButtonCancel to="/viajes"></FormButtonCancel>
               <FormButtonSave></FormButtonSave>
             </div>
           </div>

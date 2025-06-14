@@ -26,9 +26,9 @@ const NuevoChoferPage = () => {
             description="Ingresa los datos del nuevo chofer a registrar en el sistema"
           ></FormTitle>
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
-            <Input 
-              placeholder="Ej: Juan" 
-              title="Nombre" 
+            <Input
+              placeholder="Ej: Juan"
+              title="Nombre"
               id="idNombre"
               required={true}
             ></Input>
@@ -38,9 +38,9 @@ const NuevoChoferPage = () => {
               id="idApellido"
               required={true}
             ></Input>
-            <Input 
-              placeholder="Ej: 12345678" 
-              title="DNI" 
+            <Input
+              placeholder="Ej: 12345678"
+              title="DNI"
               id="idDni"
               required={true}
             ></Input>
@@ -61,7 +61,10 @@ const NuevoChoferPage = () => {
               title="Fecha de nacimiento"
               id="idFechaDeNacimiento"
             ></Input>
-            <DropdownButton titulo="Empresa transportista" required={true}></DropdownButton>
+            <DropdownButton
+              titulo="Empresa transportista"
+              required={true}
+            ></DropdownButton>
             <Input
               placeholder="Ej: Activo"
               title="Estado"
@@ -73,10 +76,8 @@ const NuevoChoferPage = () => {
               title="Observaciones"
               id="idObservaciones"
             ></TextArea>
-            <div></div>
-            <div></div>
-            <div className="flex justify-end w-full gap-8">
-              <FormButtonCancel></FormButtonCancel>
+            <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
+              <FormButtonCancel to="/choferes"></FormButtonCancel>
               <FormButtonSave></FormButtonSave>
             </div>
           </div>

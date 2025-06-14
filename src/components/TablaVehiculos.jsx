@@ -17,7 +17,7 @@ const TablaVehiculos = ({ vehiculos }) => {
         </thead>
         <tbody>
           {vehiculos.map((vehiculos) => (
-            <tr key={vehiculos.id}>
+            <tr key={vehiculos.id} className="hover:bg-gray-200 cursor-pointer">
               <td className="px-4 py-2 border-b">{vehiculos.patente}</td>
               <td className="px-4 py-2 border-b">{vehiculos.modelo}</td>
               <td className="px-4 py-2 border-b">{vehiculos.año}</td>
