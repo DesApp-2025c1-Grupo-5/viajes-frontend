@@ -98,7 +98,7 @@ const ViajesPage = () => {
               ></New>
             </div>
             <SearchBar onSearch={setBusqueda} />
-            <FilterBar onFilter={filtrarViajes} />
+            <FilterBar onFilter={filtrarViajes} viajes={viajes} />
             <TablaViajes viajes={viajesFiltrado} />
           </div>
         </div>

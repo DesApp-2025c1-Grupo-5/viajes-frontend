@@ -25,13 +25,19 @@ const TablaViajes = ({ viajes }) => {
         </thead>
         <tbody>
           {viajes.map((viajes) => (
-            <tr key={viajes.id}>
+            <tr key={viajes.id} className="hover:bg-gray-200 cursor-pointer">
               <td className="px-4 py-2 border-b">{viajes.id}</td>
               <td className="px-4 py-2 border-b">{viajes.origen}</td>
               <td className="px-4 py-2 border-b">{viajes.destino}</td>
-              <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_salida)}</td>
-              <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_llegada)}</td>
-              <td className="px-4 py-2 border-b">{viajes.vehiculo?.patente || "Sin vehículo"}</td>
+              <td className="px-4 py-2 border-b">
+                {parseFecha(viajes.fecha_salida)}
+              </td>
+              <td className="px-4 py-2 border-b">
+                {parseFecha(viajes.fecha_llegada)}
+              </td>
+              <td className="px-4 py-2 border-b">
+                {viajes.vehiculo?.patente || "Sin vehículo"}
+              </td>
               <td className="px-4 py-2 border-b ">
                 <a
                   path={`/nuevoVehiculo`}

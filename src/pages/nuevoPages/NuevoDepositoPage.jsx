@@ -33,9 +33,9 @@ const NuevoDepositoPage = () => {
               id="idNombre"
               required={true}
             ></Input>
-            <Input 
-              placeholder="Ej: Argentina" 
-              title="Pais" 
+            <Input
+              placeholder="Ej: Argentina"
+              title="Pais"
               id="idPais"
               required={true}
             ></Input>
@@ -65,16 +65,14 @@ const NuevoDepositoPage = () => {
             </div>
             <DropdownButton titulo="Tipo" required={true}></DropdownButton>
             <TimePicker title="Horario" required={true}></TimePicker>
-            <DropdownButton titulo="Restriccion de acceso"  required={true} />
+            <DropdownButton titulo="Restriccion de acceso" required={true} />
             <TextArea
               placeholder="Ej: Informacion sobre el depósito"
               title="Observaciones"
               id="idObservaciones"
             ></TextArea>
-            <div></div>
-            <div></div>
-            <div className="flex justify-end w-full gap-8">
-              <FormButtonCancel></FormButtonCancel>
+            <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
+              <FormButtonCancel to="/depositos"></FormButtonCancel>
               <FormButtonSave></FormButtonSave>
             </div>
           </div>

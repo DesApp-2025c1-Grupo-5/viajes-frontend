@@ -16,7 +16,7 @@ const TablaDepositos = ({ depositos }) => {
         </thead>
         <tbody>
           {depositos.map((depositos) => (
-            <tr key={depositos.id}>
+            <tr key={depositos.id} className="hover:bg-gray-200 cursor-pointer">
               <td className="px-4 py-2 border-b">{depositos.nombre}</td>
               <td className="px-4 py-2 border-b">{depositos.direccion}</td>
               <td className="px-4 py-2 border-b">{depositos.provincia}</td>

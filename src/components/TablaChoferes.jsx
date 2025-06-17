@@ -1,7 +1,7 @@
 import { Trash2, FilePen } from "lucide-react";
 
 const TablaChoferes = ({ choferes }) => {
-   const parseFecha = (isoString) => {
+  const parseFecha = (isoString) => {
     const date = new Date(isoString);
     const pad = (n) => (n < 10 ? "0" + n : n);
     return `${pad(date.getDate())}-${pad(
@@ -23,16 +23,18 @@ const TablaChoferes = ({ choferes }) => {
           </tr>
         </thead>
         <tbody>
-           {/* <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_salida)}</td> */}
+          {/* <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_salida)}</td> */}
           {choferes.map((choferes) => (
-            <tr key={choferes.id}>
+            <tr key={choferes.id} className="hover:bg-gray-200 cursor-pointer">
               <td className="px-4 py-2 border-b">{choferes.licencia}</td>
               <td className="px-4 py-2 border-b">{choferes.nombre}</td>
               <td className="px-4 py-2 border-b">
                 {parseFecha(choferes.fecha_nacimiento)}
               </td>
               <td className="px-4 py-2 border-b">{choferes.dni}</td>
-              <td className="px-4 py-2 border-b">{choferes.vehiculo?.patente || "Sin vehículo"}</td>
+              <td className="px-4 py-2 border-b">
+                {choferes.vehiculo?.patente || "Sin vehículo"}
+              </td>
               <td className="px-4 py-2 border-b">
                 {choferes.empresaTransportista?.razon_social || "Sin empresa"}
               </td>
