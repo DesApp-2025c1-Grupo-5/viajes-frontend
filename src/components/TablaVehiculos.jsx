@@ -1,6 +1,25 @@
 import { Trash2, FilePen } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import vehiculoService from "../services/VehiculosService";
 
-const TablaVehiculos = ({ vehiculos }) => {
+const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
+  const navigate = useNavigate();
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("¿Estás seguro de eliminar este vehículo?")) return;
+
+    try {
+      await vehiculoService.deleteVehiculo(id);
+      alert("✅ Vehículo eliminado correctamente");
+      setVehiculos(vehiculos.filter((v) => v.id !== id));
+      setVehiculos((prev) => prev.filter((v) => v.id !== id));
+      setVehiculosFiltrado((prev) => prev.filter((v) => v.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar:", error);
+      alert("❌ No se pudo eliminar el vehículo");
+    }
+  };
+
   return (
     <div className="overflow-x-auto mt-5">
       <table className="min-w-full bg-white border border-gray-200">
@@ -16,32 +35,46 @@ const TablaVehiculos = ({ vehiculos }) => {
           </tr>
         </thead>
         <tbody>
-          {vehiculos.map((vehiculos) => (
-            <tr key={vehiculos.id} className="hover:bg-gray-200 cursor-pointer">
-              <td className="px-4 py-2 border-b">{vehiculos.patente}</td>
-              <td className="px-4 py-2 border-b">{vehiculos.modelo}</td>
-              <td className="px-4 py-2 border-b">{vehiculos.año}</td>
-              <td className="px-4 py-2 border-b">{vehiculos.capacidad}</td>
+          {vehiculos.map((vehiculo) => (
+            <tr
+              key={vehiculo.id}
+              className="hover:bg-gray-200 cursor-pointer"
+              onClick={() => navigate(`/vehiculos/${vehiculo.id}`)}
+            >
+              <td className="px-4 py-2 border-b">{vehiculo.patente}</td>
+              <td className="px-4 py-2 border-b">{vehiculo.modelo}</td>
+              <td className="px-4 py-2 border-b">{vehiculo.año}</td>
+              <td className="px-4 py-2 border-b">{vehiculo.capacidad}</td>
               <td className="px-4 py-2 border-b">
-                {vehiculos.tipo_de_vehiculo}
+                {vehiculo.tipo_de_vehiculo}
               </td>
               <td className="px-4 py-2 border-b">
-                {vehiculos.nombre_transportista}
+                {vehiculo.nombre_transportista}
               </td>
               <td className="px-4 py-2 border-b ">
-                <a
-                  path={`/nuevoVehiculo`}
+                <Link
+                  to={`/nuevoVehiculo`}
                   className="text-blue-600 hover:text-blue-800 mr-4"
+                  onClick={(e) => e.stopPropagation()} // para que no dispare el onClick del tr
                 >
                   <FilePen
                     size={25}
                     className="align-middle cursor-pointer inline-block"
                   />
-                </a>
-                <Trash2
-                  size={25}
-                  className="text-red-600 hover:text-red-800 cursor-pointer align-middle inline-block"
-                />
+                </Link>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); // evitar que el click propague y navegue
+                    handleDelete(vehiculo.id);
+                  }}
+                  className="p-1"
+                  title="Eliminar vehículo"
+                >
+                  <Trash2
+                    size={25}
+                    className="text-red-600 hover:text-red-800 cursor-pointer align-middle inline-block"
+                  />
+                </button>
               </td>
             </tr>
           ))}

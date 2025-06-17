@@ -10,6 +10,7 @@ import NuevoDepositoPage from "./pages/nuevoPages/NuevoDepositoPage";
 import NuevoTransportistaPage from "./pages/nuevoPages/NuevoTransportistaPage";
 import NuevoVehiculoPage from "./pages/nuevoPages/NuevoVehiculoPage";
 import NuevoViajePage from "./pages/nuevoPages/NuevoViajePage";
+import EdithVehiculo from "./pages/editPages/EdithVehiculo";
 
 export function AppRouter() {
   return (
@@ -24,6 +25,7 @@ export function AppRouter() {
       <Route path="/nuevoTransportista" element={<NuevoTransportistaPage />} />
       <Route path="/nuevoVehiculo" element={<NuevoVehiculoPage />} />
       <Route path="/nuevoViaje" element={<NuevoViajePage />} />
+      <Route path="/vehiculos/:id" element={<EdithVehiculo />} />
       <Route path="/" element={<DashboardPage />} />
     </Routes>
   );

@@ -59,7 +59,11 @@ const VehiculosPage = () => {
               ></New>
             </div>
             <SearchBar onSearch={setBusqueda} />
-            <TablaVehiculos vehiculos={vehiculosFiltrado} />
+            <TablaVehiculos
+              vehiculos={vehiculosFiltrado}
+              setVehiculos={setVehiculos}
+              setVehiculosFiltrado={setVehiculosFiltrado}
+            />
           </div>
         </div>
       </div>
