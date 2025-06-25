@@ -36,7 +36,7 @@ const NuevoVehiculoPage = () => {
       observaciones,
     };
     try {
-      await vehiculoService.create(nuevoVehiculo);
+      await vehiculoService.post(nuevoVehiculo);
       alert("✅ Vehículo creado correctamente");
     } catch (error) {
       console.error("Error al crear vehículo:", error);
@@ -134,7 +134,7 @@ const NuevoVehiculoPage = () => {
             />
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/vehiculos" />
-              <FormButtonSave />
+              <FormButtonSave to="/vehiculos" />
             </div>
           </form>
         </div>

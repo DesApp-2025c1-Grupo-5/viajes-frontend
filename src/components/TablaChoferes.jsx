@@ -1,6 +1,25 @@
 import { Trash2, FilePen } from "lucide-react";
+import { useNavigate} from "react-router-dom";
+import choferesService from "../services/ChoferesService";
 
-const TablaChoferes = ({ choferes }) => {
+const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
+  const navigate = useNavigate();
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("¿Estás seguro de eliminar este chofer?")) return;
+
+    try {
+      await choferesService.deleteChofer(id);
+      alert("✅ Chofer eliminado correctamente");
+      setChoferes(choferes.filter((v) => v.id !== id));
+      setChoferes((prev) => prev.filter((v) => v.id !== id));
+      setChoferesFiltrado((prev) => prev.filter((v) => v.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar:", error);
+      alert("❌ No se pudo eliminar el chofer");
+    }
+  };
+
   const parseFecha = (isoString) => {
     const date = new Date(isoString);
     const pad = (n) => (n < 10 ? "0" + n : n);
@@ -8,6 +27,7 @@ const TablaChoferes = ({ choferes }) => {
       date.getMonth() + 1
     )}-${date.getFullYear()}`;
   };
+
   return (
     <div className="overflow-x-auto my-5">
       <table className="min-w-full bg-white border border-gray-200">
@@ -24,19 +44,23 @@ const TablaChoferes = ({ choferes }) => {
         </thead>
         <tbody>
           {/* <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_salida)}</td> */}
-          {choferes.map((choferes) => (
-            <tr key={choferes.id} className="hover:bg-gray-200 cursor-pointer">
-              <td className="px-4 py-2 border-b">{choferes.licencia}</td>
-              <td className="px-4 py-2 border-b">{choferes.nombre}</td>
+          {choferes.map((chofer) => (
+            <tr
+              key={chofer.id}
+              className="hover:bg-gray-200 cursor-pointer"
+              onClick={() => navigate(`/choferes/${chofer.id}`)}
+            >
+              <td className="px-4 py-2 border-b">{chofer.licencia}</td>
+              <td className="px-4 py-2 border-b">{chofer.nombre}</td>
               <td className="px-4 py-2 border-b">
-                {parseFecha(choferes.fecha_nacimiento)}
+                {parseFecha(chofer.fecha_nacimiento)}
               </td>
-              <td className="px-4 py-2 border-b">{choferes.dni}</td>
+              <td className="px-4 py-2 border-b">{chofer.dni}</td>
               <td className="px-4 py-2 border-b">
-                {choferes.vehiculo?.patente || "Sin vehículo"}
+                {chofer.vehiculo?.patente || "Sin vehículo"}
               </td>
               <td className="px-4 py-2 border-b">
-                {choferes.empresaTransportista?.razon_social || "Sin empresa"}
+                {chofer.empresaTransportista?.razon_social || "Sin empresa"}
               </td>
               <td className="px-4 py-2 border-b ">
                 <a
@@ -48,10 +72,19 @@ const TablaChoferes = ({ choferes }) => {
                     className="align-middle cursor-pointer inline-block"
                   />
                 </a>
-                <Trash2
-                  size={25}
-                  className="text-red-600 hover:text-red-800 cursor-pointer align-middle inline-block"
-                />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(chofer.id);
+                  }}
+                  className="p-1"
+                  title="Eliminar chofer"
+                >
+                  <Trash2
+                    size={25}
+                    className="text-red-600 hover:text-red-800 cursor-pointer align-middle inline-block"
+                  />
+                </button>
               </td>
             </tr>
           ))}

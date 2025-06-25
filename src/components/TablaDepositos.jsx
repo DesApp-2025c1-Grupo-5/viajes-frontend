@@ -1,6 +1,10 @@
 import { Trash2, FilePen } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import depositosService from "../services/DepositosService";
 
 const TablaDepositos = ({ depositos }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="overflow-x-auto mt-5">
       <table className="min-w-full bg-white border border-gray-200">
@@ -15,13 +19,17 @@ const TablaDepositos = ({ depositos }) => {
           </tr>
         </thead>
         <tbody>
-          {depositos.map((depositos) => (
-            <tr key={depositos.id} className="hover:bg-gray-200 cursor-pointer">
-              <td className="px-4 py-2 border-b">{depositos.nombre}</td>
-              <td className="px-4 py-2 border-b">{depositos.direccion}</td>
-              <td className="px-4 py-2 border-b">{depositos.provincia}</td>
-              <td className="px-4 py-2 border-b">{depositos.pais}</td>
-              <td className="px-4 py-2 border-b">{depositos.contacto}</td>
+          {depositos.map((deposito) => (
+            <tr
+              key={deposito.id}
+              className="hover:bg-gray-200 cursor-pointer"
+              onClick={() => navigate(`/depositos/${deposito.id}`)}
+            >
+              <td className="px-4 py-2 border-b">{deposito.nombre}</td>
+              <td className="px-4 py-2 border-b">{deposito.direccion}</td>
+              <td className="px-4 py-2 border-b">{deposito.provincia}</td>
+              <td className="px-4 py-2 border-b">{deposito.pais}</td>
+              <td className="px-4 py-2 border-b">{deposito.contacto}</td>
               <td className="px-4 py-2 border-b ">
                 <a
                   path={`/nuevoDeposito`}
