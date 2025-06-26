@@ -12,6 +12,20 @@ import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import choferesService from "../../services/ChoferesService";
 
+const tiposDeEmpresasTransportistas = [
+  { value: "", label: "Seleccionar" },
+  { value: 2, label: "LogiExpress" },
+  { value: 1, label: "Transportes Rápidos S.A" },
+  { value: 3, label: "CargoMax" },
+];
+
+const tiposDeEstado = [
+  { value: "", label: "Seleccionar" },
+  { value: "Disponible", label: "Disponible" },
+  { value: "No disponible", label: "No disponible" },
+  { value: "En viaje", label: "En viaje" },
+];
+
 const EditarChoferesPage = () => {
   const { id } = useParams();
 
@@ -124,17 +138,18 @@ const EditarChoferesPage = () => {
                 required
               />
               <DropdownButton
+                titulo="Empresa Transportista"
+                required
                 onChange={(e) => setEmpresaTransportista(e.target.value)}
-                title="Empresa transportista"
-                id="idEmpresaTransportista"
-                required
-              />
+                value={id_empresa_transportista}
+                options={tiposDeEmpresasTransportistas}
+              ></DropdownButton>
               <DropdownButton
-                value={estado}
-                onChange={(e) => setEstado(e.target.value)}
                 titulo="Estado"
-                id="idEstado"
                 required
+                onChange={(e) => setEstado(e.target.value)}
+                value={estado}
+                options={tiposDeEstado}
               />
               <TextArea
                 value={observaciones}

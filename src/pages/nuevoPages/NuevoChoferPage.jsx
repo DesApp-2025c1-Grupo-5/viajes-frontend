@@ -11,6 +11,20 @@ import FormButtonCancel from "../../components/FormButtonCancel";
 import TextArea from "../../components/TextArea";
 import choferesService from "../../services/ChoferesService";
 
+const tiposDeEmpresasTransportistas = [
+  { value: "", label: "Seleccionar" },
+  { value: 2, label: "LogiExpress" },
+  { value: 1, label: "Transportes Rápidos S.A" },
+  { value: 3, label: "CargoMax" },
+];
+
+const tiposDeEstado = [
+  { value: "", label: "Seleccionar" },
+  { value: "Disponible", label: "Disponible" },
+  { value: "No disponible", label: "No disponible" },
+  { value: "En viaje", label: "En viaje" },
+];
+
 const NuevoChoferPage = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -112,19 +126,19 @@ const NuevoChoferPage = () => {
               onChange={(e) => seFechaNacimiento(e.target.value)}
             ></Input>
             <DropdownButton
-              titulo="Empresa transportista"
+              titulo="Empresa Transportista"
               required
-              value={id_empresa_transportista}
               onChange={(e) => setEmpresaTransportista(e.target.value)}
+              value={id_empresa_transportista}
+              options={tiposDeEmpresasTransportistas}
             ></DropdownButton>
-            <Input
-              placeholder="Ej: Activo"
-              title="Estado"
-              id="idEstado"
+            <DropdownButton
+              titulo="Estado"
               required
-              value={estado}
               onChange={(e) => setEstado(e.target.value)}
-            ></Input>
+              value={estado}
+              options={tiposDeEstado}
+            />
             <TextArea
               placeholder="Ej: Informacion sobre el chofer"
               title="Observaciones"
@@ -134,7 +148,7 @@ const NuevoChoferPage = () => {
             ></TextArea>
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/choferes" />
-              <FormButtonSave to="/choferes"/>
+              <FormButtonSave to="/choferes" />
             </div>
           </form>
         </div>

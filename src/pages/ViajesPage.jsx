@@ -10,7 +10,7 @@ import viajesService from "../services/ViajesService";
 import FilterBar from "../components/FilterBar";
 
 const ViajesPage = () => {
-  const [viajes, setViajes] = useState([]);
+  const [viajes, setViaje] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
 
@@ -20,7 +20,7 @@ const ViajesPage = () => {
         const datos = await viajesService.getAll();
         console.log(datos);
         //console.log(JSON.stringify(datos));
-        setViajes(datos);
+        setViaje(datos);
       } catch (error) {
         console.log(error);
       }
@@ -33,17 +33,15 @@ const ViajesPage = () => {
       `${texto.id} ${texto.tipoDeViaje} ${texto.provinciaOrigen} ${texto.provinciaDestino} ${texto.fecha_salida} ${texto.fecha_llegada} ${texto.id_chofer}`
         .toLowerCase()
         .includes(busqueda.toLowerCase())
-        
     );
     setViajesFiltrado(resultadoFiltro);
-    
   }, [busqueda, viajes]);
 
   const compararFechas = (fechaViaje, fechaFiltro) => {
     const f1 = new Date(fechaViaje);
     const f2 = new Date(fechaFiltro);
-    return f1 >= f2; 
-  }
+    return f1 >= f2;
+  };
 
   const filtrarViajes = (filtros) => {
     const filteredViajes = viajes.filter((viaje) => {
@@ -58,15 +56,27 @@ const ViajesPage = () => {
         provinciaDestino,
       } = filtros;
 
-      return (  
-        (!tipoDeViaje || viaje.tipoDeViaje?.toLowerCase() === tipoDeViaje.toLowerCase()) &&
+      return (
+        (!tipoDeViaje ||
+          viaje.tipoDeViaje?.toLowerCase() === tipoDeViaje.toLowerCase()) &&
         (!fecha_salida || compararFechas(viaje.fecha_salida, fecha_salida)) &&
-        (!nroViaje || String(viaje.nroViaje).toLowerCase().includes(nroViaje.toLowerCase())) &&
-        (!empresa || viaje.empresaTransportista.razon_social?.toLowerCase() === empresa.toLowerCase()) &&
-        (!chofer || String(viaje.id_chofer).toLowerCase() === chofer.toLowerCase()) &&
-        (!patente || viaje.vehiculo.patente?.toLowerCase() === patente.toLowerCase()) &&
-        (!provinciaOrigen || viaje.provinciaOrigen?.toLowerCase() === provinciaOrigen.toLowerCase()) &&
-        (!provinciaDestino || viaje.provinciaDestino?.toLowerCase() === provinciaDestino.toLowerCase())
+        (!nroViaje ||
+          String(viaje.nroViaje)
+            .toLowerCase()
+            .includes(nroViaje.toLowerCase())) &&
+        (!empresa ||
+          viaje.empresaTransportista.razon_social?.toLowerCase() ===
+            empresa.toLowerCase()) &&
+        (!chofer ||
+          String(viaje.id_chofer).toLowerCase() === chofer.toLowerCase()) &&
+        (!patente ||
+          viaje.vehiculo.patente?.toLowerCase() === patente.toLowerCase()) &&
+        (!provinciaOrigen ||
+          viaje.provinciaOrigen?.toLowerCase() ===
+            provinciaOrigen.toLowerCase()) &&
+        (!provinciaDestino ||
+          viaje.provinciaDestino?.toLowerCase() ===
+            provinciaDestino.toLowerCase())
       );
     });
 
@@ -99,7 +109,11 @@ const ViajesPage = () => {
             </div>
             <SearchBar onSearch={setBusqueda} />
             <FilterBar onFilter={filtrarViajes} viajes={viajes} />
-            <TablaViajes viajes={viajesFiltrado} />
+            <TablaViajes
+              viajes={viajesFiltrado}
+              setViaje={setViaje}
+              setViajesFiltrados={setViajesFiltrado}
+            />
           </div>
         </div>
       </div>

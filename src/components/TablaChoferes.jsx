@@ -1,5 +1,5 @@
 import { Trash2, FilePen } from "lucide-react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import choferesService from "../services/ChoferesService";
 
 const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
@@ -51,7 +51,9 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
               onClick={() => navigate(`/choferes/${chofer.id}`)}
             >
               <td className="px-4 py-2 border-b">{chofer.licencia}</td>
-              <td className="px-4 py-2 border-b">{chofer.nombre}</td>
+              <td className="px-4 py-2 border-b">
+                {chofer.nombre} {chofer.apellido}
+              </td>
               <td className="px-4 py-2 border-b">
                 {parseFecha(chofer.fecha_nacimiento)}
               </td>

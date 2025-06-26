@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL =  import.meta.env.VITE_BACK_URL;
-console.log(API_URL)
+const API_URL = import.meta.env.VITE_BACK_URL;
+console.log(API_URL);
 
 const service = {};
 
@@ -15,13 +15,41 @@ service.getAll = async () => {
   }
 };
 
-service.create = async (nuevoViajes) => {
+service.post = async (nuevoViaje) => {
   try {
-    const respuesta = await axios.post(`${API_URL}/viajes`, nuevoViajes);
+    const respuesta = await axios.post(`${API_URL}/viajes`, nuevoViaje);
     return respuesta.data;
   } catch (error) {
-    console.error("Error al crear al nuevo viaje:", error)
+    console.error("Error al crear al nuevo viaje:", error);
+    
   }
-}
+};
+
+service.getViajeById = async (id) => {
+  try {
+    const respuesta = await axios.get(`${API_URL}/viajes/${id}`);
+    return respuesta.data;
+  } catch (error) {
+    console.error("No existe viaje con el id:", error);
+  }
+};
+
+service.updateViaje = async (id, viaje) => {
+  try {
+    const respuesta = await axios.put(`${API_URL}/viajes/${id}`, viaje);
+    return respuesta.data;
+  } catch (error) {
+    console.error("No existe viaje con el id:", error);
+  }
+};
+
+service.deleteViaje = async (id) => {
+  try {
+    const respuesta = await axios.delete(`${API_URL}/viajes/${id}`);
+    return respuesta.data;
+  } catch (error) {
+    console.error("No existe el viaje con el id:", error);
+  }
+};
 
 export default service;

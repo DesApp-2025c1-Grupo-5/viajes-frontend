@@ -12,6 +12,14 @@ import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import vehiculoService from "../../services/VehiculosService";
 
+const tiposDeVehiculos = [
+  { value: "", label: "Seleccionar" },
+  { value: "Automovil", label: "Automovil" },
+  { value: "Camion", label: "Camion" },
+  { value: "Camioneta", label: "Camioneta" },
+  { value: "Acoplado", label: "Camion con aclopado" },
+];
+
 const EditarVehiculoPage = () => {
   const { id } = useParams();
 
@@ -132,9 +140,10 @@ const EditarVehiculoPage = () => {
               />
               <DropdownButton
                 titulo="Tipo de vehículo"
-                value={tipo}
-                onChange={(e) => setTipo(e.target.value)}
                 required
+                onChange={(e) => setTipo(e.target.value)}
+                value={tipo}
+                options={tiposDeVehiculos}
               />
               <TextArea
                 value={observaciones}
