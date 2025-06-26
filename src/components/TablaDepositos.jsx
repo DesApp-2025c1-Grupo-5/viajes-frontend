@@ -2,8 +2,23 @@ import { Trash2, FilePen } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import depositosService from "../services/DepositosService";
 
-const TablaDepositos = ({ depositos }) => {
+const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
   const navigate = useNavigate();
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("¿Estás seguro de eliminar este deposito?")) return;
+
+    try {
+      await depositosService.deleteDeposito(id);
+      alert("✅ Deposito eliminado correctamente");
+      setDepositos(depositos.filter((v) => v.id !== id));
+      setDepositos((prev) => prev.filter((v) => v.id !== id));
+      setDepositosFiltrado((prev) => prev.filter((v) => v.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar:", error);
+      alert("❌ No se pudo eliminar el depósito");
+    }
+  };
 
   return (
     <div className="overflow-x-auto mt-5">
@@ -31,7 +46,7 @@ const TablaDepositos = ({ depositos }) => {
               <td className="px-4 py-2 border-b">{deposito.pais}</td>
               <td className="px-4 py-2 border-b">{deposito.contacto}</td>
               <td className="px-4 py-2 border-b ">
-                <a
+                <Link
                   path={`/nuevoDeposito`}
                   className="text-blue-600 hover:text-blue-800 mr-4"
                 >
@@ -39,11 +54,20 @@ const TablaDepositos = ({ depositos }) => {
                     size={25}
                     className="align-middle cursor-pointer inline-block"
                   />
-                </a>
-                <Trash2
-                  size={25}
-                  className="text-red-600 hover:text-red-800 cursor-pointer align-middle inline-block"
-                />
+                </Link>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); // evitar que el click propague y navegue
+                    handleDelete(deposito.id);
+                  }}
+                  className="p-1"
+                  title="Eliminar deposito"
+                >
+                  <Trash2
+                    size={25}
+                    className="text-red-600 hover:text-red-800 cursor-pointer align-middle inline-block"
+                  />
+                </button>
               </td>
             </tr>
           ))}

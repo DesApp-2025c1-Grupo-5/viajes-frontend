@@ -10,6 +10,23 @@ import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import depositosService from "../../services/DepositosService";
+import DropdownButton from "../../components/DropDownButton";
+import TimePicker from "../../components/TimePicker";
+
+const tiposDeDepositos = [
+  { value: "", label: "Seleccionar" },
+  { value: "propio", label: "Propio" },
+  { value: "tercero", label: "Tercero" },
+];
+
+const restriccionesDeAcceso = [
+  { value: "", label: "Seleccionar" },
+  { value: "solo Personal Autorizado", label: "Solo Personal Autorizado" },
+  {
+    value: "todo el Personal Autorizado",
+    label: "Todo el Personal Autorizado",
+  },
+];
 
 const EditarDepositosPage = () => {
   const { id } = useParams();
@@ -20,7 +37,8 @@ const EditarDepositosPage = () => {
   const [direccion, setDireccion] = useState("");
   const [coordenadas, setCoordenadas] = useState("");
   const [tipo, setTipo] = useState("");
-  const [horario, setHorario] = useState("");
+  const [horarioDesde, setHorarioDesde] = useState("");
+  const [horarioHasta, setHorarioHasta] = useState("");
   const [restriccionDeAcceso, setRestriccionDeAcceso] = useState("");
   const [contacto, setContacto] = useState("");
   const [observaciones, setObservaciones] = useState("");
@@ -33,8 +51,9 @@ const EditarDepositosPage = () => {
       setDireccion(deposito.direccion || "");
       setCoordenadas(deposito.coordenadas || "");
       setTipo(deposito.tipo || "");
-      setHorario(deposito.horario || "");
-      setRestriccionDeAcceso(deposito.restriccionDeAcceso || "");
+      setHorarioDesde(deposito.horarioDesde || "");
+      setHorarioHasta(deposito.horarioHasta || "");
+      setRestriccionDeAcceso(deposito.restriccion_de_acceso || "");
       setContacto(deposito.contacto || "");
       setObservaciones(deposito.observaciones || "");
     });
@@ -52,8 +71,9 @@ const EditarDepositosPage = () => {
       direccion,
       coordenadas,
       tipo,
-      horario,
-      restriccionDeAcceso,
+      horarioDesde,
+      horarioHasta,
+      restriccion_de_acceso: restriccionDeAcceso,
       contacto,
       observaciones,
     };
@@ -116,28 +136,36 @@ const EditarDepositosPage = () => {
                 onChange={(e) => setCoordenadas(e.target.value)}
                 title="Coordenadas"
                 id="idCoordenadas"
-                required
               />
-              <Input
-                value={tipo}
+              <DropdownButton
+                titulo="Tipo"
+                required
                 onChange={(e) => setTipo(e.target.value)}
-                title="Tipo"
-                id="idTipo"
+                value={tipo}
+                options={tiposDeDepositos}
+              ></DropdownButton>
+              <div className="flex col-1 gap-6">
+                <TimePicker
+                  titulo="Desde"
+                  id="horarioDesde"
+                  required
+                  value={horarioDesde}
+                  onChange={(e) => setHorarioDesde(e.target.value)}
+                />
+                <TimePicker
+                  titulo="Hasta"
+                  id="horarioHasta"
+                  required
+                  value={horarioHasta}
+                  onChange={(e) => setHorarioHasta(e.target.value)}
+                />
+              </div>
+              <DropdownButton
+                titulo="Restriccion de acceso"
                 required
-              />
-              <Input
-                value={horario}
-                onChange={(e) => setHorario(e.target.value)}
-                title="Horario"
-                id="idHorario"
-                required
-              />
-              <Input
-                value={restriccionDeAcceso}
                 onChange={(e) => setRestriccionDeAcceso(e.target.value)}
-                title="Restricciones de acceso"
-                id="idRestriccionesDeAcceso"
-                required
+                value={restriccionDeAcceso}
+                options={restriccionesDeAcceso}
               />
               <Input
                 value={contacto}

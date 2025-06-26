@@ -31,15 +31,17 @@ const NuevoViajePage = () => {
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <DropdownButton
               titulo="Deposito origen"
-              buttonText="Seleccionar"
-              required={true}
-              // onClick={() => alert("clicked!")}
+              required
+              onChange={(e) => setDepositoOrigen(e.target.value)}
+              value={tipo}
+              options={depositosOrigen}
             ></DropdownButton>
             <DropdownButton
-              titulo="Deposito destino"
-              buttonText="Seleccionar"
-              required={true}
-              // onClick={() => alert("clicked!")}
+              titulo="Deposito Destino"
+              required
+              onChange={(e) => setDepositoDestino(e.target.value)}
+              value={tipo}
+              options={depositosDestino}
             ></DropdownButton>
             <DateTimePicker
               title="Fecha de salida"

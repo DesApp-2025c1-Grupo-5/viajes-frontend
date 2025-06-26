@@ -59,7 +59,11 @@ const DepositosPage = () => {
               ></New>
             </div>
             <SearchBar onSearch={setBusqueda} />
-            <TablaDepositos depositos={depositosFiltrado} />
+            <TablaDepositos
+              depositos={depositosFiltrado}
+              setDepositos={setDepositos}
+              setDepositosFiltrado={setDepositosFiltrado}
+            />
           </div>
         </div>
       </div>

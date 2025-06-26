@@ -13,6 +13,8 @@ import NuevoViajePage from "./pages/nuevoPages/NuevoViajePage";
 import EdithVehiculo from "./pages/editPages/EdithVehiculo";
 import EdithChofer from "./pages/editPages/EdithChofer";
 import EditarDepositosPage from "./pages/editPages/EdithDeposito";
+import EditarTransportistasPage from "./pages/editPages/EdithTransportista";
+import EditarViajePage from "./pages/editPages/EdithViajes";
 
 export function AppRouter() {
   return (
@@ -29,9 +31,13 @@ export function AppRouter() {
       <Route path="/nuevoViaje" element={<NuevoViajePage />} />
       <Route path="/vehiculos/:id" element={<EdithVehiculo />} />
       <Route path="/choferes/:id" element={<EdithChofer />}></Route>
-      <Route path="/depositos/:id" element={<EditarDepositosPage/>}></Route>
+      <Route path="/depositos/:id" element={<EditarDepositosPage />}></Route>
+      <Route path="/viajes/:id" element={<EditarViajePage />}></Route>
+      <Route
+        path="/empresasTransportistas/:id"
+        element={<EditarTransportistasPage />}
+      ></Route>
       <Route path="/" element={<DashboardPage />} />
-      
     </Routes>
   );
 }

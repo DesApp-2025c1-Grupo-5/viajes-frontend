@@ -12,16 +12,32 @@ import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import depositosService from "../../services/DepositosService";
 
+const tiposDeDepositos = [
+  { value: "", label: "Seleccionar" },
+  { value: "propio", label: "Propio" },
+  { value: "tercero", label: "Tercero" },
+];
+
+const restriccionesDeAcceso = [
+  { value: "", label: "Seleccionar" },
+  { value: "Solo Personal Autorizado", label: "Solo Personal Autorizado" },
+  {
+    value: "Todo el Personal Autorizado",
+    label: "Todo el Personal Autorizado",
+  },
+];
+
 const NuevoDepositoPage = () => {
   const [nombre, setNombre] = useState("");
   const [pais, setPais] = useState("");
   const [provincia, setProvincia] = useState("");
   const [direccion, setDireccion] = useState("");
-  const [coordenadas, setCoordenadas] = useState("1");
-  const [tipo, setTipo] = useState("1");
-  const [horario, setHorario] = useState("1");
-  const [restriccionDeAcceso, setRestriccionDeAcceso] = useState("1");
-  const [contacto, setContacto] = useState("1");
+  const [coordenadas, setCoordenadas] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [horarioDesde, setHorarioDesde] = useState("");
+  const [horarioHasta, setHorarioHasta] = useState("");
+  const [restriccionDeAcceso, setRestriccionDeAcceso] = useState("");
+  const [contacto, setContacto] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
   const handleSubmit = async (e) => {
@@ -33,8 +49,9 @@ const NuevoDepositoPage = () => {
       direccion,
       coordenadas,
       tipo,
-      horario,
-      restriccionDeAcceso,
+      horarioDesde,
+      horarioHasta,
+      restriccion_de_acceso: restriccionDeAcceso,
       contacto,
       observaciones,
     };
@@ -93,34 +110,42 @@ const NuevoDepositoPage = () => {
               id="idDireccion"
               onChange={(e) => setDireccion(e.target.value)}
             ></Input>
-            <div className="flex gap-1">
-              <Input
-                placeholder="Ej: -87.5"
-                title="Coordenadas Geograficas"
-                id="coordenada1"
-                onChange={(e) => setCoordenadas(e.target.value)}
-              ></Input>
-              <Input
-                placeholder="Ej: -5.97"
-                title="‎ "
-                id="coordenada2"
-                onChange={(e) => setCoordenadas(e.target.value)}
-              ></Input>
-            </div>
+            <Input
+              placeholder="-34.6091, -58.3845"
+              value={coordenadas}
+              onChange={(e) => setCoordenadas(e.target.value)}
+              title="Coordenadas"
+              id="idCoordenadas"
+            />
             <DropdownButton
               titulo="Tipo"
               required
               onChange={(e) => setTipo(e.target.value)}
+              value={tipo}
+              options={tiposDeDepositos}
             ></DropdownButton>
-            <TimePicker
-              title="Horario"
-              required
-              onChange={(e) => setHorario(e.target.value)}
-            ></TimePicker>
+            <div className="flex col-1 gap-6">
+              <TimePicker
+                titulo="Desde"
+                id="horarioDesde"
+                required
+                value={horarioDesde}
+                onChange={(e) => setHorarioDesde(e.target.value)}
+              />
+              <TimePicker
+                titulo="Hasta"
+                id="horarioHasta"
+                required
+                value={horarioHasta}
+                onChange={(e) => setHorarioHasta(e.target.value)}
+              />
+            </div>
             <DropdownButton
               titulo="Restriccion de acceso"
               required
               onChange={(e) => setRestriccionDeAcceso(e.target.value)}
+              value={restriccionDeAcceso}
+              options={restriccionesDeAcceso}
             />
             <Input
               placeholder="Contacto"

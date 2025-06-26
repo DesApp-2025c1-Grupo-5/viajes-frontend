@@ -8,7 +8,6 @@ import New from "../components/New";
 import { useEffect, useState } from "react";
 import transportistaService from "../services/EmpresasTransportistasService";
 
-
 const TransportistasPage = () => {
   const [transportistas, setTransportistas] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -26,11 +25,11 @@ const TransportistasPage = () => {
     obtenerTransportistas();
   }, []);
 
-  useEffect(()=>{
-    const resultadoFiltro = transportistas.filter(texto => 
+  useEffect(() => {
+    const resultadoFiltro = transportistas.filter((texto) =>
       `${texto.razon_social} ${texto.cuit_rut} ${texto.domicilio_fiscal} ${texto.email} ${texto.telefono}`
-      .toLowerCase()
-      .includes(busqueda.toLowerCase())
+        .toLowerCase()
+        .includes(busqueda.toLowerCase())
     );
     setTransportistasFiltrado(resultadoFiltro);
   }, [busqueda, transportistas]);
@@ -59,8 +58,12 @@ const TransportistasPage = () => {
                 colorHover="hover:bg-purple-500"
               ></New>
             </div>
-            <SearchBar onSearch={setBusqueda}/>
-            <TablaTransportistas transportistas={transportistasFiltrado} />
+            <SearchBar onSearch={setBusqueda} />
+            <TablaTransportistas
+              transportistas={transportistasFiltrado}
+              setTransportistas={setTransportistas}
+              setTransportistasFiltrado={setTransportistasFiltrado}
+            />
           </div>
         </div>
       </div>
