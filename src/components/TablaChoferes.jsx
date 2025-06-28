@@ -20,12 +20,11 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
     }
   };
 
-  const parseFecha = (isoString) => {
+ const parseFecha = (isoString) => {
     const date = new Date(isoString);
+    date.setDate(date.getDate() + 1);
     const pad = (n) => (n < 10 ? "0" + n : n);
-    return `${pad(date.getDate())}-${pad(
-      date.getMonth() + 1
-    )}-${date.getFullYear()}`;
+    return `${pad(date.getDate())}-${pad(date.getMonth() + 1)}-${date.getFullYear()}`;
   };
 
   return (

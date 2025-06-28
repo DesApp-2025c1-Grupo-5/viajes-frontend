@@ -38,9 +38,11 @@ const ViajesPage = () => {
   }, [busqueda, viajes]);
 
   const compararFechas = (fechaViaje, fechaFiltro) => {
-    const f1 = new Date(fechaViaje);
-    const f2 = new Date(fechaFiltro);
-    return f1 >= f2;
+    if (!fechaViaje || !fechaFiltro) return false;
+      const f1 = fechaViaje; 
+      const f2 = fechaFiltro.split("T")[0]; 
+      return f1 == f2;
+
   };
 
   const filtrarViajes = (filtros) => {
