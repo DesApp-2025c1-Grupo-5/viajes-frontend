@@ -114,7 +114,7 @@ const NuevoTransportistaPage = () => {
             ></Input>
             <div className="col-span-2">
               <Input
-                placeholder="Ej: Activo"
+                placeholder="Ej: Av. San Martin 1234"
                 title="Domicilio Fiscal"
                 id="idDomicilioFiscal"
                 name="domicilio_fiscal"

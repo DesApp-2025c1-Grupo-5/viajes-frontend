@@ -5,6 +5,7 @@ const DropdownButton = ({
   required,
   options,
   value,
+  disabled,
 }) => {
   return (
     <div>
@@ -18,9 +19,11 @@ const DropdownButton = ({
           value={value}
           onChange={onChange}
           required={required}
-          className={`w-full text-gray-700 bg-white hover:bg-gray-100 shadow-lg cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 pr-10 appearance-none ${
-            className || ""
-          }`}
+          disabled={disabled}
+          className={`w-full bg-white shadow-lg font-medium rounded-full text-sm px-5 py-2.5 pr-10 appearance-none
+            ${disabled ? "text-gray-400 bg-gray-100 cursor-not-allowed" : "text-gray-700 hover:bg-gray-100 cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300"}
+            ${className || ""}
+          `}
         >
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>

@@ -81,6 +81,12 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
           ))}
         </tbody>
       </table>
+      <div>
+          {!viajes.length ?
+          <h1 className="text-center  mt-8">No hay resultados</h1>
+          : ""
+          }
+      </div>
     </div>
   );
 };

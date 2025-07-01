@@ -21,7 +21,6 @@ service.post = async (nuevoViaje) => {
     return respuesta.data;
   } catch (error) {
     console.error("Error al crear al nuevo viaje:", error);
-    
   }
 };
 

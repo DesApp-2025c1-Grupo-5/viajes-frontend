@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -9,41 +9,39 @@ import DateTimePicker from "../../components/DataTimePicker";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
-import viajesService from "../../services/ViajesService";
+import {viajesService, depositosService, empresasTransportistasService, choferesService, vehiculosService} from "../../services";
 
-const opcionesDeEmpresas = [
-  { value: "", label: "Seleccionar" },
-  { value: 2, label: "LogiExpress" },
-  { value: 1, label: "Transportes Rápidos S.A" },
-  { value: 3, label: "CargoMax" },
-];
+  
 
-const opcionesDeDepositos = [
-  { value: "", label: "Seleccionar" },
-  { value: "Deposito Central", label: "Deposito Central" },
-  { value: "Deposito Sur", label: "Deposito Sur" },
-  { value: "Deposito Norte", label: "Deposito Norte" },
-];
 
-const opcionesDeChofer = [
-  { value: "", label: "Seleccionar" },
-  { value: 1, label: "Juan" },
-  { value: 2, label: "Gastón" },
-  { value: 3, label: "María" },
-];
+// const opcionesDeEmpresas = [
+//   { value: "", label: "Seleccionar" },
+//   { value: 2, label: "LogiExpress" },
+//   { value: 1, label: "Transportes Rápidos S.A" },
+//   { value: 3, label: "CargoMax" },
+// ];
 
-const opcionesTipoDeViaje = [
-  { value: "", label: "Seleccionar" },
-  { value: "Nacional", label: "Nacional" },
-  { value: "Internacional", label: "Internacional" },
-];
+// const opcionesDeDepositos = [
+//   { value: "", label: "Seleccionar" },
+//   { value: "Deposito Central", label: "Deposito Central" },
+//   { value: "Deposito Sur", label: "Deposito Sur" },
+//   { value: "Deposito Norte", label: "Deposito Norte" },
+// ];
 
-const opcionesVehiculo = [
-  { value: "", label: "Seleccionar" },
-  { value: 1, label: "FH 540" },
-  { value: 2, label: "Actros 2545" },
-  { value: 3, label: "R450 Highline" },
-];
+// const opcionesDeChofer = [
+//   { value: "", label: "Seleccionar" },
+//   { value: 1, label: "Juan" },
+//   { value: 2, label: "Gastón" },
+//   { value: 3, label: "María" },
+// ];
+
+
+// const opcionesVehiculo = [
+//   { value: "", label: "Seleccionar" },
+//   { value: 1, label: "FH 540" },
+//   { value: 2, label: "Actros 2545" },
+//   { value: 3, label: "R450 Highline" },
+// ];
 
 const NuevoViajePage = () => {
   const [depositoOrigen, setDepositoOrigen] = useState("");
@@ -53,20 +51,119 @@ const NuevoViajePage = () => {
   const [empresaTransportista, setEmpresaTransportista] = useState("");
   const [chofer, setChofer] = useState("");
   const [vehiculo, setVehiculo] = useState("");
-  const [tipoDeViaje, setTipoDeViaje] = useState("");
   const [observaciones, setObservaciones] = useState("");
+
+  const [empresas, setEmpresas] = useState([]);
+  const [choferes, setChoferes] = useState([]);
+  const [vehiculos, setVehiculos] = useState([]);
+  const [depositos, setDepositos] = useState([]);
+
+  const [opcionesDeDepositos, setOpcionesDepositos] = useState([]);
+  const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
+  const [opcionesDeChoferes, setOpcionesChoferes] = useState([]);
+  const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
+
+
+useEffect(() => {
+  const opciones = [
+    { value: "", label: "Seleccionar" },
+    ...depositos.map((d) => ({
+        value: d.id,
+        label: d.nombre,
+    })),
+  ];
+  setOpcionesDepositos(opciones);
+}, [depositos]);
+
+useEffect(() => {
+  const opciones = [
+    {value: "", label: "Seleccionar"},
+    ...empresas.map( e => ({
+      value: e.id,
+      label: e.razon_social,
+    })),
+  ];
+  setOpcionesEmpresas(opciones);
+}, [empresas]);
+
+useEffect(() => {
+  let opciones = [];
+  if(!empresaTransportista){
+    opciones = [{value: "", label: "Seleccionar"}];
+  }else{
+    opciones = [
+      {value: "", label: "Seleccionar"},
+      ...choferes
+      .filter(c => c.id_empresa_transportista === parseInt(empresaTransportista))
+      .map(c => ({value: c.id, label: `${c.nombre} ${c.apellido}`})),
+    ];
+  }
+
+  setOpcionesChoferes(opciones);
+  setChofer("");
+}, [empresaTransportista, choferes]);
+
+useEffect(() => {
+  let opciones = [];
+  if(!empresaTransportista || !chofer){
+    opciones = [{value: "", label: "Seleccionar"}];
+  }else{
+    const choferSeleccionado = choferes.find((c) => c.id.toString() === chofer);
+    if (!choferSeleccionado){
+      setVehiculo("");
+    }else{
+      setVehiculo(choferSeleccionado.id_vehiculo);
+    }
+
+    opciones = [
+      {value: "", label: "Seleccionar"},
+      ...vehiculos
+      .filter(v => v.id_empresa_transportista.toString() === empresaTransportista)
+      .map(v => ({value: v.id, label: `${v.marca} / ${v.modelo} (${v.patente})`})),
+    ];
+  }
+
+  setOpcionesVehiculos(opciones);
+}, [empresaTransportista, chofer, choferes, vehiculos]);
+
+useEffect(() => {
+  const obtenerDepositos = async () => {
+    const depositosData = await depositosService.getAll();
+    setDepositos(depositosData);
+  };
+  obtenerDepositos();
+
+  const obtenerEmpresas = async () => {
+    const empresasData = await empresasTransportistasService.getAll();
+    setEmpresas(empresasData);
+  };
+  obtenerEmpresas();
+
+  const obtenerChoferes = async () => {
+    const choferesData = await choferesService.getAll();
+    setChoferes(choferesData);
+  }
+  obtenerChoferes();
+
+  const obtenerVehiculos = async () => {
+    const vehiculosData = await vehiculosService.getAll();
+    setVehiculos(vehiculosData);
+  }
+  obtenerVehiculos();
+
+  
+}, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nuevoViaje = {
-      origen: depositoOrigen,
-      destino: depositoDestino,
+      origen: parseInt(depositoOrigen),
+      destino: parseInt(depositoDestino),
       fecha_salida: fechaDeSalida,
       fecha_llegada: fechaDeLlegada,
       id_empresa_transportista: empresaTransportista,
       id_chofer: chofer,
       id_vehiculo: vehiculo,
-      tipoDeViaje,
       observaciones,
     };
     try {
@@ -105,7 +202,7 @@ const NuevoViajePage = () => {
               onChange={(e) => setDepositoOrigen(e.target.value)}
               value={depositoOrigen}
               options={opcionesDeDepositos}
-            ></DropdownButton>
+              ></DropdownButton>
             <DropdownButton
               titulo="Deposito Destino"
               required
@@ -140,21 +237,16 @@ const NuevoViajePage = () => {
               required
               onChange={(e) => setChofer(e.target.value)}
               value={chofer}
-              options={opcionesDeChofer}
+              options={opcionesDeChoferes}
+              disabled={empresaTransportista === ""}
             ></DropdownButton>
             <DropdownButton
               titulo="Vehiculo"
               required
               onChange={(e) => setVehiculo(e.target.value)}
               value={vehiculo}
-              options={opcionesVehiculo}
-            ></DropdownButton>
-            <DropdownButton
-              titulo="Tipo de viaje"
-              required
-              onChange={(e) => setTipoDeViaje(e.target.value)}
-              value={tipoDeViaje}
-              options={opcionesTipoDeViaje}
+              options={opcionesDeVehiculos}
+              disabled={!empresaTransportista || !chofer}
             ></DropdownButton>
             <TextArea
               placeholder="Ej: Informacion sobre el viaje"

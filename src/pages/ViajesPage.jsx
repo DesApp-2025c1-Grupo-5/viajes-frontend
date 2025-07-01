@@ -29,10 +29,9 @@ const ViajesPage = () => {
     };
     obtenerViajes();
   }, []);
+  
 
   useEffect(() => {
-    console.log(viajes);
-
     const resultadoFiltro = viajes.filter((viaje) => {
     const textoViaje = [
       viaje.id,
