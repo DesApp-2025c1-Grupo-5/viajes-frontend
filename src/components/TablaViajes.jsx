@@ -42,8 +42,8 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
           {viajes.map((viaje) => (
             <tr key={viaje.id} className="hover:bg-gray-200 cursor-pointer">
               <td className="px-4 py-2 border-b">{viaje.id}</td>
-              <td className="px-4 py-2 border-b">{viaje.origen}</td>
-              <td className="px-4 py-2 border-b">{viaje.destino}</td>
+              <td className="px-4 py-2 border-b">{viaje.depositoOrigen.nombre}</td>
+              <td className="px-4 py-2 border-b">{viaje.depositoDestino.nombre}</td>
               <td className="px-4 py-2 border-b">
                 {parseFecha(viaje.fecha_salida)}
               </td>

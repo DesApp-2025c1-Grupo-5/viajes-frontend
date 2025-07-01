@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Combobox } from "@headlessui/react";
+import {choferesService, depositosService, empresasTransportistasService, vehiculosService} from "../services";
 
 const ComboboxField = ({ label, value, onChange, options }) => {
   const [query, setQuery] = useState("");
@@ -19,6 +20,7 @@ const ComboboxField = ({ label, value, onChange, options }) => {
             className="w-full border rounded px-3 py-2"
             placeholder={label}
             onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setQuery("")}
             displayValue={(val) => val}
           />
           {filtered.length > 0 && (
@@ -44,44 +46,65 @@ const ComboboxField = ({ label, value, onChange, options }) => {
   );
 };
 
-const FilterBar = ({ onFilter, viajes }) => {
+const FilterBar = ({ onFilter, onClear }) => {
   const [filtros, setFiltros] = useState({
     tipoDeViaje: "",
     fecha_salida: "",
+    fecha_llegada: "",
     nroViaje: "",
     empresa: "",
     chofer: "",
     patente: "",
     provinciaOrigen: "",
     provinciaDestino: "",
+    depositoOrigen: "",
+    depositoDestino: "",
   });
 
   const [empresas, setEmpresas] = useState([]);
   const [choferes, setChoferes] = useState([]);
   const [patentes, setPatentes] = useState([]);
-  const [provinciasOrigen, setProvinciasOrigen] = useState([]);
-  const [provinciasDestino, setProvinciasDestino] = useState([]);
+  const [provincias, setProvincias] = useState([]);
+  const [depositos, setDepositos] = useState([]);
 
-  useEffect(() => {
-    setEmpresas([
-      ...new Set(
-        viajes.map((v) => v.empresaTransportista?.razon_social).filter(Boolean)
-      ),
-    ]);
+
+useEffect(() => {
+  const obtenerDepositos = async () => {
+    const depositosData = await depositosService.getAll();
+    setDepositos(depositosData);
+    setProvincias([
+      ...new Set(depositosData.map((d)=> d.provincia).filter(Boolean))
+    ])
+  };
+  obtenerDepositos();
+
+  const obtenerEmpresas = async () => {
+    const empresasData = await empresasTransportistasService.getAll();
+    setEmpresas(empresasData.map((e) => e.razon_social).filter(Boolean));
+  };
+  obtenerEmpresas();
+
+  const obtenerChoferes = async () => {
+    const data = await choferesService.getAll();
     setChoferes([
-      "Todos los choferes",
-      ...new Set(viajes.map((v) => String(v.id_chofer)).filter(Boolean)),
+      ...new Set(data.map((c) => c.nombre && c.apellido
+                                  ? `${c.nombre} ${c.apellido}`
+                                  : null
+                          )
+                          .filter(Boolean)),
     ]);
-    setPatentes([
-      ...new Set(viajes.map((v) => v.vehiculo?.patente).filter(Boolean)),
-    ]);
-    setProvinciasOrigen([
-      ...new Set(viajes.map((v) => v.provinciaOrigen).filter(Boolean)),
-    ]);
-    setProvinciasDestino([
-      ...new Set(viajes.map((v) => v.provinciaDestino).filter(Boolean)),
-    ]);
-  }, [viajes]);
+  }
+  obtenerChoferes();
+
+  const obtenerVehiculos = async () => {
+    const vehiculos = await vehiculosService.getAll();
+    setPatentes(vehiculos.map((v)=>v.patente));
+  }
+  obtenerVehiculos();
+
+  
+}, []);
+
 
   const handleChange = (field, value) => {
     setFiltros((prev) => ({ ...prev, [field]: value }));
@@ -94,17 +117,16 @@ const FilterBar = ({ onFilter, viajes }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-wrap gap-3 p-4">
-      <div>
-        <select
-          value={filtros.tipoDeViaje}
-          onChange={(e) => handleChange("tipoDeViaje", e.target.value)}
-          className="border rounded px-3 py-2"
-        >
-          <option value="">Todos los Viajes</option>
-          <option value="Nacional">Viajes Nacionales</option>
-          <option value="Internacional">Viajes Internacionales</option>
-        </select>
-      </div>
+      
+      <select
+        value={filtros.tipoDeViaje}
+        onChange={(e) => handleChange("tipoDeViaje", e.target.value)}
+        className="border rounded px-3 py-2"
+      >
+        <option value="">Todos los Viajes</option>
+        <option value="Nacional">Viajes Nacionales</option>
+        <option value="Internacional">Viajes Internacionales</option>
+      </select>
 
       <input
         type="date"
@@ -119,7 +141,19 @@ const FilterBar = ({ onFilter, viajes }) => {
       />
 
       <input
-        type="text"
+        type="date"
+        value={filtros.fecha_llegada ? filtros.fecha_llegada.split("T")[0] : ""}
+        onChange={(e) =>
+          handleChange(
+            "fecha_llegada",
+            e.target.value ? new Date(e.target.value).toISOString() : ""
+          )
+        }   
+      className="border rounded px-3 py-2"
+      />
+
+      <input
+        type="number"
         placeholder="N° de viaje"
         value={filtros.nroViaje}
         onChange={(e) => handleChange("nroViaje", e.target.value)}
@@ -132,9 +166,10 @@ const FilterBar = ({ onFilter, viajes }) => {
         onChange={(val) => handleChange("empresa", val)}
         options={empresas}
       />
+
       <ComboboxField
         label="Chofer"
-        value={filtros.chofer === "" ? "Todos los choferes" : filtros.chofer}
+        value={filtros.chofer}
         onChange={(val) => handleChange("chofer", val === "Todos los choferes" ? "" : val)}
         options={choferes}
       />
@@ -148,13 +183,25 @@ const FilterBar = ({ onFilter, viajes }) => {
         label="Provincia origen"
         value={filtros.provinciaOrigen}
         onChange={(val) => handleChange("provinciaOrigen", val)}
-        options={provinciasOrigen}
+        options={provincias}
       />
       <ComboboxField
         label="Provincia destino"
         value={filtros.provinciaDestino}
         onChange={(val) => handleChange("provinciaDestino", val)}
-        options={provinciasDestino}
+        options={provincias}
+      />
+      <ComboboxField
+        label="Depósito origen"
+        value={filtros.depositoOrigen}
+        onChange={(val) => handleChange("depositoOrigen", val)}
+        options={depositos.map((d) => d.nombre)}
+      />
+      <ComboboxField
+        label="Depósito destino"
+        value={filtros.depositoDestino}
+        onChange={(val) => handleChange("depositoDestino", val)}
+        options={depositos.map((d) => d.nombre)}
       />
 
       <button
@@ -165,16 +212,22 @@ const FilterBar = ({ onFilter, viajes }) => {
       </button>
       <button
         type="submit"
-        onClick={() => setFiltros({
-          tipoDeViaje: "",
-          fecha_salida: "",
-          nroViaje: "",
-          empresa: "",
-          chofer: "",
-          patente: "",
-          provinciaOrigen: "",
-          provinciaDestino: "",
-        })}
+        onClick={() => {
+          setFiltros({
+            tipoDeViaje: "",
+            fecha_salida: "",
+            fecha_llegada: "",
+            nroViaje: "",
+            empresa: "",
+            chofer: "",
+            patente: "",
+            provinciaOrigen: "",
+            provinciaDestino: "",
+            depositoOrigen: "",
+            depositoDestino: "",
+          })
+          onClear();
+        }}
         className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
       >
         Limpiar
