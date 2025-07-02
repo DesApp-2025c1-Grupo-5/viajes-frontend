@@ -51,4 +51,17 @@ service.deleteChofer = async (id) => {
   }
 };
 
+service.getCountChoferesActivos = async () =>{
+  try{
+    const respuesta = await axios.get(
+      `${API_URL}/choferes/count`
+    )
+    return respuesta.data.count;
+  }catch(error){
+    console.error("Error al obtener la cantidad de choferes:",
+      error)
+  }
+  throw error;
+}
+
 export default service;

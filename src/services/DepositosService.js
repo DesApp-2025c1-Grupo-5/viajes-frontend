@@ -51,5 +51,14 @@ service.deleteDeposito = async (id) => {
   }
 };
 
+service.getCountDepositosActivos = async () => {
+  try {
+    const respuesta = await axios.get(`${API_URL}/depositos/count`);
+    return respuesta.data.count;
+  } catch (error) {
+    console.error("Error al obtener la cantidad de depositos:", error);
+  }
+  throw error;
+};
 
 export default service;

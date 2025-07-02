@@ -51,4 +51,17 @@ service.deleteVehiculo = async (id) => {
   }
 };
 
+service.getCountVehiculosActivos = async () => {
+  try {
+    const respuesta = await axios.get(`${API_URL}/vehiculos/count`);
+    return respuesta.data.count;
+  } catch (error) {
+    console.error(
+      "Error al obtener la cantidad de vehiculos disponible:",
+      error
+    );
+    throw error;
+  }
+};
+
 export default service;

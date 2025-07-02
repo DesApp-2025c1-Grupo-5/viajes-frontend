@@ -51,4 +51,17 @@ service.deleteViaje = async (id) => {
   }
 };
 
+service.getCountViajesActivos = async () => {
+  try {
+    const respuesta = await axios.get(`${API_URL}/viajes/count`);
+    return respuesta.data.count;
+  } catch (error) {
+    console.error(
+      "Error al obtener la cantidad de empresas transportistas:",
+      error
+    );
+    throw error;
+  }
+};
+
 export default service;

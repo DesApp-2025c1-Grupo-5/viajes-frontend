@@ -53,13 +53,30 @@ service.updateTransportista = async (id, transportista) => {
   }
 };
 
-service.deleteTransportista = async (id) =>{
-  try{
-    const respuesta = await axios.delete(`${API_URL}/empresasTransportistas/${id}`)
+service.deleteTransportista = async (id) => {
+  try {
+    const respuesta = await axios.delete(
+      `${API_URL}/empresasTransportistas/${id}`
+    );
     return respuesta.data;
-  }catch(error){
-    console.error("No existe la empresa transportista con el id:", error)
+  } catch (error) {
+    console.error("No existe la empresa transportista con el id:", error);
   }
-}
+};
+
+service.getCountEmpresasActivas = async () => {
+  try {
+    const respuesta = await axios.get(
+      `${API_URL}/empresasTransportistas/count`
+    );
+    return respuesta.data.count;
+  } catch (error) {
+    console.error(
+      "Error al obtener la cantidad de empresas transportistas:",
+      error
+    );
+    throw error;
+  }
+};
 
 export default service;
