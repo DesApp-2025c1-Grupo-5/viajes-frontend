@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FunnelIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Combobox } from "@headlessui/react";
 import {choferesService, depositosService, empresasTransportistasService, vehiculosService} from "../services";
 
@@ -13,11 +14,11 @@ const ComboboxField = ({ label, value, onChange, options }) => {
         );
 
   return (
-    <div className="w-60">
+    <div className="w-full">
       <Combobox value={value} onChange={onChange}>
         <div className="relative">
           <Combobox.Input
-            className="w-full border rounded px-3 py-2"
+            className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 w-full"
             placeholder={label}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setQuery("")}
@@ -31,7 +32,7 @@ const ComboboxField = ({ label, value, onChange, options }) => {
                   value={item}
                   className={({ active }) =>
                     `cursor-pointer px-4 py-2 ${
-                      active ? "bg-blue-600 text-white" : "text-gray-900"
+                      active ? "bg-blue-400 text-white" : "text-gray-900"
                     }`
                   }
                 >
@@ -116,12 +117,16 @@ useEffect(() => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap gap-3 p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 ml-[-16px]" 
+      style={{ maxWidth: "80%" }}
+    >
       
       <select
         value={filtros.tipoDeViaje}
         onChange={(e) => handleChange("tipoDeViaje", e.target.value)}
-        className="border rounded px-3 py-2"
+        className="border border-gray-300 rounded-lg px-2 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-400"
       >
         <option value="">Todos los Viajes</option>
         <option value="Nacional">Viajes Nacionales</option>
@@ -137,7 +142,7 @@ useEffect(() => {
             e.target.value ? new Date(e.target.value).toISOString() : ""
           )
         }   
-      className="border rounded px-3 py-2"
+      className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-400"
       />
 
       <input
@@ -149,7 +154,7 @@ useEffect(() => {
             e.target.value ? new Date(e.target.value).toISOString() : ""
           )
         }   
-      className="border rounded px-3 py-2"
+      className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-400"
       />
 
       <input
@@ -157,7 +162,7 @@ useEffect(() => {
         placeholder="N° de viaje"
         value={filtros.nroViaje}
         onChange={(e) => handleChange("nroViaje", e.target.value)}
-        className="border rounded px-3 py-2"
+        className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
 
       <ComboboxField
@@ -165,6 +170,7 @@ useEffect(() => {
         value={filtros.empresa}
         onChange={(val) => handleChange("empresa", val)}
         options={empresas}
+        
       />
 
       <ComboboxField
@@ -203,11 +209,12 @@ useEffect(() => {
         onChange={(val) => handleChange("depositoDestino", val)}
         options={depositos.map((d) => d.nombre)}
       />
-
+      <div/>
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
+        className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+        <FunnelIcon className="w-4 h-4" />
         Filtrar
       </button>
       <button
@@ -228,8 +235,9 @@ useEffect(() => {
           })
           onClear();
         }}
-        className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
-      >
+        className="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+>
+  <TrashIcon className="w-4 h-4" />
         Limpiar
       </button>
 
