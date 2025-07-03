@@ -8,70 +8,109 @@ import TablaViajes from "../components/TablaViajes";
 import { useEffect, useState } from "react";
 import viajesService from "../services/ViajesService";
 import FilterBar from "../components/FilterBar";
+import match from "../utils/compararTexto";
+import include from "../utils/includeTexto";
 
 const ViajesPage = () => {
-  const [viajes, setViajes] = useState([]);
+  const [viajes, setViaje] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const [filtros, setFiltros] = useState({});
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
+
 
   useEffect(() => {
     const obtenerViajes = async () => {
       try {
         const datos = await viajesService.getAll();
-        console.log(datos);
-        //console.log(JSON.stringify(datos));
-        setViajes(datos);
+        setViaje(datos);
       } catch (error) {
         console.log(error);
       }
     };
     obtenerViajes();
   }, []);
+  
 
   useEffect(() => {
-    const resultadoFiltro = viajes.filter((texto) =>
-      `${texto.id} ${texto.tipoDeViaje} ${texto.provinciaOrigen} ${texto.provinciaDestino} ${texto.fecha_salida} ${texto.fecha_llegada} ${texto.id_chofer}`
-        .toLowerCase()
-        .includes(busqueda.toLowerCase())
-        
-    );
-    setViajesFiltrado(resultadoFiltro);
-    
-  }, [busqueda, viajes]);
+    const resultadoFiltro = viajes.filter((viaje) => {
+    const textoViaje = [
+      viaje.id,
+      viaje.tipoDeViaje,
+      viaje.depositoOrigen?.nombre,
+      viaje.depositoOrigen?.provincia,
+      viaje.depositoDestino?.nombre,
+      viaje.depositoDestino?.provincia,
+      viaje.fecha_salida,
+      viaje.fecha_llegada,
+      viaje.chofer?.nombre,
+      viaje.chofer?.apellido,
+      viaje.empresaTransportista?.razon_social,
+      viaje.vehiculo?.patente,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
 
-  const compararFechas = (fechaViaje, fechaFiltro) => {
-    const f1 = new Date(fechaViaje);
-    const f2 = new Date(fechaFiltro);
-    return f1 >= f2; 
+    const filtradoPorTexto = include(textoViaje, busqueda);
+
+    const {
+      tipoDeViaje,
+      fecha_salida,
+      fecha_llegada,
+      nroViaje,
+      empresa,
+      chofer,
+      patente,
+      provinciaOrigen,
+      provinciaDestino,
+      depositoOrigen,
+      depositoDestino,
+    } = filtros;
+
+    return (
+      filtradoPorTexto
+      && (!tipoDeViaje || match(viaje.tipoDeViaje, tipoDeViaje)) 
+      && (!fecha_salida || fechaPosterior(viaje.fecha_salida, fecha_salida))
+      && (!fecha_llegada || fechaAnterior(viaje.fecha_llegada, fecha_llegada))
+      && (!nroViaje || viaje.id.toString().includes(nroViaje))
+      && (!empresa || match(viaje.empresaTransportista.razon_social, empresa))
+      && (!chofer || include(`${viaje.chofer?.nombre ?? ""} ${viaje.chofer?.apellido}`, chofer))
+      && (!patente || match(viaje.vehiculo?.patente, patente))
+      && (!provinciaOrigen || match(viaje.depositoOrigen?.provincia, provinciaOrigen))
+      &&(!provinciaDestino || match(viaje.depositoDestino?.provincia, provinciaDestino))
+      && (!depositoOrigen || match(viaje.depositoOrigen?.nombre, depositoOrigen))
+      && (!depositoDestino || match(viaje.depositoDestino?.nombre, depositoDestino))
+      );
+  });
+
+    setViajesFiltrado(resultadoFiltro);
+  }, [busqueda, viajes, filtros]);
+
+
+  const fechaPosterior = (fechaViaje, fechaFiltro) => {
+    if(!fechaFiltro) return true;
+    if(!fechaViaje) return false;
+    const f1 = fechaViaje; 
+    const f2 = fechaFiltro.split("T")[0]; 
+    return f1 >= f2;
+  }
+  
+  const fechaAnterior = (fechaViaje, fechaFiltro) => {
+    if(!fechaFiltro) return true;
+    if(!fechaViaje) return false;
+    const f1 = fechaViaje; 
+    const f2 = fechaFiltro.split("T")[0]; 
+    return f1 <= f2;
   }
 
-  const filtrarViajes = (filtros) => {
-    const filteredViajes = viajes.filter((viaje) => {
-      const {
-        tipoDeViaje,
-        fecha_salida,
-        nroViaje,
-        empresa,
-        chofer,
-        patente,
-        provinciaOrigen,
-        provinciaDestino,
-      } = filtros;
+  const filtrarViajes = (filtrosRecibidos) => {
+    setFiltros(filtrosRecibidos);
+  }
 
-      return (  
-        (!tipoDeViaje || viaje.tipoDeViaje?.toLowerCase() === tipoDeViaje.toLowerCase()) &&
-        (!fecha_salida || compararFechas(viaje.fecha_salida, fecha_salida)) &&
-        (!nroViaje || String(viaje.nroViaje).toLowerCase().includes(nroViaje.toLowerCase())) &&
-        (!empresa || viaje.empresaTransportista.razon_social?.toLowerCase() === empresa.toLowerCase()) &&
-        (!chofer || String(viaje.id_chofer).toLowerCase() === chofer.toLowerCase()) &&
-        (!patente || viaje.vehiculo.patente?.toLowerCase() === patente.toLowerCase()) &&
-        (!provinciaOrigen || viaje.provinciaOrigen?.toLowerCase() === provinciaOrigen.toLowerCase()) &&
-        (!provinciaDestino || viaje.provinciaDestino?.toLowerCase() === provinciaDestino.toLowerCase())
-      );
-    });
+  const limpiarBusqueda = () => {
+    setBusqueda("");
+  }
 
-    setViajesFiltrado(filteredViajes);
-  };
 
   return (
     <>
@@ -97,9 +136,13 @@ const ViajesPage = () => {
                 colorHover="hover:bg-pink-400"
               ></New>
             </div>
-            <SearchBar onSearch={setBusqueda} />
-            <FilterBar onFilter={filtrarViajes} viajes={viajes} />
-            <TablaViajes viajes={viajesFiltrado} />
+            <SearchBar onSearch={setBusqueda} value={busqueda}/>
+            <FilterBar onFilter={filtrarViajes} onClear={limpiarBusqueda} />
+            <TablaViajes
+              viajes={viajesFiltrado}
+              setViaje={setViaje}
+              setViajesFiltrados={setViajesFiltrado}
+            />
           </div>
         </div>
       </div>

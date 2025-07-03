@@ -8,30 +8,6 @@ import New from "../components/New";
 import { useEffect, useState } from "react";
 import depositosService from "../services/DepositosService";
 
-const tablaDepositos = [
-  {
-    nombre: "Deposito Central",
-    direccion: "Av.Principal 123",
-    provincia: "Buenos Aires",
-    pais: "Argentina",
-    contacto: "+54 113459232",
-  },
-  {
-    nombre: "Deposito Sur",
-    direccion: "Av. Tecnológica 456",
-    provincia: "Jalisco",
-    pais: "México",
-    contacto: "+52 33 8765-4321",
-  },
-  {
-    nombre: "Deposito Norte",
-    direccion: "Av. de la Industria 1234",
-    provincia: "Buenos Aires",
-    pais: "Argentina",
-    contacto: "+54 11 4567-8900",
-  },
-];
-
 const DepositosPage = () => {
   const [depositos, setDepositos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -51,7 +27,7 @@ const DepositosPage = () => {
 
   useEffect(() => {
     const resultadoFiltro = depositos.filter((texto) =>
-      `${texto.nombre} ${texto.direccion} ${texto.provincia} ${texto.pais}`/*${texto.contacto} <-- FALTA AGREGAR ESTE*/
+      `${texto.nombre} ${texto.direccion} ${texto.provincia} ${texto.pais}` /*${texto.contacto} <-- FALTA AGREGAR ESTE*/
         .toLowerCase()
         .includes(busqueda.toLowerCase())
     );
@@ -83,7 +59,11 @@ const DepositosPage = () => {
               ></New>
             </div>
             <SearchBar onSearch={setBusqueda} />
-            <TablaDepositos depositos={depositosFiltrado} />
+            <TablaDepositos
+              depositos={depositosFiltrado}
+              setDepositos={setDepositos}
+              setDepositosFiltrado={setDepositosFiltrado}
+            />
           </div>
         </div>
       </div>

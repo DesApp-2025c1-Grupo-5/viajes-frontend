@@ -11,6 +11,14 @@ import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import vehiculoService from "../../services/VehiculosService";
 
+const tiposDeVehiculos = [
+  { value: "", label: "Seleccionar" },
+  { value: "Automovil", label: "Automovil" },
+  { value: "Camion", label: "Camion" },
+  { value: "Camioneta", label: "Camioneta" },
+  { value: "Acoplado", label: "Camion con aclopado" },
+];
+
 const NuevoVehiculoPage = () => {
   const [patente, setPatente] = useState("");
   const [modelo, setModelo] = useState("");
@@ -36,7 +44,7 @@ const NuevoVehiculoPage = () => {
       observaciones,
     };
     try {
-      await vehiculoService.create(nuevoVehiculo);
+      await vehiculoService.post(nuevoVehiculo);
       alert("✅ Vehículo creado correctamente");
     } catch (error) {
       console.error("Error al crear vehículo:", error);
@@ -122,8 +130,9 @@ const NuevoVehiculoPage = () => {
             <DropdownButton
               titulo="Tipo de vehículo"
               required
-              value={tipo}
               onChange={(e) => setTipo(e.target.value)}
+              value={tipo}
+              options={tiposDeVehiculos}
             />
             <TextArea
               placeholder="Ej: Informacion sobre el chofer"
@@ -134,7 +143,7 @@ const NuevoVehiculoPage = () => {
             />
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/vehiculos" />
-              <FormButtonSave />
+              <FormButtonSave to="/vehiculos" />
             </div>
           </form>
         </div>

@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import choferesService from "../services/ChoferesService";
 
 const ChoferesPage = () => {
+  
+
   const [choferes, setChoferes] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [choferesFiltrado, setChoferesFiltrado] = useState([]);
@@ -59,7 +61,11 @@ const ChoferesPage = () => {
               ></New>
             </div>
             <SearchBar onSearch={setBusqueda} />
-            <TablaChoferes choferes={choferesFiltrado} />
+            <TablaChoferes
+              choferes={choferesFiltrado}
+              setChoferes={setChoferes}
+              setChoferesFiltrado={setChoferesFiltrado}
+            />
           </div>
         </div>
       </div>
