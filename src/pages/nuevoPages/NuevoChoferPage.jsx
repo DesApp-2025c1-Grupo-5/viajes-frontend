@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
@@ -10,15 +10,9 @@ import DropdownButton from "../../components/DropDownButton";
 import FormButtonSave from "../../components/FormButtonSave";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import TextArea from "../../components/TextArea";
-import choferesService from "../../services/ChoferesService";
+import {choferesService, empresasTransportistasService}  from "../../services";
 import { toast } from "react-toastify";
 
-const tiposDeEmpresasTransportistas = [
-  { value: "", label: "Seleccionar" },
-  { value: 2, label: "LogiExpress" },
-  { value: 1, label: "Transportes Rápidos S.A" },
-  { value: 3, label: "CargoMax" },
-];
 
 const tiposDeEstado = [
   { value: "", label: "Seleccionar" },
@@ -39,6 +33,28 @@ const NuevoChoferPage = () => {
   const [id_empresa_transportista, setEmpresaTransportista] = useState(1);
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
+
+  const [empresas, setEmpresas] = useState([]);
+  const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
+
+  useEffect(() => {
+    const obtenerEmpresas = async () => {
+      const empresasData = await empresasTransportistasService.getAll();
+      setEmpresas(empresasData);
+    };
+    obtenerEmpresas();
+  }, [])
+  
+  useEffect(() => {
+      const opciones = [
+        { value: "", label: "Seleccionar" },
+        ...empresas.map((e) => ({
+          value: e.id,
+          label: e.razon_social,
+        })),
+      ];
+      setOpcionesEmpresas(opciones);
+    }, [empresas]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -148,8 +164,8 @@ const NuevoChoferPage = () => {
               titulo="Empresa Transportista"
               required
               onChange={(e) => setEmpresaTransportista(e.target.value)}
-              value={id_empresa_transportista}
-              options={tiposDeEmpresasTransportistas}
+              value={""}
+              options={opcionesDeEmpresas}
             ></DropdownButton>
             <DropdownButton
               titulo="Estado"
