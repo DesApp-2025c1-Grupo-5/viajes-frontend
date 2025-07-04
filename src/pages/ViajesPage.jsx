@@ -17,7 +17,7 @@ const ViajesPage = () => {
   const [filtros, setFiltros] = useState({});
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);
-  const [limitePorPagina, setLimitePorPagina] = useState(10);
+  const [limitePorPagina, setLimitePorPagina] = useState(5);
   const [totalViajes, setTotalViajes] = useState(0);
 
   
@@ -159,7 +159,9 @@ const ViajesPage = () => {
               setViaje={setViaje}
               setViajesFiltrados={setViajesFiltrado}
             />
-            <div className="flex justify-center items-center mt-4 space-x-2">
+            {viajesFiltrado.length ? (
+              
+                <div className="flex justify-center items-center mt-4 space-x-2">
               <button
                 onClick={() => setPaginaActual((prev) => Math.max(prev - 1, 1))}
                 disabled={paginaActual === 1}
@@ -183,6 +185,7 @@ const ViajesPage = () => {
                 Siguiente
               </button>
             </div>
+            ):("")}
           </div>
         </div>
       </div>
