@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -11,6 +12,7 @@ import TextArea from "../../components/TextArea";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import depositosService from "../../services/DepositosService";
+import { toast } from "react-toastify";
 
 const tiposDeDepositos = [
   { value: "", label: "Seleccionar" },
@@ -28,6 +30,8 @@ const restriccionesDeAcceso = [
 ];
 
 const NuevoDepositoPage = () => {
+  const navigate = useNavigate();
+
   const [nombre, setNombre] = useState("");
   const [pais, setPais] = useState("");
   const [provincia, setProvincia] = useState("");
@@ -57,10 +61,25 @@ const NuevoDepositoPage = () => {
     };
     try {
       await depositosService.post(nuevoDeposito);
-      alert("✅ Deposito creado correctamente");
+      toast.success("✅ Depósito creado correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      navigate("/depositos");
     } catch (error) {
       console.error("Error al crear el deposito:", error);
-      alert("❌ No se pudo crear el deposito");
+      toast.error("❌ No se pudo crear el depósito", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -163,7 +182,7 @@ const NuevoDepositoPage = () => {
 
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/depositos" />
-              <FormButtonSave to="/depositos" />
+              <FormButtonSave />
             </div>
           </form>
         </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -10,6 +11,7 @@ import FormButtonSave from "../../components/FormButtonSave";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import TextArea from "../../components/TextArea";
 import choferesService from "../../services/ChoferesService";
+import { toast } from "react-toastify";
 
 const tiposDeEmpresasTransportistas = [
   { value: "", label: "Seleccionar" },
@@ -26,6 +28,8 @@ const tiposDeEstado = [
 ];
 
 const NuevoChoferPage = () => {
+  const navigate = useNavigate();
+  
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [dni, setDni] = useState("");
@@ -51,10 +55,25 @@ const NuevoChoferPage = () => {
     };
     try {
       await choferesService.post(nuevoChofer);
-      alert("✅ Chofer creado correctamente");
+      toast.success("✅ Chofer creado correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      navigate("/choferes");
     } catch (error) {
       console.error("Error al crear chofer:", error);
-      alert("❌ No se pudo crear el chofer");
+      toast.error("❌ No se pudo crear el chofer", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -148,7 +167,7 @@ const NuevoChoferPage = () => {
             ></TextArea>
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/choferes" />
-              <FormButtonSave to="/choferes" />
+              <FormButtonSave />
             </div>
           </form>
         </div>

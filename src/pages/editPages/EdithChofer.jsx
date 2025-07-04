@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -11,6 +12,7 @@ import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import choferesService from "../../services/ChoferesService";
+import { toast } from "react-toastify";
 
 const tiposDeEmpresasTransportistas = [
   { value: "", label: "Seleccionar" },
@@ -28,6 +30,7 @@ const tiposDeEstado = [
 
 const EditarChoferesPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -71,10 +74,25 @@ const EditarChoferesPage = () => {
     };
     try {
       await choferesService.updateChofer(id, choferActualizado);
-      alert("✅ Chofer actualizado correctamente");
+      toast.success("✅ Chofer actualizado correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      navigate("/choferes");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      alert("❌ No se pudo actualizar el chofer");
+      toast.error("❌ No se pudo actualizar el chofer", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -10,6 +11,7 @@ import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import vehiculoService from "../../services/VehiculosService";
+import { toast } from "react-toastify";
 
 const tiposDeVehiculos = [
   { value: "", label: "Seleccionar" },
@@ -20,6 +22,8 @@ const tiposDeVehiculos = [
 ];
 
 const NuevoVehiculoPage = () => {
+  const navigate = useNavigate();
+
   const [patente, setPatente] = useState("");
   const [modelo, setModelo] = useState("");
   const [marca, setMarca] = useState("");
@@ -45,10 +49,25 @@ const NuevoVehiculoPage = () => {
     };
     try {
       await vehiculoService.post(nuevoVehiculo);
-      alert("✅ Vehículo creado correctamente");
+      toast.success("✅ Vehículo creado correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      navigate("/vehiculos");
     } catch (error) {
       console.error("Error al crear vehículo:", error);
-      alert("❌ No se pudo crear el vehículo");
+      toast.error("❌ No se pudo crear el vehículo", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -143,7 +162,7 @@ const NuevoVehiculoPage = () => {
             />
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/vehiculos" />
-              <FormButtonSave to="/vehiculos" />
+              <FormButtonSave />
             </div>
           </form>
         </div>

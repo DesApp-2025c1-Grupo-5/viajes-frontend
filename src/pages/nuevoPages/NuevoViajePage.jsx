@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -9,10 +10,14 @@ import DateTimePicker from "../../components/DataTimePicker";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
-import {viajesService, depositosService, empresasTransportistasService, choferesService, vehiculosService} from "../../services";
-
-  
-
+import {
+  viajesService,
+  depositosService,
+  empresasTransportistasService,
+  choferesService,
+  vehiculosService,
+} from "../../services";
+import { toast } from "react-toastify";
 
 // const opcionesDeEmpresas = [
 //   { value: "", label: "Seleccionar" },
@@ -35,7 +40,6 @@ import {viajesService, depositosService, empresasTransportistasService, choferes
 //   { value: 3, label: "María" },
 // ];
 
-
 // const opcionesVehiculo = [
 //   { value: "", label: "Seleccionar" },
 //   { value: 1, label: "FH 540" },
@@ -44,6 +48,8 @@ import {viajesService, depositosService, empresasTransportistasService, choferes
 // ];
 
 const NuevoViajePage = () => {
+  const navigate = useNavigate();
+
   const [depositoOrigen, setDepositoOrigen] = useState("");
   const [depositoDestino, setDepositoDestino] = useState("");
   const [fechaDeSalida, setFechaDeSalida] = useState("");
@@ -63,96 +69,103 @@ const NuevoViajePage = () => {
   const [opcionesDeChoferes, setOpcionesChoferes] = useState([]);
   const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
 
-
-useEffect(() => {
-  const opciones = [
-    { value: "", label: "Seleccionar" },
-    ...depositos.map((d) => ({
+  useEffect(() => {
+    const opciones = [
+      { value: "", label: "Seleccionar" },
+      ...depositos.map((d) => ({
         value: d.id,
         label: d.nombre,
-    })),
-  ];
-  setOpcionesDepositos(opciones);
-}, [depositos]);
-
-useEffect(() => {
-  const opciones = [
-    {value: "", label: "Seleccionar"},
-    ...empresas.map( e => ({
-      value: e.id,
-      label: e.razon_social,
-    })),
-  ];
-  setOpcionesEmpresas(opciones);
-}, [empresas]);
-
-useEffect(() => {
-  let opciones = [];
-  if(!empresaTransportista){
-    opciones = [{value: "", label: "Seleccionar"}];
-  }else{
-    opciones = [
-      {value: "", label: "Seleccionar"},
-      ...choferes
-      .filter(c => c.id_empresa_transportista === parseInt(empresaTransportista))
-      .map(c => ({value: c.id, label: `${c.nombre} ${c.apellido}`})),
+      })),
     ];
-  }
+    setOpcionesDepositos(opciones);
+  }, [depositos]);
 
-  setOpcionesChoferes(opciones);
-  setChofer("");
-}, [empresaTransportista, choferes]);
+  useEffect(() => {
+    const opciones = [
+      { value: "", label: "Seleccionar" },
+      ...empresas.map((e) => ({
+        value: e.id,
+        label: e.razon_social,
+      })),
+    ];
+    setOpcionesEmpresas(opciones);
+  }, [empresas]);
 
-useEffect(() => {
-  let opciones = [];
-  if(!empresaTransportista || !chofer){
-    opciones = [{value: "", label: "Seleccionar"}];
-  }else{
-    const choferSeleccionado = choferes.find((c) => c.id.toString() === chofer);
-    if (!choferSeleccionado){
-      setVehiculo("");
-    }else{
-      setVehiculo(choferSeleccionado.id_vehiculo);
+  useEffect(() => {
+    let opciones = [];
+    if (!empresaTransportista) {
+      opciones = [{ value: "", label: "Seleccionar" }];
+    } else {
+      opciones = [
+        { value: "", label: "Seleccionar" },
+        ...choferes
+          .filter(
+            (c) => c.id_empresa_transportista === parseInt(empresaTransportista)
+          )
+          .map((c) => ({ value: c.id, label: `${c.nombre} ${c.apellido}` })),
+      ];
     }
 
-    opciones = [
-      {value: "", label: "Seleccionar"},
-      ...vehiculos
-      .filter(v => v.id_empresa_transportista.toString() === empresaTransportista)
-      .map(v => ({value: v.id, label: `${v.marca} / ${v.modelo} (${v.patente})`})),
-    ];
-  }
+    setOpcionesChoferes(opciones);
+    setChofer("");
+  }, [empresaTransportista, choferes]);
 
-  setOpcionesVehiculos(opciones);
-}, [empresaTransportista, chofer, choferes, vehiculos]);
+  useEffect(() => {
+    let opciones = [];
+    if (!empresaTransportista || !chofer) {
+      opciones = [{ value: "", label: "Seleccionar" }];
+    } else {
+      const choferSeleccionado = choferes.find(
+        (c) => c.id.toString() === chofer
+      );
+      if (!choferSeleccionado) {
+        setVehiculo("");
+      } else {
+        setVehiculo(choferSeleccionado.id_vehiculo);
+      }
 
-useEffect(() => {
-  const obtenerDepositos = async () => {
-    const depositosData = await depositosService.getAll();
-    setDepositos(depositosData);
-  };
-  obtenerDepositos();
+      opciones = [
+        { value: "", label: "Seleccionar" },
+        ...vehiculos
+          .filter(
+            (v) =>
+              v.id_empresa_transportista.toString() === empresaTransportista
+          )
+          .map((v) => ({
+            value: v.id,
+            label: `${v.marca} / ${v.modelo} (${v.patente})`,
+          })),
+      ];
+    }
 
-  const obtenerEmpresas = async () => {
-    const empresasData = await empresasTransportistasService.getAll();
-    setEmpresas(empresasData);
-  };
-  obtenerEmpresas();
+    setOpcionesVehiculos(opciones);
+  }, [empresaTransportista, chofer, choferes, vehiculos]);
 
-  const obtenerChoferes = async () => {
-    const choferesData = await choferesService.getAll();
-    setChoferes(choferesData);
-  }
-  obtenerChoferes();
+  useEffect(() => {
+    const obtenerDepositos = async () => {
+      const depositosData = await depositosService.getAll();
+      setDepositos(depositosData);
+    };
+    obtenerDepositos();
 
-  const obtenerVehiculos = async () => {
-    const vehiculosData = await vehiculosService.getAll();
-    setVehiculos(vehiculosData);
-  }
-  obtenerVehiculos();
+    const obtenerEmpresas = async () => {
+      const empresasData = await empresasTransportistasService.getAll();
+      setEmpresas(empresasData);
+    };
+    obtenerEmpresas();
 
-  
-}, []);
+    const obtenerChoferes = async () => {
+      const choferesData = await choferesService.getAll();
+      setChoferes(choferesData);
+    };
+    obtenerChoferes();
+
+    const obtenerVehiculos = async () => {
+      const vehiculosData = await vehiculosService.getAll();
+      setVehiculos(vehiculosData);
+    };
+    obtenerVehiculos();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -168,10 +181,25 @@ useEffect(() => {
     };
     try {
       await viajesService.post(nuevoViaje);
-      alert("✅ Viaje creado correctamente");
+      toast.success("✅ Viaje creado correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      navigate("/viajes");
     } catch (error) {
       console.error("Error al crear el viaje:", error);
-      alert("❌ No se pudo crear el viaje");
+      toast.error("❌ No se pudo crear el viaje", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -202,7 +230,7 @@ useEffect(() => {
               onChange={(e) => setDepositoOrigen(e.target.value)}
               value={depositoOrigen}
               options={opcionesDeDepositos}
-              ></DropdownButton>
+            ></DropdownButton>
             <DropdownButton
               titulo="Deposito Destino"
               required
@@ -256,8 +284,8 @@ useEffect(() => {
               onChange={(e) => setObservaciones(e.target.value)}
             ></TextArea>
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
-              <FormButtonCancel to="/viajes"></FormButtonCancel>
-              <FormButtonSave></FormButtonSave>
+              <FormButtonCancel to="/viajes" />
+              <FormButtonSave />
             </div>
           </form>
         </div>

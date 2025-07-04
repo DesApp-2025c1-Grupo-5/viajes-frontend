@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -11,6 +12,7 @@ import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import vehiculoService from "../../services/VehiculosService";
+import { toast } from "react-toastify";
 
 const tiposDeVehiculos = [
   { value: "", label: "Seleccionar" },
@@ -22,6 +24,7 @@ const tiposDeVehiculos = [
 
 const EditarVehiculoPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [patente, setPatente] = useState("");
   const [modelo, setModelo] = useState("");
@@ -65,10 +68,25 @@ const EditarVehiculoPage = () => {
     };
     try {
       await vehiculoService.updateVehiculo(id, vehiculoActualizado);
-      alert("✅ Vehículo actualizado correctamente");
+      toast.success("✅ Vehículo creado correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      navigate("/vehiculos");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      alert("❌ No se pudo actualizar el vehículo");
+      toast.error("❌ No se pudo crear el vehiculo", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
