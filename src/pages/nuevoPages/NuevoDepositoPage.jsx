@@ -61,7 +61,7 @@ const NuevoDepositoPage = () => {
     };
     try {
       await depositosService.post(nuevoDeposito);
-      toast.success("✅ Depósito creado correctamente", {
+      toast.success("Depósito creado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -72,7 +72,7 @@ const NuevoDepositoPage = () => {
       navigate("/depositos");
     } catch (error) {
       console.error("Error al crear el deposito:", error);
-      toast.error("❌ No se pudo crear el depósito", {
+      toast.error("No se pudo crear el depósito", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

@@ -181,7 +181,7 @@ const NuevoViajePage = () => {
     };
     try {
       await viajesService.post(nuevoViaje);
-      toast.success("✅ Viaje creado correctamente", {
+      toast.success("Viaje creado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -192,7 +192,7 @@ const NuevoViajePage = () => {
       navigate("/viajes");
     } catch (error) {
       console.error("Error al crear el viaje:", error);
-      toast.error("❌ No se pudo crear el viaje", {
+      toast.error("No se pudo crear el viaje", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

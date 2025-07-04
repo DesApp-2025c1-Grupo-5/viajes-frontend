@@ -55,7 +55,7 @@ const NuevoChoferPage = () => {
     };
     try {
       await choferesService.post(nuevoChofer);
-      toast.success("✅ Chofer creado correctamente", {
+      toast.success("Chofer creado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -66,7 +66,7 @@ const NuevoChoferPage = () => {
       navigate("/choferes");
     } catch (error) {
       console.error("Error al crear chofer:", error);
-      toast.error("❌ No se pudo crear el chofer", {
+      toast.error("No se pudo crear el chofer", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

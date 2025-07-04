@@ -49,7 +49,7 @@ const NuevoVehiculoPage = () => {
     };
     try {
       await vehiculoService.post(nuevoVehiculo);
-      toast.success("✅ Vehículo creado correctamente", {
+      toast.success("Vehículo creado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -60,7 +60,7 @@ const NuevoVehiculoPage = () => {
       navigate("/vehiculos");
     } catch (error) {
       console.error("Error al crear vehículo:", error);
-      toast.error("❌ No se pudo crear el vehículo", {
+      toast.error("No se pudo crear el vehículo", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

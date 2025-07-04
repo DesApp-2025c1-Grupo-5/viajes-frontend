@@ -37,7 +37,7 @@ const NuevoTransportistaPage = () => {
     e.preventDefault();
     try {
       await transportistaService.create(formData);
-      toast.success("✅ Empresa transportista creada correctamente", {
+      toast.success("Empresa transportista creada correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -48,7 +48,7 @@ const NuevoTransportistaPage = () => {
       navigate("/transportistas");
     } catch (error) {
       console.error("No se pudo crear la empresa: ", error);
-      toast.error("❌ No se pudo crear la empresa transportista", {
+      toast.error("No se pudo crear la empresa transportista", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

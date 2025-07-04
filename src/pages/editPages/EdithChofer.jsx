@@ -74,7 +74,7 @@ const EditarChoferesPage = () => {
     };
     try {
       await choferesService.updateChofer(id, choferActualizado);
-      toast.success("✅ Chofer actualizado correctamente", {
+      toast.success("Chofer actualizado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -85,7 +85,7 @@ const EditarChoferesPage = () => {
       navigate("/choferes");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("❌ No se pudo actualizar el chofer", {
+      toast.error("No se pudo actualizar el chofer", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

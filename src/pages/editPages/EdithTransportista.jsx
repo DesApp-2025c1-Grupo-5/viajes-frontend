@@ -59,7 +59,7 @@ const EditarTransportistasPage = () => {
         id,
         transportistaActualizado
       );
-      toast.success("✅ Empresa transportista actualizada correctamente", {
+      toast.success("Empresa transportista actualizada correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -70,7 +70,7 @@ const EditarTransportistasPage = () => {
       navigate("/transportistas");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("❌ No se pudo crear la empresa transportista", {
+      toast.error("No se pudo crear la empresa transportista", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

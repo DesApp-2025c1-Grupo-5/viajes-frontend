@@ -82,7 +82,7 @@ const EditarDepositosPage = () => {
     };
     try {
       await depositosService.updateDeposito(id, depositoActualizado);
-      toast.success("✅ Depósito actualizado correctamente", {
+      toast.success("Depósito actualizado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -93,7 +93,7 @@ const EditarDepositosPage = () => {
       navigate("/depositos");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("❌ No se pudo actualizar el depósito", {
+      toast.error("No se pudo actualizar el depósito", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

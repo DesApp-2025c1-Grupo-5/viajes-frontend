@@ -68,7 +68,7 @@ const EditarVehiculoPage = () => {
     };
     try {
       await vehiculoService.updateVehiculo(id, vehiculoActualizado);
-      toast.success("✅ Vehículo creado correctamente", {
+      toast.success("Vehículo creado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -79,7 +79,7 @@ const EditarVehiculoPage = () => {
       navigate("/vehiculos");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("❌ No se pudo crear el vehiculo", {
+      toast.error("No se pudo crear el vehiculo", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
