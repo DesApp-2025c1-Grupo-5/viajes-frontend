@@ -11,7 +11,7 @@ import DropdownButton from "../../components/DropDownButton";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
-import vehiculoService from "../../services/VehiculosService";
+import {vehiculosService, empresasTransportistasService} from "../../services";
 import { toast } from "react-toastify";
 
 const tiposDeVehiculos = [
@@ -36,8 +36,30 @@ const EditarVehiculoPage = () => {
   const [tipo, setTipo] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
+  const [empresas, setEmpresas] = useState([]);
+  const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
+
   useEffect(() => {
-    vehiculoService.getVehiculoById(id).then((vehiculo) => {
+    const obtenerEmpresas = async () => {
+      const empresasData = await empresasTransportistasService.getAll();
+      setEmpresas(empresasData);
+    };
+    obtenerEmpresas();
+  }, [])
+  
+  useEffect(() => {
+      const opciones = [
+        { value: "", label: "Seleccionar" },
+        ...empresas.map((e) => ({
+          value: e.id,
+          label: e.razon_social,
+        })),
+      ];
+      setOpcionesEmpresas(opciones);
+    }, [empresas]);
+
+  useEffect(() => {
+    vehiculosService.getVehiculoById(id).then((vehiculo) => {
       setPatente(vehiculo.patente || "");
       setModelo(vehiculo.modelo || "");
       setMarca(vehiculo.marca || "");
@@ -67,7 +89,7 @@ const EditarVehiculoPage = () => {
       observaciones,
     };
     try {
-      await vehiculoService.updateVehiculo(id, vehiculoActualizado);
+      await vehiculosService.updateVehiculo(id, vehiculoActualizado);
       toast.success("Vehículo creado correctamente", {
         position: "top-right",
         autoClose: 3000,
@@ -149,12 +171,12 @@ const EditarVehiculoPage = () => {
                 id="idVolumen"
                 required
               />
-              <Input
-                value={empresaTransportista}
-                onChange={(e) => setEmpresaTransportista(e.target.value)}
-                title="Empresa transportista"
-                id="idEmpresaTransportista"
+              <DropdownButton
+                titulo="Empresa transportista"
                 required
+                onChange={(e) => setEmpresaTransportista(e.target.value)}
+                value={empresaTransportista}
+                options={opcionesDeEmpresas}
               />
               <DropdownButton
                 titulo="Tipo de vehículo"

@@ -82,7 +82,8 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
                   {vehiculo.tipo_de_vehiculo}
                 </td>
                 <td className="px-4 py-2 border-b">
-                  {vehiculo.nombre_transportista}
+                  {vehiculo.empresa?.razon_social}
+                  {console.log(vehiculo)}
                 </td>
                 <td className="px-4 py-2 border-b">
                   <Link

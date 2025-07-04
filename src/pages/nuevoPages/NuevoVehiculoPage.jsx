@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
@@ -10,7 +10,7 @@ import DropdownButton from "../../components/DropDownButton";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
-import vehiculoService from "../../services/VehiculosService";
+import {vehiculosService, empresasTransportistasService} from "../../services";
 import { toast } from "react-toastify";
 
 const tiposDeVehiculos = [
@@ -34,6 +34,29 @@ const NuevoVehiculoPage = () => {
   const [tipo, setTipo] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
+  const [empresas, setEmpresas] = useState([]);
+  const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
+
+  useEffect(() => {
+    const obtenerEmpresas = async () => {
+      const empresasData = await empresasTransportistasService.getAll();
+      setEmpresas(empresasData);
+    };
+    obtenerEmpresas();
+  }, [])
+  
+  useEffect(() => {
+      const opciones = [
+        { value: "", label: "Seleccionar" },
+        ...empresas.map((e) => ({
+          value: e.id,
+          label: e.razon_social,
+        })),
+      ];
+      setOpcionesEmpresas(opciones);
+    }, [empresas]);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nuevoVehiculo = {
@@ -48,7 +71,7 @@ const NuevoVehiculoPage = () => {
       observaciones,
     };
     try {
-      await vehiculoService.post(nuevoVehiculo);
+      await vehiculosService.post(nuevoVehiculo);
       toast.success("Vehículo creado correctamente", {
         position: "top-right",
         autoClose: 3000,
@@ -138,13 +161,12 @@ const NuevoVehiculoPage = () => {
               value={volumen}
               onChange={(e) => setVolumen(e.target.value)}
             />
-            <Input
-              placeholder="Ej: Logic SRL"
-              title="Empresa transportista"
-              id="idEmpresaTransportista"
+            <DropdownButton
+              titulo="Empresa transportista"
               required
-              value={empresaTransportista}
               onChange={(e) => setEmpresaTransportista(e.target.value)}
+              value={empresaTransportista}
+              options={opcionesDeEmpresas}
             />
             <DropdownButton
               titulo="Tipo de vehículo"
@@ -154,7 +176,7 @@ const NuevoVehiculoPage = () => {
               options={tiposDeVehiculos}
             />
             <TextArea
-              placeholder="Ej: Informacion sobre el chofer"
+              placeholder="Ej: Informacion sobre el vehículo"
               title="Observaciones"
               id="idObservaciones"
               value={observaciones}
