@@ -16,19 +16,26 @@ const ViajesPage = () => {
   const [busqueda, setBusqueda] = useState("");
   const [filtros, setFiltros] = useState({});
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [limitePorPagina, setLimitePorPagina] = useState(10);
+  const [totalViajes, setTotalViajes] = useState(0);
 
 
   useEffect(() => {
     const obtenerViajes = async () => {
       try {
-        const datos = await viajesService.getAll();
-        setViaje(datos);
+        const [viajesData, total] = await Promise.all([
+          viajesService.getAllViajes({ page: paginaActual, limit: limitePorPagina }),
+          viajesService.getCountViajesActivos()
+        ]);
+        setViaje(viajesData);
+        setTotalViajes(total);
       } catch (error) {
         console.log(error);
       }
     };
     obtenerViajes();
-  }, []);
+  }, [paginaActual, limitePorPagina]);
   
 
   useEffect(() => {
@@ -86,6 +93,10 @@ const ViajesPage = () => {
     setViajesFiltrado(resultadoFiltro);
   }, [busqueda, viajes, filtros]);
 
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [busqueda, filtros]);
+  
 
   const fechaPosterior = (fechaViaje, fechaFiltro) => {
     if(!fechaFiltro) return true;
@@ -143,6 +154,30 @@ const ViajesPage = () => {
               setViaje={setViaje}
               setViajesFiltrados={setViajesFiltrado}
             />
+            <div className="flex justify-center items-center mt-4 space-x-2">
+              <button
+                onClick={() => setPaginaActual((prev) => Math.max(prev - 1, 1))}
+                disabled={paginaActual === 1}
+                className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+              >
+                Anterior
+              </button>
+
+              <span className="text-gray-700">
+                Página {paginaActual} de {Math.ceil(totalViajes / limitePorPagina)}
+              </span>
+              <button
+                onClick={() =>
+                setPaginaActual((prev) =>
+                prev < Math.ceil(totalViajes / limitePorPagina) ? prev + 1 : prev
+                )
+                }
+                disabled={paginaActual >= Math.ceil(totalViajes / limitePorPagina)}
+                className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+              >
+                Siguiente
+              </button>
+            </div>
           </div>
         </div>
       </div>

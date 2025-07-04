@@ -60,7 +60,7 @@ const DashboardPage = () => {
           <div className="grid grid-cols-1 max-w-5xl">
             <Card
               alto="h-30"
-              tituloDeLaCarta="Viajes en curso"
+              tituloDeLaCarta="Viajes"
               cantidad={cantidadDeViajes}
               bgIcono="bg-pink-100"
               colorIcono="text-pink-500"
@@ -74,7 +74,7 @@ const DashboardPage = () => {
             <div className="grid grid-cols-2 gap-8 mt-4">
               <Card
                 alto="h-40"
-                tituloDeLaCarta="Vehículos activos"
+                tituloDeLaCarta="Vehículos"
                 cantidad={cantidadDeVehiculos}
                 bgIcono="bg-red-100"
                 colorBorde="border-red-400"
