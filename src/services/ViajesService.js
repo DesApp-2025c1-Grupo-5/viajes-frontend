@@ -5,12 +5,9 @@ console.log(API_URL);
 
 const service = {};
 
-service.getAll = async ({ page = 1, limit = 10 } = {}) => {
+service.getAll = async () => {
   try {
-    const offset = (page - 1) * limit;
-    const respuesta = await axios.get(`${API_URL}/viajes`, {
-      params: { limit, offset },
-    });
+    const respuesta = await axios.get(`${API_URL}/viajes`);
     return respuesta.data;
   } catch (error) {
     console.error("Error al obtener viajes:", error);

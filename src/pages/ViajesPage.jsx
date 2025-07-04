@@ -20,22 +20,19 @@ const ViajesPage = () => {
   const [limitePorPagina, setLimitePorPagina] = useState(10);
   const [totalViajes, setTotalViajes] = useState(0);
 
+  
 
   useEffect(() => {
     const obtenerViajes = async () => {
       try {
-        const [viajesData, total] = await Promise.all([
-          viajesService.getAllViajes({ page: paginaActual, limit: limitePorPagina }),
-          viajesService.getCountViajesActivos()
-        ]);
-        setViaje(viajesData);
-        setTotalViajes(total);
+        const datos = await viajesService.getAll();
+        setViaje(datos);
       } catch (error) {
         console.log(error);
       }
     };
     obtenerViajes();
-  }, [paginaActual, limitePorPagina]);
+  }, []);
   
 
   useEffect(() => {
@@ -94,6 +91,10 @@ const ViajesPage = () => {
   }, [busqueda, viajes, filtros]);
 
   useEffect(() => {
+    setTotalViajes(viajesFiltrado.length);
+  }, [viajesFiltrado]);
+
+  useEffect(() => {
     setPaginaActual(1);
   }, [busqueda, filtros]);
   
@@ -122,6 +123,10 @@ const ViajesPage = () => {
     setBusqueda("");
   }
 
+  const viajesPaginados = viajesFiltrado.slice(
+    (paginaActual - 1) * limitePorPagina,
+    paginaActual * limitePorPagina
+  );
 
   return (
     <>
@@ -150,7 +155,7 @@ const ViajesPage = () => {
             <SearchBar onSearch={setBusqueda} value={busqueda}/>
             <FilterBar onFilter={filtrarViajes} onClear={limpiarBusqueda} />
             <TablaViajes
-              viajes={viajesFiltrado}
+              viajes={viajesPaginados}
               setViaje={setViaje}
               setViajesFiltrados={setViajesFiltrado}
             />
