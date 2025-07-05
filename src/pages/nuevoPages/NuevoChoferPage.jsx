@@ -10,7 +10,7 @@ import DropdownButton from "../../components/DropDownButton";
 import FormButtonSave from "../../components/FormButtonSave";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import TextArea from "../../components/TextArea";
-import {choferesService, empresasTransportistasService}  from "../../services";
+import {choferesService, vehiculosService, empresasTransportistasService}  from "../../services";
 import { toast } from "react-toastify";
 
 
@@ -30,12 +30,16 @@ const NuevoChoferPage = () => {
   const [licencia, setLicencia] = useState("");
   const [telefono, setTelefono] = useState("");
   const [fecha_nacimiento, seFechaNacimiento] = useState("");
-  const [id_empresa_transportista, setEmpresaTransportista] = useState(1);
+  const [id_empresa_transportista, setEmpresaTransportista] = useState("");
+  const [vehiculo, setVehiculo] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
   const [empresas, setEmpresas] = useState([]);
   const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
+
+  const [vehiculos, setVehiculos] = useState([]);
+  const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
 
   useEffect(() => {
     const obtenerEmpresas = async () => {
@@ -43,6 +47,12 @@ const NuevoChoferPage = () => {
       setEmpresas(empresasData);
     };
     obtenerEmpresas();
+
+    const obtenerVehiculos = async () => {
+      const vehiculosData = await vehiculosService.getAll();
+      setVehiculos(vehiculosData);
+    };
+    obtenerVehiculos();
   }, [])
   
   useEffect(() => {
@@ -55,6 +65,30 @@ const NuevoChoferPage = () => {
       ];
       setOpcionesEmpresas(opciones);
     }, [empresas]);
+
+    useEffect(() => {
+    let opciones = [];
+    if (!id_empresa_transportista) {
+      opciones = [{ value: "", label: "Seleccionar" }];
+    } else {
+      opciones = [
+        { value: "", label: "Seleccionar" },
+        ...vehiculos
+        .filter(
+          (v) =>
+            v.id_empresa_transportista.toString() === id_empresa_transportista
+        )
+        .map((v) => ({
+          value: v.id,
+          label: `${v.marca} / ${v.modelo} (${v.patente})`,
+        })),
+      ];
+    }
+    
+    setVehiculo("");
+    setOpcionesVehiculos(opciones);
+  }, [id_empresa_transportista, vehiculos]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -164,8 +198,16 @@ const NuevoChoferPage = () => {
               titulo="Empresa Transportista"
               required
               onChange={(e) => setEmpresaTransportista(e.target.value)}
-              value={""}
+              value={id_empresa_transportista}
               options={opcionesDeEmpresas}
+            ></DropdownButton>
+            <DropdownButton
+              titulo="Vehiculo"
+              required
+              onChange={(e) => setVehiculo(e.target.value)}
+              value={vehiculo}
+              options={opcionesDeVehiculos}
+              disabled={!id_empresa_transportista}
             ></DropdownButton>
             <DropdownButton
               titulo="Estado"
