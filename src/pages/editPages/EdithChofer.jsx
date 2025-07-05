@@ -11,7 +11,7 @@ import DropdownButton from "../../components/DropDownButton";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
-import {choferesService, empresasTransportistasService} from "../../services";
+import {choferesService, vehiculosService, empresasTransportistasService} from "../../services";
 import { toast } from "react-toastify";
 
 
@@ -33,44 +33,88 @@ const EditarChoferesPage = () => {
   const [telefono, setTelefono] = useState("");
   const [fecha_nacimiento, seFechaNacimiento] = useState("");
   const [id_empresa_transportista, setEmpresaTransportista] = useState("");
+  const [vehiculo, setVehiculo] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
   const [empresas, setEmpresas] = useState([]);
   const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
 
-  useEffect(() => {
-      const obtenerEmpresas = async () => {
-        const empresasData = await empresasTransportistasService.getAll();
-        setEmpresas(empresasData);
-      };
-      obtenerEmpresas();
-    }, [])
+  const [vehiculos, setVehiculos] = useState([]);
+  const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
 
-    useEffect(() => {
-      const opciones = [
-        { value: "", label: "Seleccionar" },
-        ...empresas.map((e) => ({
-          value: e.id,
-          label: e.razon_social,
+  const [datosCargados, setDatosCargados] = useState(false);
+
+  const setIdEmpresaYVehiculo = (empresaId, vehiculoId) => {
+    setEmpresaTransportista(empresaId);
+    setVehiculo(vehiculoId);
+    setDatosCargados(true);
+  };
+
+
+  useEffect(() => {
+    const obtenerEmpresas = async () => {
+      const empresasData = await empresasTransportistasService.getAll();
+      setEmpresas(empresasData);
+    };
+    obtenerEmpresas();
+
+    const obtenerVehiculos = async () => {
+      const vehiculosData = await vehiculosService.getAll();
+      setVehiculos(vehiculosData);
+    };
+    obtenerVehiculos();
+  }, [])
+
+  useEffect(() => {
+    const opciones = [
+      { value: "", label: "Seleccionar" },
+      ...empresas.map((e) => ({
+        value: e.id,
+        label: e.razon_social,
+      })),
+    ];
+    setOpcionesEmpresas(opciones);
+  }, [empresas]);
+
+  useEffect(() => {
+    if (!datosCargados || !id_empresa_transportista || vehiculos.length === 0){
+      setVehiculo("");
+      return;
+    } 
+
+    const opciones = [
+      { value: "", label: "Seleccionar" },
+      ...vehiculos
+        .filter((v) => v.id_empresa_transportista === Number(id_empresa_transportista))
+        .map((v) => ({
+          value: v.id,
+          label: `${v.marca} / ${v.modelo} (${v.patente})`,
         })),
-      ];
-      console.log(opciones);
-      setOpcionesEmpresas(opciones);
-    }, [empresas]);
+    ];
+
+    setOpcionesVehiculos(opciones);
+
+  }, [datosCargados, id_empresa_transportista, vehiculo, vehiculos]);
+
+
 
   useEffect(() => {
-    choferesService.getChoferById(id).then((chofer) => {
+    const cargarChofer = async () => {
+      const chofer = await choferesService.getChoferById(id);
+
       setNombre(chofer.nombre || "");
       setApellido(chofer.apellido || "");
       setDni(chofer.dni || "");
       setLicencia(chofer.licencia || "");
       setTelefono(chofer.telefono || "");
       seFechaNacimiento(chofer.fecha_nacimiento || "");
-      setEmpresaTransportista(chofer.id_empresa_transportista || "");
       setEstado(chofer.estado || "");
       setObservaciones(chofer.observaciones || "");
-    });
+      setIdEmpresaYVehiculo(chofer.id_empresa_transportista, chofer.id_vehiculo)
+    }
+    
+    cargarChofer();
   }, [id]);
 
   if (!nombre && !apellido && !dni)
@@ -178,6 +222,14 @@ const EditarChoferesPage = () => {
                 onChange={(e) => setEmpresaTransportista(e.target.value)}
                 value={id_empresa_transportista}
                 options={opcionesDeEmpresas}
+              ></DropdownButton>
+              <DropdownButton
+                titulo="Vehiculo"
+                required
+                onChange={(e) => setVehiculo(e.target.value)}
+                value={vehiculo}
+                options={opcionesDeVehiculos}
+                disabled={!id_empresa_transportista}
               ></DropdownButton>
               <DropdownButton
                 titulo="Estado"

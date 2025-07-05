@@ -67,27 +67,27 @@ const NuevoChoferPage = () => {
     }, [empresas]);
 
     useEffect(() => {
-    let opciones = [];
-    if (!id_empresa_transportista) {
-      opciones = [{ value: "", label: "Seleccionar" }];
-    } else {
-      opciones = [
-        { value: "", label: "Seleccionar" },
-        ...vehiculos
-        .filter(
-          (v) =>
-            v.id_empresa_transportista.toString() === id_empresa_transportista
-        )
-        .map((v) => ({
-          value: v.id,
-          label: `${v.marca} / ${v.modelo} (${v.patente})`,
-        })),
-      ];
-    }
-    
-    setVehiculo("");
-    setOpcionesVehiculos(opciones);
-  }, [id_empresa_transportista, vehiculos]);
+      let opciones = [];
+      if (!id_empresa_transportista) {
+        opciones = [{ value: "", label: "Seleccionar" }];
+      } else {
+        opciones = [
+          { value: "", label: "Seleccionar" },
+          ...vehiculos
+          .filter(
+            (v) =>
+              v.id_empresa_transportista.toString() === id_empresa_transportista
+          )
+          .map((v) => ({
+            value: v.id,
+            label: `${v.marca} / ${v.modelo} (${v.patente})`,
+          })),
+        ];
+      }
+      
+      setVehiculo("");
+      setOpcionesVehiculos(opciones);
+    }, [id_empresa_transportista, vehiculos]);
 
 
   const handleSubmit = async (e) => {
