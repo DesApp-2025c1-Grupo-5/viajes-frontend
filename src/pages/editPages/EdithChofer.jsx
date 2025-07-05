@@ -8,6 +8,7 @@ import TitleNew from "../../components/TitleNew";
 import FormTitle from "../../components/FormTitle";
 import Input from "../../components/Input";
 import DropdownButton from "../../components/DropDownButton";
+import DatePicker from "../../components/DatePicker";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
@@ -33,7 +34,7 @@ const EditarChoferesPage = () => {
   const [telefono, setTelefono] = useState("");
   const [fecha_nacimiento, seFechaNacimiento] = useState("");
   const [id_empresa_transportista, setEmpresaTransportista] = useState("");
-  const [vehiculo, setVehiculo] = useState("");
+  const [id_vehiculo, setVehiculo] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
@@ -95,7 +96,7 @@ const EditarChoferesPage = () => {
 
     setOpcionesVehiculos(opciones);
 
-  }, [datosCargados, id_empresa_transportista, vehiculo, vehiculos]);
+  }, [datosCargados, id_empresa_transportista, id_vehiculo, vehiculos]);
 
 
 
@@ -130,6 +131,7 @@ const EditarChoferesPage = () => {
       telefono,
       fecha_nacimiento,
       id_empresa_transportista,
+      id_vehiculo,
       estado,
       observaciones,
     };
@@ -209,12 +211,13 @@ const EditarChoferesPage = () => {
                 id="idTelefono"
                 required
               />
-              <Input
-                value={fecha_nacimiento}
-                onChange={(e) => seFechaNacimiento(e.target.value)}
-                title="Nacimiento"
-                id="idNacimiento"
+              <DatePicker
+                placeholder="Ej: 01/01/01"
+                title="Fecha de nacimiento"
+                id="idFechaDeNacimiento"
                 required
+                value={fecha_nacimiento}
+                onChange={seFechaNacimiento}
               />
               <DropdownButton
                 titulo="Empresa Transportista"
@@ -227,7 +230,7 @@ const EditarChoferesPage = () => {
                 titulo="Vehiculo"
                 required
                 onChange={(e) => setVehiculo(e.target.value)}
-                value={vehiculo}
+                value={id_vehiculo}
                 options={opcionesDeVehiculos}
                 disabled={!id_empresa_transportista}
               ></DropdownButton>

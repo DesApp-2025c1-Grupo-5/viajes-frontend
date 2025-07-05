@@ -7,6 +7,7 @@ import TitleNew from "../../components/TitleNew";
 import FormTitle from "../../components/FormTitle";
 import Input from "../../components/Input";
 import DropdownButton from "../../components/DropDownButton";
+import DatePicker from "../../components/DatePicker";
 import FormButtonSave from "../../components/FormButtonSave";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import TextArea from "../../components/TextArea";
@@ -29,9 +30,9 @@ const NuevoChoferPage = () => {
   const [dni, setDni] = useState("");
   const [licencia, setLicencia] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [fecha_nacimiento, seFechaNacimiento] = useState("");
+  const [fecha_nacimiento, setFechaNacimiento] = useState("");
   const [id_empresa_transportista, setEmpresaTransportista] = useState("");
-  const [vehiculo, setVehiculo] = useState("");
+  const [id_vehiculo, setVehiculo] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
@@ -100,6 +101,7 @@ const NuevoChoferPage = () => {
       telefono,
       fecha_nacimiento,
       id_empresa_transportista,
+      id_vehiculo,
       estado,
       observaciones,
     };
@@ -186,14 +188,14 @@ const NuevoChoferPage = () => {
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             ></Input>
-            <Input
+            <DatePicker
               placeholder="Ej: 01/01/01"
               title="Fecha de nacimiento"
               id="idFechaDeNacimiento"
               required
               value={fecha_nacimiento}
-              onChange={(e) => seFechaNacimiento(e.target.value)}
-            ></Input>
+              onChange={setFechaNacimiento}
+            />
             <DropdownButton
               titulo="Empresa Transportista"
               required
@@ -205,7 +207,7 @@ const NuevoChoferPage = () => {
               titulo="Vehiculo"
               required
               onChange={(e) => setVehiculo(e.target.value)}
-              value={vehiculo}
+              value={id_vehiculo}
               options={opcionesDeVehiculos}
               disabled={!id_empresa_transportista}
             ></DropdownButton>
