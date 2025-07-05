@@ -1,51 +1,8 @@
 import { useEffect, useState } from "react";
 import { FunnelIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { Combobox } from "@headlessui/react";
+import ComboboxField from "./ComboboxField";
 import {choferesService, depositosService, empresasTransportistasService, vehiculosService} from "../services";
 
-const ComboboxField = ({ label, value, onChange, options }) => {
-  const [query, setQuery] = useState("");
-
-  const filtered =
-    query === ""
-      ? options
-      : options.filter((opt) =>
-          opt.toLowerCase().includes(query.toLowerCase())
-        );
-
-  return (
-    <div className="w-full">
-      <Combobox value={value} onChange={onChange}>
-        <div className="relative">
-          <Combobox.Input
-            className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 w-full"
-            placeholder={label}
-            onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => setQuery("")}
-            displayValue={(val) => val}
-          />
-          {filtered.length > 0 && (
-            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded bg-white shadow-lg">
-              {filtered.map((item, index) => (
-                <Combobox.Option
-                  key={index}
-                  value={item}
-                  className={({ active }) =>
-                    `cursor-pointer px-4 py-2 ${
-                      active ? "bg-blue-400 text-white" : "text-gray-900"
-                    }`
-                  }
-                >
-                  {item}
-                </Combobox.Option>
-              ))}
-            </Combobox.Options>
-          )}
-        </div>
-      </Combobox>
-    </div>
-  );
-};
 
 const FilterBar = ({ onFilter, onClear }) => {
   const [filtros, setFiltros] = useState({
