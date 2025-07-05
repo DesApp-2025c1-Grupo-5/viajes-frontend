@@ -50,8 +50,8 @@ const ComboboxField = ({ label, value, onChange, options }) => {
 const FilterBar = ({ onFilter, onClear }) => {
   const [filtros, setFiltros] = useState({
     tipoDeViaje: "",
-    fecha_salida: "",
-    fecha_llegada: "",
+    fecha_desde: "",
+    fecha_hasta: "",
     nroViaje: "",
     empresa: "",
     chofer: "",
@@ -135,10 +135,10 @@ useEffect(() => {
 
       <input
         type="date"
-        value={filtros.fecha_salida ? filtros.fecha_salida.split("T")[0] : ""}
+        value={filtros.fecha_desde ? filtros.fecha_desde.split("T")[0] : ""}
         onChange={(e) =>
           handleChange(
-            "fecha_salida",
+            "fecha_desde",
             e.target.value ? new Date(e.target.value).toISOString() : ""
           )
         }   
@@ -147,10 +147,10 @@ useEffect(() => {
 
       <input
         type="date"
-        value={filtros.fecha_llegada ? filtros.fecha_llegada.split("T")[0] : ""}
+        value={filtros.fecha_hasta ? filtros.fecha_hasta.split("T")[0] : ""}
         onChange={(e) =>
           handleChange(
-            "fecha_llegada",
+            "fecha_hasta",
             e.target.value ? new Date(e.target.value).toISOString() : ""
           )
         }   
@@ -222,8 +222,8 @@ useEffect(() => {
         onClick={() => {
           setFiltros({
             tipoDeViaje: "",
-            fecha_salida: "",
-            fecha_llegada: "",
+            fecha_desde: "",
+            fecha_hasta: "",
             nroViaje: "",
             empresa: "",
             chofer: "",
@@ -237,8 +237,8 @@ useEffect(() => {
         }}
         className="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
 >
-  <TrashIcon className="w-4 h-4" />
-        Limpiar
+        <TrashIcon className="w-4 h-4" />
+          Limpiar
       </button>
 
     </form>

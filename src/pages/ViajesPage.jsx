@@ -44,8 +44,8 @@ const ViajesPage = () => {
       viaje.depositoOrigen?.provincia,
       viaje.depositoDestino?.nombre,
       viaje.depositoDestino?.provincia,
-      viaje.fecha_salida,
-      viaje.fecha_llegada,
+      viaje.fecha_desde,
+      viaje.fecha_hasta,
       viaje.chofer?.nombre,
       viaje.chofer?.apellido,
       viaje.empresaTransportista?.razon_social,
@@ -59,8 +59,8 @@ const ViajesPage = () => {
 
     const {
       tipoDeViaje,
-      fecha_salida,
-      fecha_llegada,
+      fecha_desde,
+      fecha_hasta,
       nroViaje,
       empresa,
       chofer,
@@ -70,12 +70,14 @@ const ViajesPage = () => {
       depositoOrigen,
       depositoDestino,
     } = filtros;
-
+    
+    console.log(`fecha desde: ${fecha_desde}`);
+    console.log(`fecha hasta: ${fecha_hasta}`);
     return (
       filtradoPorTexto
       && (!tipoDeViaje || match(viaje.tipoDeViaje, tipoDeViaje)) 
-      && (!fecha_salida || fechaPosterior(viaje.fecha_salida, fecha_salida))
-      && (!fecha_llegada || fechaAnterior(viaje.fecha_llegada, fecha_llegada))
+      && (!fecha_desde || fechaPosterior(viaje.fecha_llegada, fecha_desde))
+      && (!fecha_hasta || fechaAnterior(viaje.fecha_salida, fecha_hasta))
       && (!nroViaje || viaje.id.toString().includes(nroViaje))
       && (!empresa || match(viaje.empresaTransportista.razon_social, empresa))
       && (!chofer || include(`${viaje.chofer?.nombre ?? ""} ${viaje.chofer?.apellido}`, chofer))
