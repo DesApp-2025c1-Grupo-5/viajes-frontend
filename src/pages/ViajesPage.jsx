@@ -71,8 +71,6 @@ const ViajesPage = () => {
       depositoDestino,
     } = filtros;
     
-    console.log(`fecha desde: ${fecha_desde}`);
-    console.log(`fecha hasta: ${fecha_hasta}`);
     return (
       filtradoPorTexto
       && (!tipoDeViaje || match(viaje.tipoDeViaje, tipoDeViaje)) 
