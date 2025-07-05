@@ -120,7 +120,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
         </table>
         <div>
           {!viajes.length ? (
-            <h1 className="text-center  mt-8">No hay resultados</h1>
+            <h1 className="text-center text-2xl mt-8 text-gray-500">No hay resultados para tu búsqueda</h1>
           ) : (
             ""
           )}
