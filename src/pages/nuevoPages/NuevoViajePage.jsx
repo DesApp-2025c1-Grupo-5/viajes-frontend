@@ -19,34 +19,6 @@ import {
 } from "../../services";
 import { toast } from "react-toastify";
 
-// const opcionesDeEmpresas = [
-//   { value: "", label: "Seleccionar" },
-//   { value: 2, label: "LogiExpress" },
-//   { value: 1, label: "Transportes Rápidos S.A" },
-//   { value: 3, label: "CargoMax" },
-// ];
-
-// const opcionesDeDepositos = [
-//   { value: "", label: "Seleccionar" },
-//   { value: "Deposito Central", label: "Deposito Central" },
-//   { value: "Deposito Sur", label: "Deposito Sur" },
-//   { value: "Deposito Norte", label: "Deposito Norte" },
-// ];
-
-// const opcionesDeChofer = [
-//   { value: "", label: "Seleccionar" },
-//   { value: 1, label: "Juan" },
-//   { value: 2, label: "Gastón" },
-//   { value: 3, label: "María" },
-// ];
-
-// const opcionesVehiculo = [
-//   { value: "", label: "Seleccionar" },
-//   { value: 1, label: "FH 540" },
-//   { value: 2, label: "Actros 2545" },
-//   { value: 3, label: "R450 Highline" },
-// ];
-
 const NuevoViajePage = () => {
   const navigate = useNavigate();
 
@@ -68,6 +40,8 @@ const NuevoViajePage = () => {
   const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
   const [opcionesDeChoferes, setOpcionesChoferes] = useState([]);
   const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
+
+  const [errorDepositos, setErrorDepositos] = useState("");
 
   useEffect(() => {
     const opciones = [
@@ -169,6 +143,8 @@ const NuevoViajePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(errorDepositos)
+      return;
     const nuevoViaje = {
       origen: parseInt(depositoOrigen),
       destino: parseInt(depositoDestino),
@@ -227,17 +203,34 @@ const NuevoViajePage = () => {
             <DropdownButton
               titulo="Deposito origen"
               required
-              onChange={(e) => setDepositoOrigen(e.target.value)}
+              onChange={(e) => {
+                const nuevoValor = e.target.value;
+                setDepositoOrigen(nuevoValor);
+                if (nuevoValor === depositoDestino) {
+                  setErrorDepositos("El depósito de origen y destino no pueden ser iguales.");
+                } else {
+                  setErrorDepositos("");
+                  }
+                }
+              }
               value={depositoOrigen}
               options={opcionesDeDepositos}
             ></DropdownButton>
             <DropdownButton
               titulo="Deposito Destino"
               required
-              onChange={(e) => setDepositoDestino(e.target.value)}
+              onChange={(e) =>{
+                const nuevoValor = e.target.value;
+                setDepositoDestino(nuevoValor);
+                if (nuevoValor === depositoOrigen) {
+                  setErrorDepositos("El depósito de origen y destino no pueden ser iguales.");
+                } else {
+                  setErrorDepositos("");
+                }} }
               value={depositoDestino}
               options={opcionesDeDepositos}
-            ></DropdownButton>
+            />
+
             <DateTimePicker
               title="Fecha de salida"
               id="fecha_salida"
@@ -283,10 +276,16 @@ const NuevoViajePage = () => {
               value={observaciones}
               onChange={(e) => setObservaciones(e.target.value)}
             ></TextArea>
+            
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/viajes" />
-              <FormButtonSave />
+              <FormButtonSave 
+                disabled={!!errorDepositos}
+              />
             </div>
+            {errorDepositos && (
+              <p className="text-red-500 text-md mt-1">⚠ {errorDepositos}</p>
+            )}
           </form>
         </div>
       </div>

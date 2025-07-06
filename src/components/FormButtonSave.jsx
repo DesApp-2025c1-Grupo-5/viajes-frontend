@@ -1,10 +1,17 @@
 import { Save } from "lucide-react";
 
-const FormButtonSave = () => {
+const FormButtonSave = ({disabled}) => {
   return (
     <button
-      type="submit"
-      className="w-36 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl shadow-md px-4 py-3 mt-8 cursor-pointer hover:scale-105 transition-all"
+    disabled={disabled}
+    type="submit"
+    className={`
+      w-36 rounded-2xl shadow-md px-4 py-3 mt-8  transition-all flex items-center justify-center gap-1
+        ${disabled
+          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+          : "bg-blue-500 hover:bg-blue-600 cursor-pointer text-white hover:scale-105"
+        }
+    `}
     >
       <div className="flex items-center justify-center gap-1">
         <Save/>
