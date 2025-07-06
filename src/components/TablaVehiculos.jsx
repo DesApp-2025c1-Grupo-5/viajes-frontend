@@ -11,7 +11,7 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
     const vehiculo = vehiculos.find(v => v.id == id);
     const nombreVehiculo = 
       vehiculo 
-      ? `(${vehiculo.patente})  ${vehiculo.marca} / ${vehiculo.modelo}`
+      ? `${vehiculo.marca} / ${vehiculo.modelo} (${vehiculo.patente})`
       : "";
     toast(
       ({ closeToast }) => (
@@ -66,12 +66,12 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b">Patente</th>
+              <th className="px-4 py-2 border-b">Marca</th>
               <th className="px-4 py-2 border-b">Modelo</th>
-              <th className="px-4 py-2 border-b">Año</th>
-              <th className="px-4 py-2 border-b">Capacidad</th>
-              <th className="px-4 py-2 border-b">Tipo</th>
+              <th className="px-4 py-2 border-b">Patente</th>
               <th className="px-4 py-2 border-b">Transportista</th>
+              <th className="max-w-15 px-4 py-2 border-b">Tipo</th>
+              <th className="text-center px-4 py-2 border-b">Capacidad</th>
               <th className="px-4 py-2 border-b">Acciones</th>
             </tr>
           </thead>
@@ -82,16 +82,16 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
                 className="hover:bg-gray-200 cursor-pointer"
                 onClick={() => navigate(`/vehiculos/${vehiculo.id}`)}
               >
-                <td className="px-4 py-2 border-b">{vehiculo.patente}</td>
+                <td className="px-4 py-2 border-b">{vehiculo.marca}</td>
                 <td className="px-4 py-2 border-b">{vehiculo.modelo}</td>
-                <td className="px-4 py-2 border-b">{vehiculo.año}</td>
-                <td className="px-4 py-2 border-b">{vehiculo.capacidad}</td>
-                <td className="px-4 py-2 border-b">
-                  {vehiculo.tipo_de_vehiculo}
-                </td>
+                <td className="px-4 py-2 border-b">{vehiculo.patente}</td>
                 <td className="px-4 py-2 border-b">
                   {vehiculo.empresa?.razon_social}
                 </td>
+                <td className="max-w-15 px-4 py-2 border-b">
+                  {vehiculo.tipo_de_vehiculo}
+                </td>
+                <td className="px-4 py-2 border-b text-center">{vehiculo.capacidad}</td>
                 <td className="px-4 py-2 border-b">
                   <Link
                     to={`/nuevoVehiculo`}
