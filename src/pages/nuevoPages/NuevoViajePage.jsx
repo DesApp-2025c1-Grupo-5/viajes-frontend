@@ -45,6 +45,8 @@ const NuevoViajePage = () => {
   const [errorFecha, setErrorFecha] = useState("");
 
 
+
+
   const esFechaDestinoValida = (fechaSalida, fechaDestino) => {
     if (!fechaSalida || !fechaDestino) return true; 
 
@@ -160,6 +162,24 @@ const NuevoViajePage = () => {
     e.preventDefault();
     if(errorDepositos || errorFecha)
       return;
+    
+    const calcularTipoViaje = () => {
+      const origenObj = depositos.find(
+        (d) => d.id === parseInt(depositoOrigen)
+      );
+      const destinoObj = depositos.find(
+        (d) => d.id === parseInt(depositoDestino)
+      );
+
+      if (!origenObj || !destinoObj) return "";
+
+      return (origenObj?.pais === "Argentina" && destinoObj?.pais === "Argentina"
+      ? "Nacional"
+      : "Internacional");
+    }
+
+    const tipoDeViaje = calcularTipoViaje();
+
     const nuevoViaje = {
       origen: parseInt(depositoOrigen),
       destino: parseInt(depositoDestino),
@@ -168,6 +188,7 @@ const NuevoViajePage = () => {
       id_empresa_transportista: empresaTransportista,
       id_chofer: chofer,
       id_vehiculo: vehiculo,
+      tipoDeViaje,
       observaciones,
     };
     try {
