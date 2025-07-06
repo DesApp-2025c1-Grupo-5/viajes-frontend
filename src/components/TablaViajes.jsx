@@ -65,16 +65,16 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
     <>
       <ToastContainer />
       <div className="overflow-x-auto mt-5">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full bg-white border border-gray-200 text-gray-700">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b">ID</th>
-              <th className="px-4 py-2 border-b">Origen</th>
-              <th className="px-4 py-2 border-b">Destino</th>
-              <th className="px-4 py-2 border-b">Fecha de salida</th>
-              <th className="px-4 py-2 border-b">Fecha de llegada</th>
-              <th className="px-4 py-2 border-b">Vehiculo</th>
-              <th className="px-4 py-2 border-b">Acciones</th>
+              <th className="px-4 py-2 border-b border-gray-300">ID</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-center">Depositos</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-center">Fechas</th>
+              <th className="px-4 py-2 border-b border-gray-300">Empresa</th>
+              <th className="px-4 py-2 border-b border-gray-300">Chofer</th>
+              <th className="px-4 py-2 border-b border-gray-300">Vehiculo</th>
+              <th className="px-4 py-2 border-b border-gray-300">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -83,23 +83,29 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
               className="hover:bg-gray-200 cursor-pointer"
               onClick={() => navigate(`/viajes/${viaje.id}`)}
               >
-                <td className="px-4 py-2 border-b">{viaje.id}</td>
-                <td className="px-4 py-2 border-b">
-                  {viaje.depositoOrigen.nombre}
+                <td className="px-4 py-2 border-b border-gray-300">{viaje.id}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <span className="text-orange-400 font-semibold pr-4">Origen: </span>{viaje.depositoOrigen.nombre}
+                  <br />
+                  <span className="text-orange-400 font-semibold pr-2">Destino: </span>{viaje.depositoDestino.nombre}
                 </td>
-                <td className="px-4 py-2 border-b">
-                  {viaje.depositoDestino.nombre}
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <span className="text-gray-500 font-semibold pr-6">Salida: </span>{parseFecha(viaje.fecha_salida)}
+                  <br />
+                  <span className="text-gray-500 font-semibold pr-2">Llegada: </span>{parseFecha(viaje.fecha_llegada)}
                 </td>
-                <td className="px-4 py-2 border-b">
-                  {parseFecha(viaje.fecha_salida)}
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {viaje.empresaTransportista?.razon_social || "Sin empresa"}
                 </td>
-                <td className="px-4 py-2 border-b">
-                  {parseFecha(viaje.fecha_llegada)}
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {viaje.chofer? `${viaje.chofer.nombre} ${viaje.chofer.apellido}` : "Sin chofer"}
                 </td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {viaje.vehiculo? `${viaje.vehiculo.marca} ${viaje.vehiculo.modelo}` : ""}
+                  <br />
                   {viaje.vehiculo?.patente || "Sin vehículo"}
                 </td>
-                <td className="px-4 py-2 border-b ">
+                <td className="px-4 py-2 border-b border-gray-300">
                   <Link
                     path={`/nuevoVehiculo`}
                     className="text-blue-600 hover:text-blue-800 mr-4"

@@ -66,15 +66,15 @@ const TablaTransportistas = ({
     <>
       <ToastContainer />
       <div className="overflow-x-auto mt-5">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full bg-white border border-gray-200 text-gray-700">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b">Razón Social</th>
-              <th className="px-4 py-2 border-b">CUIT</th>
-              <th className="px-4 py-2 border-b">Domicilio Fiscal</th>
-              <th className="px-4 py-2 border-b">Teléfono</th>
-              <th className="px-4 py-2 border-b">Email</th>
-              <th className="px-4 py-2 border-b">Acciones</th>
+              <th className="px-4 py-2 border-b border-gray-300">Razón Social</th>
+              <th className="px-4 py-2 border-b border-gray-300">CUIT</th>
+              <th className="px-4 py-2 border-b border-gray-300">Domicilio Fiscal</th>
+              <th className="px-4 py-2 border-b border-gray-300">Teléfono</th>
+              <th className="px-4 py-2 border-b border-gray-300">Email</th>
+              <th className="px-4 py-2 border-b border-gray-300">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -86,16 +86,16 @@ const TablaTransportistas = ({
                   navigate(`/empresasTransportistas/${transportista.id}`)
                 }
               >
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">
                   {transportista.razon_social}
                 </td>
-                <td className="px-4 py-2 border-b">{transportista.cuit_rut}</td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">{transportista.cuit_rut}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
                   {transportista.domicilio_fiscal}
                 </td>
-                <td className="px-4 py-2 border-b">{transportista.telefono}</td>
-                <td className="px-4 py-2 border-b">{transportista.email}</td>
-                <td className="px-4 py-2 border-b ">
+                <td className="px-4 py-2 border-b border-gray-300">{transportista.telefono}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{transportista.email}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
                   <Link
                     path={`/nuevoTransportista`}
                     className="text-blue-600 hover:text-blue-800 mr-4"

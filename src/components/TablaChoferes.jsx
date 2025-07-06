@@ -73,16 +73,16 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
     <>
       <ToastContainer />
       <div className="overflow-x-auto my-5">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full bg-white border border-gray-200 text-gray-700">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b text-left">Licencia</th>
-              <th className="px-4 py-2 border-b text-left">Nombre Completo</th>
-              <th className="px-4 py-2 border-b text-left">Fecha Nac.</th>
-              <th className="px-4 py-2 border-b text-left">DNI</th>
-              <th className="px-4 py-2 border-b text-left">Vehículo</th>
-              <th className="px-4 py-2 border-b text-left">Transportista</th>
-              <th className="px-4 py-2 border-b ">Acciones</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Licencia</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Nombre Completo</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Fecha Nac.</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">DNI</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Vehículo</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Transportista</th>
+              <th className="px-4 py-2 border-b border-gray-300 ">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -93,21 +93,21 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
                 className="hover:bg-gray-200 cursor-pointer"
                 onClick={() => navigate(`/choferes/${chofer.id}`)}
               >
-                <td className="px-4 py-2 border-b">{chofer.licencia}</td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">{chofer.licencia}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
                   {chofer.nombre} {chofer.apellido}
                 </td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">
                   {parseFecha(chofer.fecha_nacimiento)}
                 </td>
-                <td className="px-4 py-2 border-b">{chofer.dni}</td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">{chofer.dni}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
                   {chofer.vehiculo?.patente || "Sin vehículo"}
                 </td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">
                   {chofer.empresaTransportista?.razon_social || "Sin empresa"}
                 </td>
-                <td className="px-4 py-2 border-b ">
+                <td className="px-4 py-2 border-b border-gray-300 ">
                   <a
                     path={`/nuevoChofer`}
                     className="text-blue-600 hover:text-blue-800 mr-4"

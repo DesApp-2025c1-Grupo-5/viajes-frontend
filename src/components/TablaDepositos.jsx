@@ -59,15 +59,15 @@ const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
     <>
       <ToastContainer />
       <div className="overflow-x-auto mt-5">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full bg-white border border-gray-200 text-gray-700">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b">Nombre</th>
-              <th className="px-4 py-2 border-b">Direccion</th>
-              <th className="px-4 py-2 border-b">Provincia</th>
-              <th className="px-4 py-2 border-b">Pais</th>
-              <th className="px-4 py-2 border-b">Contacto</th>
-              <th className="px-4 py-2 border-b">Acciones</th>
+              <th className="px-4 py-2 border-b border-gray-300">Nombre</th>
+              <th className="px-4 py-2 border-b border-gray-300">Direccion</th>
+              <th className="px-4 py-2 border-b border-gray-300">Provincia</th>
+              <th className="px-4 py-2 border-b border-gray-300">Pais</th>
+              <th className="px-4 py-2 border-b border-gray-300">Contacto</th>
+              <th className="px-4 py-2 border-b border-gray-300">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -77,12 +77,12 @@ const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
                 className="hover:bg-gray-200 cursor-pointer"
                 onClick={() => navigate(`/depositos/${deposito.id}`)}
               >
-                <td className="px-4 py-2 border-b">{deposito.nombre}</td>
-                <td className="px-4 py-2 border-b">{deposito.direccion}</td>
-                <td className="px-4 py-2 border-b">{deposito.provincia}</td>
-                <td className="px-4 py-2 border-b">{deposito.pais}</td>
-                <td className="px-4 py-2 border-b">{deposito.contacto}</td>
-                <td className="px-4 py-2 border-b ">
+                <td className="px-4 py-2 border-b border-gray-300">{deposito.nombre}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{deposito.direccion}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{deposito.provincia}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{deposito.pais}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{deposito.contacto}</td>
+                <td className="px-4 py-2 border-b border-gray-300 ">
                   <Link
                     path={`/nuevoDeposito`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
