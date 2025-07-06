@@ -2,6 +2,7 @@ import { Trash2, FilePen } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import depositosService from "../services/DepositosService";
 import { ToastContainer, toast } from "react-toastify";
+import SinResultados from "./SinResultados";
 
 const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
   const navigate = useNavigate();
@@ -106,6 +107,7 @@ const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
             ))}
           </tbody>
         </table>
+        <SinResultados lista={depositos}/>
       </div>
     </>
   );

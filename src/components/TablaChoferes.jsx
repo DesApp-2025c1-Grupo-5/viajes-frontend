@@ -2,6 +2,7 @@ import { Trash2, FilePen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import choferesService from "../services/ChoferesService";
 import { ToastContainer, toast } from "react-toastify";
+import SinResultados from "./SinResultados";
 
 const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
   const navigate = useNavigate();
@@ -126,6 +127,7 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
             ))}
           </tbody>
         </table>
+        <SinResultados lista={choferes} />
       </div>
     </>
   );

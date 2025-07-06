@@ -2,6 +2,7 @@ import { Trash2, FilePen } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import vehiculoService from "../services/VehiculosService";
 import { ToastContainer, toast } from "react-toastify";
+import SinResultados from "./SinResultados";
 
 const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
   const navigate = useNavigate();
@@ -113,6 +114,7 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
             ))}
           </tbody>
         </table>
+        <SinResultados lista={vehiculos}/>
       </div>
     </>
   );

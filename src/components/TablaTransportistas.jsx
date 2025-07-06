@@ -2,6 +2,7 @@ import { Trash2, FilePen } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import transportistasService from "../services/EmpresasTransportistasService";
 import { ToastContainer, toast } from "react-toastify";
+import SinResultados from "./SinResultados";
 
 const TablaTransportistas = ({
   transportistas,
@@ -120,6 +121,7 @@ const TablaTransportistas = ({
             ))}
           </tbody>
         </table>
+        <SinResultados lista={transportistas}/>
       </div>
     </>
   );

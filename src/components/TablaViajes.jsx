@@ -1,6 +1,7 @@
 import { Trash2, FilePen } from "lucide-react";
 import viajesServices from "../services/ViajesService";
 import { ToastContainer, toast } from "react-toastify";
+import SinResultados from "./SinResultados";
 
 const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
   const handleDelete = async (id) => {
@@ -118,13 +119,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
             ))}
           </tbody>
         </table>
-        <div>
-          {!viajes.length ? (
-            <h1 className="text-center text-2xl mt-8 text-gray-500">No hay resultados para tu búsqueda</h1>
-          ) : (
-            ""
-          )}
-        </div>
+        <SinResultados lista={viajes}/>
       </div>
     </>
   );
