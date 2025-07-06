@@ -8,10 +8,18 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
+    const chofer = choferes.find(c => c.id == id);
+    const nombreChofer = 
+      chofer
+      ? `${chofer.nombre} ${chofer.apellido} (${chofer.licencia})`
+      : "";
+
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este chofer?</p>
+          <p className="mb-2">¿Estás seguro de eliminar este chofer?
+            <br /><span className="italic text-emerald-400">{nombreChofer || ""}</span>
+          </p>
           <div className="flex justify-end gap-2">
             <button
               className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"

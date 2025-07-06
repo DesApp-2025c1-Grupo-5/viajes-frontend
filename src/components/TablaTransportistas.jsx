@@ -12,11 +12,13 @@ const TablaTransportistas = ({
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
+    const nombreEmpresa = transportistas.find(t => t.id == id)?.razon_social;
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
           <p className="mb-2">
             ¿Estás seguro de eliminar esta empresa transportista?
+            <br /><span className="italic font-semibold text-purple-400">{nombreEmpresa || ""}</span>
           </p>
           <div className="flex justify-end gap-2">
             <button

@@ -11,7 +11,9 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este viaje?</p>
+          <p className="mb-2">¿Estás seguro de eliminar este viaje?
+            <br /><span className="italic font-semibold text-pink-300">Viaje con ID: {id}</span>
+          </p>
           <div className="flex justify-end gap-2">
             <button
               className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"

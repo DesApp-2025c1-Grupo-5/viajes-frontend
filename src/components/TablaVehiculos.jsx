@@ -8,10 +8,17 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
+    const vehiculo = vehiculos.find(v => v.id == id);
+    const nombreVehiculo = 
+      vehiculo 
+      ? `(${vehiculo.patente})  ${vehiculo.marca} / ${vehiculo.modelo}`
+      : "";
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este vehículo?</p>
+          <p className="mb-2">¿Estás seguro de eliminar este vehículo?
+            <br /><span className="italic font-semibold text-red-400">{nombreVehiculo || ""}</span>
+          </p>
           <div className="flex justify-end gap-2">
             <button
               className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"

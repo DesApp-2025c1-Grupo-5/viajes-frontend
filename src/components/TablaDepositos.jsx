@@ -8,10 +8,13 @@ const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
+    const nombreDeposito = depositos.find(d => d.id == id)?.nombre;
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este depósito?</p>
+          <p className="mb-2">¿Estás seguro de eliminar este depósito?
+            <br /><span className="italic font-semibold text-orange-400">{nombreDeposito || ""}</span>
+          </p>
           <div className="flex justify-end gap-2">
             <button
               className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
