@@ -42,6 +42,21 @@ const NuevoViajePage = () => {
   const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
 
   const [errorDepositos, setErrorDepositos] = useState("");
+  const [errorFecha, setErrorFecha] = useState("");
+
+
+  const esFechaDestinoValida = (fechaSalida, fechaDestino) => {
+    if (!fechaSalida || !fechaDestino) return true; 
+
+    const salida = new Date(fechaSalida);
+    const destino = new Date(fechaDestino);
+
+    return destino > salida;
+  };
+
+  useEffect(() => {
+    setErrorFecha(!esFechaDestinoValida(fechaDeSalida, fechaDeLlegada));
+  }, [fechaDeSalida, fechaDeLlegada]);
 
   useEffect(() => {
     const opciones = [
@@ -143,7 +158,7 @@ const NuevoViajePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(errorDepositos)
+    if(errorDepositos || errorFecha)
       return;
     const nuevoViaje = {
       origen: parseInt(depositoOrigen),
@@ -207,14 +222,14 @@ const NuevoViajePage = () => {
                 const nuevoValor = e.target.value;
                 setDepositoOrigen(nuevoValor);
                 if (nuevoValor === depositoDestino) {
-                  setErrorDepositos("El depósito de origen y destino no pueden ser iguales.");
+                  setErrorDepositos(true);
                 } else {
                   setErrorDepositos("");
-                  }
                 }
               }
-              value={depositoOrigen}
-              options={opcionesDeDepositos}
+            }
+            value={depositoOrigen}
+            options={opcionesDeDepositos}
             ></DropdownButton>
             <DropdownButton
               titulo="Deposito Destino"
@@ -223,7 +238,7 @@ const NuevoViajePage = () => {
                 const nuevoValor = e.target.value;
                 setDepositoDestino(nuevoValor);
                 if (nuevoValor === depositoOrigen) {
-                  setErrorDepositos("El depósito de origen y destino no pueden ser iguales.");
+                  setErrorDepositos(true);
                 } else {
                   setErrorDepositos("");
                 }} }
@@ -280,12 +295,17 @@ const NuevoViajePage = () => {
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/viajes" />
               <FormButtonSave 
-                disabled={!!errorDepositos}
+                disabled={!!errorDepositos || !!errorFecha}
               />
             </div>
-            {errorDepositos && (
-              <p className="text-red-500 text-md mt-1">⚠ {errorDepositos}</p>
-            )}
+            <div className="flex flex-col gap-1">
+              {errorDepositos && (
+                <p className="text-red-500 text-md mt-1">⚠ El depósito de origen y destino no pueden ser iguales.</p>
+              )}
+              {errorFecha && (
+                <p className="text-red-500 text-md mt-1">⚠ La fecha de destino debe ser posterior a la fecha de salida</p>
+              )}
+            </div>
           </form>
         </div>
       </div>
