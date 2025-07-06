@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
@@ -43,6 +44,57 @@ const EditarViajePage = () => {
   const [opcionesDeChoferes, setOpcionesChoferes] = useState([]);
   const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
 
+  const [errorDepositos, setErrorDepositos] = useState("");
+  const [errorFecha, setErrorFecha] = useState("");
+
+  useEffect(()=>{
+    if(empresaTransportista && chofer && vehiculo){
+      const opcionesEmpresa = [
+        { value: "", label: "Seleccionar" },
+        ...empresas.map((e) => ({
+          value: e.id,
+          label: e.razon_social,
+        })),
+      ];
+      setOpcionesEmpresas(opcionesEmpresa);
+
+      const opcionesChofer = [
+        { value: "", label: "Seleccionar" },
+        ...choferes
+          .filter(
+            (c) => c.id_empresa_transportista === parseInt(empresaTransportista)
+          )
+          .map((c) => ({ value: c.id, label: `${c.nombre} ${c.apellido}` })),
+      ];
+      setOpcionesChoferes(opcionesChofer);
+
+      const opcionesVehiculo = [
+        { value: "", label: "Seleccionar" },
+        ...vehiculos
+          .filter(
+            (v) =>
+              v.id_empresa_transportista === parseInt(empresaTransportista)
+          )
+          .map((v) => ({
+            value: v.id,
+            label: `${v.marca} / ${v.modelo} (${v.patente})`,
+          })),
+      ];
+
+      setOpcionesVehiculos(opcionesVehiculo);
+    }
+  },[empresaTransportista, chofer, vehiculo, empresas, choferes, vehiculos]);
+
+  const esFechaDestinoValida = (fechaSalida, fechaDestino) => {
+    if (!fechaSalida || !fechaDestino) return true; 
+
+    const salida = new Date(fechaSalida);
+    const destino = new Date(fechaDestino);
+
+    return destino > salida;
+  };
+
+
   useEffect(() => {
     const opciones = [
       { value: "", label: "Seleccionar" },
@@ -54,66 +106,28 @@ const EditarViajePage = () => {
     setOpcionesDepositos(opciones);
   }, [depositos]);
 
-  useEffect(() => {
-    const opciones = [
-      { value: "", label: "Seleccionar" },
-      ...empresas.map((e) => ({
-        value: e.id,
-        label: e.razon_social,
-      })),
-    ];
-    setOpcionesEmpresas(opciones);
-  }, [empresas]);
-
-  useEffect(() => {
-    let opciones = [];
-    if (!empresaTransportista) {
-      opciones = [{ value: "", label: "Seleccionar" }];
-    } else {
-      opciones = [
-        { value: "", label: "Seleccionar" },
-        ...choferes
-          .filter(
-            (c) => c.id_empresa_transportista === parseInt(empresaTransportista)
-          )
-          .map((c) => ({ value: c.id, label: `${c.nombre} ${c.apellido}` })),
-      ];
+  useEffect(()=>{
+    if(!empresaTransportista){
+      setChofer("");
+      setVehiculo("");
     }
-
-    setOpcionesChoferes(opciones);
-    setChofer("");
-  }, [empresaTransportista, choferes]);
-
-  useEffect(() => {
-    let opciones = [];
-    if (!empresaTransportista || !chofer) {
-      opciones = [{ value: "", label: "Seleccionar" }];
-    } else {
+  }, [empresaTransportista]);
+  
+  useEffect(()=>{
+    if(!chofer){
+      setVehiculo("");
+    }else{
       const choferSeleccionado = choferes.find(
         (c) => c.id.toString() === chofer
       );
-      if (!choferSeleccionado) {
+      if(!choferSeleccionado){
         setVehiculo("");
-      } else {
+      }else{
         setVehiculo(choferSeleccionado.id_vehiculo);
       }
-
-      opciones = [
-        { value: "", label: "Seleccionar" },
-        ...vehiculos
-          .filter(
-            (v) =>
-              v.id_empresa_transportista.toString() === empresaTransportista
-          )
-          .map((v) => ({
-            value: v.id,
-            label: `${v.marca} / ${v.modelo} (${v.patente})`,
-          })),
-      ];
     }
+  }, [chofer, choferes]);
 
-    setOpcionesVehiculos(opciones);
-  }, [empresaTransportista, chofer, choferes, vehiculos]);
 
   useEffect(() => {
     const obtenerDepositos = async () => {
@@ -142,20 +156,55 @@ const EditarViajePage = () => {
   }, []);
 
   useEffect(() => {
-    viajesService.getViajeById(id).then((viaje) => {
-      setDepositoOrigen(viaje.depositoOrigen || "");
-      setDepositoDestino(viaje.depositoDestino || "");
-      setFechaDeSalida(viaje.fechaDeSalida || "");
-      setFechaDeLlegada(viaje.fechaDeLlegada || "");
+    const cargarDatosViaje = async () => {
+      const viaje = await viajesService.getViajeById(id);
+      setDepositoOrigen(viaje.origen || "");
+      setDepositoDestino(viaje.destino || "");
+      setFechaDeSalida(viaje.fecha_salida || "");
+      setFechaDeLlegada(viaje.fecha_llegada || "");
       setEmpresaTransportista(viaje.id_empresa_transportista || "");
-      setChofer(viaje.chofer || "");
-      setVehiculo(viaje.vehiculo || "");
       setObservaciones(viaje.observaciones || "");
-    });
-  }, [id]);
+      setEmpresaTransportista(viaje.id_empresa_transportista || "");
+      setChofer(viaje.id_chofer || "");
+      setVehiculo(viaje.id_vehiculo || "");
+    }
+    cargarDatosViaje();
+  }, [id, empresas, choferes, vehiculos]);
+
+
+  //Validaciones:
+  useEffect(()=>{
+    setErrorDepositos(depositoDestino == depositoOrigen);
+  },[depositoOrigen, depositoDestino]);
+
+  
+  useEffect(() => {
+    setErrorFecha(!esFechaDestinoValida(fechaDeSalida, fechaDeLlegada));
+  }, [fechaDeSalida, fechaDeLlegada]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(errorDepositos || errorFecha)
+      return;
+    
+    const calcularTipoViaje = () => {
+      const origenObj = depositos.find(
+        (d) => d.id === parseInt(depositoOrigen)
+      );
+      const destinoObj = depositos.find(
+        (d) => d.id === parseInt(depositoDestino)
+      );
+
+      if (!origenObj || !destinoObj) return "";
+
+      return (origenObj?.pais === "Argentina" && destinoObj?.pais === "Argentina"
+      ? "Nacional"
+      : "Internacional");
+    }
+
+    const tipoDeViaje = calcularTipoViaje();
+
     const viajeActualizado = {
       origen: parseInt(depositoOrigen),
       destino: parseInt(depositoDestino),
@@ -164,11 +213,12 @@ const EditarViajePage = () => {
       id_empresa_transportista: empresaTransportista,
       id_chofer: chofer,
       id_vehiculo: vehiculo,
+      tipoDeViaje,
       observaciones,
     };
     try {
       await viajesService.updateViaje(id, viajeActualizado);
-      toast.success("Viaje grabado correctamente", {
+      toast.success("Viaje actualizado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -204,7 +254,7 @@ const EditarViajePage = () => {
             <FormTitle
               color="black"
               title="Información del viaje"
-              description="Modifica los datos del  vehiculo"
+              description="Ingresa los datos del nuevo viaje a registrar en el sistema"
             ></FormTitle>
           </div>
           <form
@@ -214,9 +264,9 @@ const EditarViajePage = () => {
             <DropdownButton
               titulo="Deposito origen"
               required
-              onChange={(e) => setDepositoOrigen(e.target.value)}
-              value={depositoOrigen}
-              options={opcionesDeDepositos}
+              onChange={(e) => setDepositoOrigen( e.target.value)}
+            value={depositoOrigen}
+            options={opcionesDeDepositos}
             ></DropdownButton>
             <DropdownButton
               titulo="Deposito Destino"
@@ -224,7 +274,8 @@ const EditarViajePage = () => {
               onChange={(e) => setDepositoDestino(e.target.value)}
               value={depositoDestino}
               options={opcionesDeDepositos}
-            ></DropdownButton>
+            />
+
             <DateTimePicker
               title="Fecha de salida"
               id="fecha_salida"
@@ -270,9 +321,20 @@ const EditarViajePage = () => {
               value={observaciones}
               onChange={(e) => setObservaciones(e.target.value)}
             ></TextArea>
+            
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/viajes" />
-              <FormButtonSave />
+              <FormButtonSave 
+                disabled={!!errorDepositos || !!errorFecha}
+              />
+            </div>
+            <div className="col-span-2 flex flex-col gap-1">
+              {errorDepositos && (
+                <p className="text-red-500 text-md mt-1">⚠ El depósito de origen y destino no pueden ser iguales.</p>
+              )}
+              {errorFecha && (
+                <p className="text-red-500 text-md mt-1">⚠ La fecha de destino debe ser posterior a la fecha de salida</p>
+              )}
             </div>
           </form>
         </div>

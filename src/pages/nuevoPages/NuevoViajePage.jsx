@@ -56,9 +56,6 @@ const NuevoViajePage = () => {
     return destino > salida;
   };
 
-  useEffect(() => {
-    setErrorFecha(!esFechaDestinoValida(fechaDeSalida, fechaDeLlegada));
-  }, [fechaDeSalida, fechaDeLlegada]);
 
   useEffect(() => {
     const opciones = [
@@ -158,6 +155,17 @@ const NuevoViajePage = () => {
     obtenerVehiculos();
   }, []);
 
+  //Validaciones:
+  useEffect(()=>{
+    setErrorDepositos(depositoDestino == depositoOrigen);
+  },[depositoOrigen, depositoDestino]);
+
+  useEffect(() => {
+    setErrorFecha(!esFechaDestinoValida(fechaDeSalida, fechaDeLlegada));
+  }, [fechaDeSalida, fechaDeLlegada]);
+
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(errorDepositos || errorFecha)
@@ -239,30 +247,14 @@ const NuevoViajePage = () => {
             <DropdownButton
               titulo="Deposito origen"
               required
-              onChange={(e) => {
-                const nuevoValor = e.target.value;
-                setDepositoOrigen(nuevoValor);
-                if (nuevoValor === depositoDestino) {
-                  setErrorDepositos(true);
-                } else {
-                  setErrorDepositos("");
-                }
-              }
-            }
+              onChange={(e) => setDepositoOrigen( e.target.value)}
             value={depositoOrigen}
             options={opcionesDeDepositos}
             ></DropdownButton>
             <DropdownButton
               titulo="Deposito Destino"
               required
-              onChange={(e) =>{
-                const nuevoValor = e.target.value;
-                setDepositoDestino(nuevoValor);
-                if (nuevoValor === depositoOrigen) {
-                  setErrorDepositos(true);
-                } else {
-                  setErrorDepositos("");
-                }} }
+              onChange={(e) => setDepositoDestino(e.target.value)}
               value={depositoDestino}
               options={opcionesDeDepositos}
             />

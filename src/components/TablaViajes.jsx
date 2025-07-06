@@ -1,9 +1,12 @@
 import { Trash2, FilePen } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
 import viajesServices from "../services/ViajesService";
 import { ToastContainer, toast } from "react-toastify";
 import SinResultados from "./SinResultados";
 
 const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
+  const navigate = useNavigate();
+
   const handleDelete = async (id) => {
     toast(
       ({ closeToast }) => (
@@ -74,7 +77,10 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
           </thead>
           <tbody>
             {viajes.map((viaje) => (
-              <tr key={viaje.id} className="hover:bg-gray-200 cursor-pointer">
+              <tr key={viaje.id} 
+              className="hover:bg-gray-200 cursor-pointer"
+              onClick={() => navigate(`/viajes/${viaje.id}`)}
+              >
                 <td className="px-4 py-2 border-b">{viaje.id}</td>
                 <td className="px-4 py-2 border-b">
                   {viaje.depositoOrigen.nombre}
@@ -92,7 +98,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
                   {viaje.vehiculo?.patente || "Sin vehículo"}
                 </td>
                 <td className="px-4 py-2 border-b ">
-                  <a
+                  <Link
                     path={`/nuevoVehiculo`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
                   >
@@ -100,7 +106,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
                       size={25}
                       className="align-middle cursor-pointer inline-block"
                     />
-                  </a>
+                  </Link>
                   <button
                     onClick={(e) => {
                       e.stopPropagation(); // evitar que el click propague y navegue
