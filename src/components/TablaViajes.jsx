@@ -65,16 +65,16 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
     <>
       <ToastContainer />
       <div className="overflow-x-auto mt-5">
-        <table className="min-w-full bg-white border border-gray-200 text-gray-700">
-          <thead className="text-left">
+        <table className="min-w-full bg-white border border-gray-200 text-gray-700 ">
+          <thead>
             <tr>
-              <th className="px-4 py-2 border-b border-gray-300">ID</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-center">Depositos</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-center">Fechas</th>
-              <th className="px-4 py-2 border-b border-gray-300">Empresa</th>
-              <th className="px-4 py-2 border-b border-gray-300">Chofer</th>
-              <th className="px-4 py-2 border-b border-gray-300">Vehiculo</th>
-              <th className="px-4 py-2 border-b border-gray-300">Acciones</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">ID</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Depositos</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Fechas</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Empresa</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Chofer</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left ">Vehiculo</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Acciones</th>
             </tr>
           </thead>
           <tbody>

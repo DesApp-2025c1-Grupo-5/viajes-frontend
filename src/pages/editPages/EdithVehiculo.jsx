@@ -90,7 +90,7 @@ const EditarVehiculoPage = () => {
     };
     try {
       await vehiculosService.updateVehiculo(id, vehiculoActualizado);
-      toast.success("Vehículo creado correctamente", {
+      toast.success("Vehículo actualizado correctamente", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
