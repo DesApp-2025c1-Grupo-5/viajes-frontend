@@ -79,6 +79,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
           </thead>
           <tbody>
             {viajes.map((viaje) => (
+              
               <tr key={viaje.id} 
               className="hover:bg-gray-200 cursor-pointer"
               onClick={() => navigate(`/viajes/view/${viaje.id}`)}
