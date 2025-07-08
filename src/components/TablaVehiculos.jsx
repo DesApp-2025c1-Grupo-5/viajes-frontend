@@ -8,16 +8,19 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
-    const vehiculo = vehiculos.find(v => v.id == id);
-    const nombreVehiculo = 
-      vehiculo 
+    const vehiculo = vehiculos.find((v) => v.id == id);
+    const nombreVehiculo = vehiculo
       ? `${vehiculo.marca} / ${vehiculo.modelo} (${vehiculo.patente})`
       : "";
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este vehículo?
-            <br /><span className="italic font-semibold text-red-400">{nombreVehiculo || ""}</span>
+          <p className="mb-2">
+            ¿Estás seguro de eliminar este vehículo?
+            <br />
+            <span className="italic font-semibold text-red-400">
+              {nombreVehiculo || ""}
+            </span>
           </p>
           <div className="flex justify-end gap-2">
             <button
@@ -69,9 +72,15 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
               <th className="px-4 py-2 border-b border-gray-300">Marca</th>
               <th className="px-4 py-2 border-b border-gray-300">Modelo</th>
               <th className="px-4 py-2 border-b border-gray-300">Patente</th>
-              <th className="px-4 py-2 border-b border-gray-300">Transportista</th>
-              <th className="max-w-15 px-4 py-2 border-b border-gray-300">Tipo</th>
-              <th className="text-center px-4 py-2 border-b border-gray-300">Capacidad</th>
+              <th className="px-4 py-2 border-b border-gray-300">
+                Transportista
+              </th>
+              <th className="max-w-15 px-4 py-2 border-b border-gray-300">
+                Tipo
+              </th>
+              <th className="text-center px-4 py-2 border-b border-gray-300">
+                Capacidad
+              </th>
               <th className="px-4 py-2 border-b border-gray-300">Acciones</th>
             </tr>
           </thead>
@@ -80,21 +89,29 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
               <tr
                 key={vehiculo.id}
                 className="hover:bg-gray-200 cursor-pointer"
-                onClick={() => navigate(`/vehiculos/${vehiculo.id}`)}
+                onClick={() => navigate(`/vehiculos/view/${vehiculo.id}`)}
               >
-                <td className="px-4 py-2 border-b border-gray-300">{vehiculo.marca}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{vehiculo.modelo}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{vehiculo.patente}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {vehiculo.marca}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {vehiculo.modelo}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {vehiculo.patente}
+                </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   {vehiculo.empresa?.razon_social}
                 </td>
                 <td className="max-w-15 px-4 py-2 border-b border-gray-300">
                   {vehiculo.tipo_de_vehiculo}
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300 text-center">{vehiculo.capacidad}</td>
+                <td className="px-4 py-2 border-b border-gray-300 text-center">
+                  {vehiculo.capacidad}
+                </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   <Link
-                    to={`/nuevoVehiculo`}
+                    to={`/vehiculos/${vehiculo.id}`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -121,7 +138,7 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
             ))}
           </tbody>
         </table>
-        <SinResultados lista={vehiculos}/>
+        <SinResultados lista={vehiculos} />
       </div>
     </>
   );

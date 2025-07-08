@@ -8,12 +8,16 @@ const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
-    const nombreDeposito = depositos.find(d => d.id == id)?.nombre;
+    const nombreDeposito = depositos.find((d) => d.id == id)?.nombre;
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este depósito?
-            <br /><span className="italic font-semibold text-orange-400">{nombreDeposito || ""}</span>
+          <p className="mb-2">
+            ¿Estás seguro de eliminar este depósito?
+            <br />
+            <span className="italic font-semibold text-orange-400">
+              {nombreDeposito || ""}
+            </span>
           </p>
           <div className="flex justify-end gap-2">
             <button
@@ -75,17 +79,28 @@ const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
               <tr
                 key={deposito.id}
                 className="hover:bg-gray-200 cursor-pointer"
-                onClick={() => navigate(`/depositos/${deposito.id}`)}
+                onClick={() => navigate(`/depositos/view/${deposito.id}`)}
               >
-                <td className="px-4 py-2 border-b border-gray-300">{deposito.nombre}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{deposito.direccion}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{deposito.provincia}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{deposito.pais}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{deposito.contacto}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {deposito.nombre}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {deposito.direccion}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {deposito.provincia}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {deposito.pais}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {deposito.contacto}
+                </td>
                 <td className="px-4 py-2 border-b border-gray-300 ">
                   <Link
-                    path={`/nuevoDeposito`}
+                    to={`/depositos/${deposito.id}`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <FilePen
                       size={25}
@@ -110,7 +125,7 @@ const TablaDepositos = ({ depositos, setDepositos, setDepositosFiltrado }) => {
             ))}
           </tbody>
         </table>
-        <SinResultados lista={depositos}/>
+        <SinResultados lista={depositos} />
       </div>
     </>
   );
