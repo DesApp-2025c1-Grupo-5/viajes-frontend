@@ -19,6 +19,9 @@ import ViewVehiculo from "./pages/viewPages/ViewVehiculoPage";
 import ViewChofer from "./pages/viewPages/ViewChoferPage";
 import ViewDeposito from "./pages/viewPages/ViewDepositoPage";
 import ViewEmpresaTransportistasPage from "./pages/viewPages/ViewEmpresaTransportistasPage";
+import ViewViajePage from "./pages/viewPages/ViewViajePage";
+import ViewViaje from "./pages/viewPages/ViewViajePage";
+
 
 export function AppRouter() {
   return (
@@ -44,6 +47,7 @@ export function AppRouter() {
       <Route path="vehiculos/view/:id" element={<ViewVehiculo />}></Route>
       <Route path="/choferes/view/:id" element={<ViewChofer />}></Route>
       <Route path="/depositos/view/:id" element={<ViewDeposito />}></Route>
+      <Route path="/viajes/view/:id" element={<ViewViaje/>}></Route>
       <Route
         path="transportistas/view/:id"
         element={<ViewEmpresaTransportistasPage />}

@@ -64,8 +64,8 @@ const ViewEmpresaTransportistasPage = () => {
             />
             <ViewField title="CUIT/RUT" id="idRut" value={cuit_rut} />
             <ViewField title="Email" id="idEmail" value={email} />
-            <ViewField title="Telefono" id="idTelefono" value={telefono} />
-            <ViewField title="Pais" id="idPais" value={pais} />
+            <ViewField title="Teléfono" id="idTelefono" value={telefono} />
+            <ViewField title="País" id="idPais" value={pais} />
             <ViewField
               title="Provincia/Estado"
               id="idProvinciaEstado"

@@ -59,9 +59,9 @@ const ViewDepositoPage = () => {
           />
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <ViewField title="Nombre" id="idNombre" value={nombre} />
-            <ViewField title="Pais" id="idPais" value={pais} />
+            <ViewField title="País" id="idPais" value={pais} />
             <ViewField title="Provincia" id="idProvincia" value={provincia} />
-            <ViewField title="Direccion" id="idDireccion" value={direccion} />
+            <ViewField title="Dirección" id="idDireccion" value={direccion} />
             <ViewField
               title="Coordenadas"
               id="idCoordenadas"

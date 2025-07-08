@@ -60,7 +60,7 @@ const ViewChofer = () => {
             <ViewField title="Apellido" id="idApellido" value={apellido} />
             <ViewField title="DNI" id="idDni" value={dni} />
             <ViewField title="Licencia" id="idLicencia" value={licencia} />
-            <ViewField title="Telefono" id="idTelefono" value={telefono} />
+            <ViewField title="Teléfono" id="idTelefono" value={telefono} />
             <ViewField
               title="Fecha de nacimiento"
               id="idFechaDeNacimiento"
@@ -71,7 +71,7 @@ const ViewChofer = () => {
               id="idEmpresaTransportista"
               value={id_empresa_transportista}
             />
-            <ViewField title="Vehiculo" id="idVehiculo" value={id_vehiculo} />
+            <ViewField title="Vehículo" id="idVehiculo" value={id_vehiculo} />
             <ViewField title="Estado" id="idEstado" value={estado} />
             <ViewField
               title="Observaciones"

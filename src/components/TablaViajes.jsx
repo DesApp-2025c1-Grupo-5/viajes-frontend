@@ -81,7 +81,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
             {viajes.map((viaje) => (
               <tr key={viaje.id} 
               className="hover:bg-gray-200 cursor-pointer"
-              onClick={() => navigate(`/viajes/${viaje.id}`)}
+              onClick={() => navigate(`/viajes/view/${viaje.id}`)}
               >
                 <td className="px-4 py-2 border-b border-gray-300">{viaje.id}</td>
                 <td className="px-4 py-2 border-b border-gray-300">
@@ -107,8 +107,9 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
                 </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   <Link
-                    path={`/nuevoVehiculo`}
+                    to={`/viajes/${viaje.id}`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <FilePen
                       size={25}
