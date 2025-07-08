@@ -7,6 +7,8 @@ import ViewField from "../../components/ViewField";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import choferServices from "../../services/ChoferesService";
+import empresasService from "../../services/EmpresasTransportistasService";
+import vehiculosService from "../../services/VehiculosService";
 
 const ViewChofer = () => {
   const { id } = useParams();
@@ -17,8 +19,8 @@ const ViewChofer = () => {
   const [licencia, setLicencia] = useState("");
   const [telefono, setTelefono] = useState("");
   const [fecha_nacimiento, seFechaNacimiento] = useState("");
-  const [id_empresa_transportista, setEmpresaTransportista] = useState("");
-  const [id_vehiculo, setVehiculo] = useState("");
+  const [empresaTransportista, setEmpresaTransportista] = useState("");
+  const [vehiculo, setVehiculo] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
 
@@ -30,10 +32,24 @@ const ViewChofer = () => {
       setLicencia(chofer.licencia || "");
       setTelefono(chofer.telefono || "");
       seFechaNacimiento(chofer.fecha_nacimiento || "");
-      setEmpresaTransportista(chofer.id_empresa_transportista || "");
-      setVehiculo(chofer.id_vehiculo || "");
       setEstado(chofer.estado || "");
       setObservaciones(chofer.observaciones || "");
+
+      if (chofer.id_vehiculo) {
+        vehiculosService
+          .getVehiculoById(chofer.id_vehiculo)
+          .then((v) => setVehiculo(v));
+      } else {
+        setVehiculo("");
+      }
+  
+      if (chofer.id_empresa_transportista) {
+        empresasService
+          .getTransportistaById(chofer.id_empresa_transportista)
+          .then((e) => setEmpresaTransportista(e));
+      } else {
+        setEmpresaTransportista("");
+      }
     });
   }, [id]);
 
@@ -69,9 +85,13 @@ const ViewChofer = () => {
             <ViewField
               title="Empresa transportista"
               id="idEmpresaTransportista"
-              value={id_empresa_transportista}
+              value={empresaTransportista ? empresaTransportista.razon_social : "Sin empresa"}
             />
-            <ViewField title="Vehículo" id="idVehiculo" value={id_vehiculo} />
+             <ViewField
+              title="Vehículo"
+              id="idVehiculo"
+              value={vehiculo ? `${vehiculo.marca} ${vehiculo.modelo}` : "Sin vehículo"}
+            />
             <ViewField title="Estado" id="idEstado" value={estado} />
             <ViewField
               title="Observaciones"

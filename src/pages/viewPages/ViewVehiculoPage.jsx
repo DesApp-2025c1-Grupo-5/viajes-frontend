@@ -7,6 +7,7 @@ import ViewField from "../../components/ViewField";
 import { useEffect, useState } from "react";
 import { vehiculosService } from "../../services";
 import { useParams } from "react-router-dom";
+import empresasService from "../../services/EmpresasTransportistasService";
 
 const ViewVehiculo = () => {
   const { id } = useParams();
@@ -29,9 +30,18 @@ const ViewVehiculo = () => {
       setAnio(vehiculo.año || "");
       setCapacidad(vehiculo.capacidad || "");
       setVolumen(vehiculo.volumen || "");
-      setEmpresaTransportista(vehiculo.id_empresa_transportista || "");
       setTipo(vehiculo.tipo_de_vehiculo || "");
       setObservaciones(vehiculo.observaciones || "");
+
+      if (vehiculo.id_empresa_transportista) {
+        empresasService
+          .getTransportistaById(vehiculo.id_empresa_transportista)
+          .then((e) => setEmpresaTransportista(e));
+      } else {
+        setEmpresaTransportista("");
+      }
+
+
     });
   }, [id]);
 
@@ -67,7 +77,7 @@ const ViewVehiculo = () => {
             <ViewField
               title="Empresa transportista"
               id="idEmpresaTransportista"
-              value={empresaTransportista}
+              value={empresaTransportista ? empresaTransportista.razon_social : "Sin empresa"}
             />
             <ViewField
               title="Tipo de vehículo"
