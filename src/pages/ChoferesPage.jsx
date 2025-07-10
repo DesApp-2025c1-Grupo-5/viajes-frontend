@@ -23,7 +23,7 @@ const ChoferesPage = () => {
     const obtenerChoferes = async () => {
       try {
         const datos = await choferesService.getAll();
-        setChoferes(datos);
+        setChoferes(datos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
       } catch (error) {
         console.log(error);
       }

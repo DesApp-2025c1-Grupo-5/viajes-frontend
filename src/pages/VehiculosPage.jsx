@@ -21,7 +21,7 @@ const VehiculosPage = () => {
     const obtenerVehiculos = async () => {
       try {
         const datos = await vehiculosService.getAll();
-        setVehiculos(datos);
+        setVehiculos(datos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
       } catch (error) {
         console.log(error);
       }

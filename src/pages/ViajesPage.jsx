@@ -27,7 +27,7 @@ const ViajesPage = () => {
     const obtenerViajes = async () => {
       try {
         const datos = await viajesService.getAll();
-        setViaje(datos);
+        setViaje(datos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
       } catch (error) {
         console.log(error);
       }

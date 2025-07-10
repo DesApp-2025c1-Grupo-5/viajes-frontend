@@ -21,7 +21,7 @@ const DepositosPage = () => {
     const obtenerDepositos = async () => {
       try {
         const datos = await depositosService.getAll();
-        setDepositos(datos);
+        setDepositos(datos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
       } catch (error) {
         console.log(error);
       }

@@ -21,7 +21,7 @@ const TransportistasPage = () => {
     const obtenerTransportistas = async () => {
       try {
         const datos = await transportistaService.getAll();
-        setTransportistas(datos);
+        setTransportistas(datos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
       } catch (error) {
         console.log(error);
       }
