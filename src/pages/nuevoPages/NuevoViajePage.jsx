@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
-import Header from "../../components/Header";
-import NavBar from "../../components/NavBar";
+import Layout from "../../components/Layout";
 import TitleNew from "../../components/TitleNew";
 import FormTitle from "../../components/FormTitle";
 import DropdownButton from "../../components/DropDownButton";
@@ -224,10 +223,8 @@ const NuevoViajePage = () => {
   };
 
   return (
-    <>
-      <Header></Header>
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/viajes" />
@@ -322,7 +319,7 @@ const NuevoViajePage = () => {
           </form>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

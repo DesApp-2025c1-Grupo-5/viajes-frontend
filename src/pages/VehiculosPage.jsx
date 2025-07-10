@@ -1,5 +1,4 @@
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
+import Layout from "../components/Layout";
 import Title from "../components/Title";
 import TablaVehiculos from "../components/TablaVehiculos";
 import SearchBar from "../components/SearchBar";
@@ -7,6 +6,7 @@ import TableTitle from "../components/TableTitle";
 import New from "../components/New";
 import { useEffect, useState } from "react";
 import vehiculosService from "../services/VehiculosService";
+
 
 const VehiculosPage = () => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -35,10 +35,8 @@ const VehiculosPage = () => {
   }, [busqueda, vehiculos]);
 
   return (
-    <>
-      <Header></Header>
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-red-400"
@@ -67,7 +65,7 @@ const VehiculosPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

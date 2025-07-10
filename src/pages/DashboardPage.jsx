@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
+import Layout from "../components/Layout";
 import Title from "../components/Title";
 import Card from "../components/Card";
 import { Map, Home, User, Building, Truck } from "lucide-react";
@@ -47,10 +46,8 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <>
-      <Header />
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-blue-600"
@@ -128,7 +125,7 @@ const DashboardPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

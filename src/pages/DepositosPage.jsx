@@ -1,5 +1,3 @@
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
 import Title from "../components/Title";
 import TablaDepositos from "../components/TablaDepositos";
 import SearchBar from "../components/SearchBar";
@@ -7,6 +5,7 @@ import TableTitle from "../components/TableTitle";
 import New from "../components/New";
 import { useEffect, useState } from "react";
 import depositosService from "../services/DepositosService";
+import Layout from "../components/Layout";
 
 const DepositosPage = () => {
   const [depositos, setDepositos] = useState([]);
@@ -35,10 +34,8 @@ const DepositosPage = () => {
   }, [busqueda, depositos]);
 
   return (
-    <>
-      <Header></Header>
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-orange-400"
@@ -67,7 +64,7 @@ const DepositosPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
