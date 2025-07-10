@@ -16,9 +16,10 @@ const ViajesPage = () => {
   const [busqueda, setBusqueda] = useState("");
   const [filtros, setFiltros] = useState({});
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
-  const [paginaActual, setPaginaActual] = useState(1);
-  const [limitePorPagina, setLimitePorPagina] = useState(5);
+  
   const [totalViajes, setTotalViajes] = useState(0);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const limitePorPagina = 6;
 
   
 
