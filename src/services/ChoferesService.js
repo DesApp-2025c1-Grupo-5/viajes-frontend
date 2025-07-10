@@ -21,6 +21,7 @@ service.post = async (nuevoChofer) => {
     return respuesta.data;
   } catch (error) {
     console.error("Error al crear al nuevo chofer:", error);
+    throw error;
   }
 };
 
@@ -30,6 +31,7 @@ service.getChoferById = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe chofer con el id:", error);
+    throw error;
   }
 };
 
@@ -39,6 +41,7 @@ service.updateChofer = async (id, chofer) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe chofer con el id:", error);
+    throw error;
   }
 };
 
@@ -48,6 +51,7 @@ service.deleteChofer = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe chofer con el id:", error);
+    throw error;
   }
 };
 
@@ -60,8 +64,8 @@ service.getCountChoferesActivos = async () =>{
   }catch(error){
     console.error("Error al obtener la cantidad de choferes:",
       error)
+      throw error;
   }
-  throw error;
 }
 
 export default service;

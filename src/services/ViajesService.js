@@ -22,6 +22,7 @@ service.post = async (nuevoViaje) => {
     return respuesta.data;
   } catch (error) {
     console.error("Error al crear al nuevo viaje:", error);
+    throw error;
   }
 };
 
@@ -31,6 +32,7 @@ service.getViajeById = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe viaje con el id:", error);
+    throw error;
   }
 };
 
@@ -40,6 +42,7 @@ service.updateViaje = async (id, viaje) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe viaje con el id:", error);
+    throw error;
   }
 };
 
@@ -49,6 +52,7 @@ service.deleteViaje = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe el viaje con el id:", error);
+    throw error;
   }
 };
 

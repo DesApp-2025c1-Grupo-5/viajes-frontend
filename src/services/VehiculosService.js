@@ -21,6 +21,7 @@ service.post = async (nuevoVehiculo) => {
     return respuesta.data;
   } catch (error) {
     console.error("Error al crear al nuevo vehículo:", error);
+    throw error;
   }
 };
 
@@ -30,6 +31,7 @@ service.getVehiculoById = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe vehículo con el id:", error);
+    throw error;
   }
 };
 
@@ -39,6 +41,7 @@ service.updateVehiculo = async (id, vehiculo) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe vehículo con el id:", error);
+    throw error;
   }
 };
 
@@ -48,6 +51,7 @@ service.deleteVehiculo = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe vehículo con el id:", error);
+    throw error;
   }
 };
 

@@ -20,7 +20,8 @@ service.post = async (nuevoDeposito) => {
     const respuesta = await axios.post(`${API_URL}/depositos`, nuevoDeposito);
     return respuesta.data;
   } catch (error) {
-    console.error("Error al crear al nuevo depósito:", error);
+    console.error("Error al crear al nuevo depósito:", error); 
+    throw error;
   }
 };
 
@@ -30,6 +31,7 @@ service.getDepositoById = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe chofer con el deposito:", error);
+    throw error;
   }
 };
 
@@ -39,6 +41,7 @@ service.updateDeposito = async (id, deposito) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe deposito con el id:", error);
+    throw error;
   }
 };
 
@@ -48,6 +51,7 @@ service.deleteDeposito = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe deposito con el id:", error);
+    throw error;
   }
 };
 
@@ -57,8 +61,8 @@ service.getCountDepositosActivos = async () => {
     return respuesta.data.count;
   } catch (error) {
     console.error("Error al obtener la cantidad de depositos:", error);
+    throw error;
   }
-  throw error;
 };
 
 export default service;
