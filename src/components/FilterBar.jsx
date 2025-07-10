@@ -17,7 +17,7 @@ const FilterBar = ({ onFilter, onClear, filtrosActuales = {} }) => {
     provinciaDestino: "",
     depositoOrigen: "",
     depositoDestino: "",
-    ...filtrosActuales // Override with any existing filters
+    ...filtrosActuales
   });
 
   const [empresas, setEmpresas] = useState([]);
@@ -64,7 +64,6 @@ useEffect(() => {
   
 }, []);
 
-// Update local state when filtrosActuales prop changes
 useEffect(() => {
   if (filtrosActuales && Object.keys(filtrosActuales).length > 0) {
     setFiltros(prev => ({
