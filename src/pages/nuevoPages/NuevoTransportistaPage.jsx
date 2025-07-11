@@ -102,6 +102,7 @@ const NuevoTransportistaPage = () => {
               onChange={(e) => setCuit(e.target.value)}
               value={cuit_rut}
               required={true}
+              type="number"
             ></Input>
             <Input
               placeholder="Ej: abcdefga@hotmail.com"
@@ -111,6 +112,7 @@ const NuevoTransportistaPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required={true}
+              type="email"
             ></Input>
             <Input
               placeholder="Ej: 1111111111"
