@@ -100,7 +100,7 @@ const EditarVehiculoPage = () => {
       navigate("/vehiculos");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("No se pudo crear el vehiculo", {
+      toast.error("No se pudo actualizar el vehiculo", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
