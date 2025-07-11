@@ -23,10 +23,10 @@ const tiposDeDepositos = [
 
 const restriccionesDeAcceso = [
   { value: "", label: "Seleccionar" },
-  { value: "solo Personal Autorizado", label: "Solo Personal Autorizado" },
+  { value: "Solo Personal Autorizado", label: "Solo Personal Autorizado" },
   {
-    value: "todo el Personal Autorizado",
-    label: "Todo el Personal Autorizado",
+    value: "Todo el Personal",
+    label: "Todo el Personal",
   },
 ];
 
