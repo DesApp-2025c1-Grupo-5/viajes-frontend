@@ -25,6 +25,11 @@ const ViewViaje = () => {
   const [vehiculo, setVehiculo] =  useState("");
   const [observaciones, setObservaciones] = useState("");
 
+  const formatDateTime = (dateTimeString) => {
+    if (!dateTimeString) return "";
+    return dateTimeString.replace("T", " - ") + " hs";
+  };
+
   useEffect(() => {
     viajesServices.getViajeById(id).then((viaje) => {
       setFechaSalida(viaje.fecha_salida || "");
@@ -92,8 +97,8 @@ const ViewViaje = () => {
              id="idDestino" 
              value={destino ? destino.nombre : "Sin depósito de destino"} 
              />
-            <ViewField title="Fecha de salida" id="idFechaSalida" value={fecha_salida} />
-            <ViewField title="Fecha de llegada" id="idFechaLlegada" value={fecha_llegada} />
+            <ViewField title="Fecha de salida" id="idFechaSalida" value={formatDateTime(fecha_salida)} />
+            <ViewField title="Fecha de llegada" id="idFechaLlegada" value={formatDateTime(fecha_llegada)} />
             <ViewField
               title="Chofer"
               id="idChofer"
