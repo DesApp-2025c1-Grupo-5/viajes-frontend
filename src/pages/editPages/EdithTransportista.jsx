@@ -116,7 +116,7 @@ const EditarTransportistasPage = () => {
             <Input
               value={cuit_rut}
               onChange={(e) => setCuitRut(e.target.value)}
-              title="CUIT/RUT (Sin guiones ni espacios)"
+              title="CUIT/RUT"
               id="idCuitRut"
               required
             />

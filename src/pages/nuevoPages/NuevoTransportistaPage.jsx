@@ -93,7 +93,7 @@ const NuevoTransportistaPage = () => {
             ></Input>
             <Input
               placeholder="Ej: 2020202020"
-              title="CUIT/RUT (Sin guiones ni espacios)"
+              title="CUIT/RUT"
               id="idCuit"
               name="cuit_rut"
               onChange={(e) => setCuit(e.target.value)}
