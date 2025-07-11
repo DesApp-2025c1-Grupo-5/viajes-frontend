@@ -81,7 +81,7 @@ const ViajesPage = () => {
       && (!tipoDeViaje || match(viaje.tipoDeViaje, tipoDeViaje)) 
       && (!fecha_desde || fechaPosterior(viaje.fecha_llegada, fecha_desde))
       && (!fecha_hasta || fechaAnterior(viaje.fecha_salida, fecha_hasta))
-      && (!nroViaje || viaje.id.toString().includes(nroViaje))
+      && (!nroViaje || match(viaje.id.toString(), nroViaje))
       && (!empresa || match(viaje.empresaTransportista.razon_social, empresa))
       && (!chofer || include(`${viaje.chofer?.nombre ?? ""} ${viaje.chofer?.apellido}`, chofer))
       && (!patente || match(viaje.vehiculo?.patente, patente))
