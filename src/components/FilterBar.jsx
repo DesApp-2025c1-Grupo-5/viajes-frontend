@@ -4,7 +4,7 @@ import ComboboxField from "./ComboboxField";
 import {choferesService, depositosService, empresasTransportistasService, vehiculosService} from "../services";
 
 
-const FilterBar = ({ onFilter, onClear }) => {
+const FilterBar = ({ onFilter, onClear, filtrosActuales = {} }) => {
   const [filtros, setFiltros] = useState({
     tipoDeViaje: "",
     fecha_desde: "",
@@ -17,6 +17,7 @@ const FilterBar = ({ onFilter, onClear }) => {
     provinciaDestino: "",
     depositoOrigen: "",
     depositoDestino: "",
+    ...filtrosActuales
   });
 
   const [empresas, setEmpresas] = useState([]);
@@ -62,6 +63,15 @@ useEffect(() => {
 
   
 }, []);
+
+useEffect(() => {
+  if (filtrosActuales && Object.keys(filtrosActuales).length > 0) {
+    setFiltros(prev => ({
+      ...prev,
+      ...filtrosActuales
+    }));
+  }
+}, [filtrosActuales]);
 
 
   const handleChange = (field, value) => {
