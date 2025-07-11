@@ -219,6 +219,7 @@ const NuevoViajePage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/viajes");
     }
   };
 

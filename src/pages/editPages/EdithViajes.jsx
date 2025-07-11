@@ -236,6 +236,7 @@ const EditarViajePage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/viajes");
     }
   };
 

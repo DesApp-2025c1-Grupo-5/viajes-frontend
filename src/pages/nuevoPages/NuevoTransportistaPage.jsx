@@ -65,6 +65,7 @@ const NuevoTransportistaPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/transportistas");
     }
   };
 

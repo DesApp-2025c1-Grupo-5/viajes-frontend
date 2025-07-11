@@ -107,6 +107,7 @@ const EditarDepositosPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/depositos");
     }
   };
 

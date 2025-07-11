@@ -125,6 +125,7 @@ const NuevoChoferPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/choferes");
     }
   };
 

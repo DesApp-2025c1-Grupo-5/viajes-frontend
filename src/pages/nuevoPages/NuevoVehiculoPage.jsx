@@ -90,6 +90,7 @@ const NuevoVehiculoPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/vehiculos");
     }
   };
 

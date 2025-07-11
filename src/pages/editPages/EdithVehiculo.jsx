@@ -108,6 +108,7 @@ const EditarVehiculoPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/vehiculos");
     }
   };
 

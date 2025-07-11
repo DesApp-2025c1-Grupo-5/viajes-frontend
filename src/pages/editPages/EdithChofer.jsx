@@ -155,6 +155,7 @@ const EditarChoferesPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/choferes");
     }
   };
 

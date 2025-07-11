@@ -88,6 +88,7 @@ const NuevoDepositoPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/depositos");
     }
   };
 

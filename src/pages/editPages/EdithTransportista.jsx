@@ -86,6 +86,7 @@ const EditarTransportistasPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/transportistas");
     }
   };
 
