@@ -118,6 +118,7 @@ const EditarTransportistasPage = () => {
               onChange={(e) => setCuitRut(e.target.value)}
               title="CuitRut"
               id="idCuitRut"
+              type="number"
               required
             />
             <Input
@@ -125,6 +126,7 @@ const EditarTransportistasPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               title="Email"
               id="idEmail"
+              type="email"
               required
             />
             <Input

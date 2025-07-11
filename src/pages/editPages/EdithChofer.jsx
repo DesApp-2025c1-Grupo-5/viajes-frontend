@@ -192,6 +192,7 @@ const EditarChoferesPage = () => {
                 onChange={(e) => setDni(e.target.value)}
                 title="Dni"
                 id="idDni"
+                type="number"
                 required
               />
               <Input

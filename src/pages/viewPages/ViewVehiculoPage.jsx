@@ -70,7 +70,7 @@ const ViewVehiculo = () => {
               id="idCapacidad"
               value={capacidad}
             />
-            <ViewField title="Volumen" id="idVolumen" value={volumen} />
+            <ViewField title="Volumen (m³)" id="idVolumen" value={volumen} />
             <ViewField
               title="Empresa transportista"
               id="idEmpresaTransportista"

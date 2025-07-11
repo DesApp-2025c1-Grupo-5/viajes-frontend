@@ -14,7 +14,6 @@ const ComboboxField = ({ label, value, placeholder, onChange, options }) => {
           opt.toLowerCase().includes(query.toLowerCase())
         );
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (comboboxRef.current && !comboboxRef.current.contains(event.target)) {

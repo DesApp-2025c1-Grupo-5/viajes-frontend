@@ -152,6 +152,7 @@ const EditarVehiculoPage = () => {
                 onChange={(e) => setAnio(e.target.value)}
                 title="Año"
                 id="idAño"
+                type="number"
                 required
               />
               <Input
@@ -159,13 +160,15 @@ const EditarVehiculoPage = () => {
                 onChange={(e) => setCapacidad(e.target.value)}
                 title="Capacidad (Toneladas)"
                 id="idToneladas"
+                type="number"
                 required
               />
               <Input
                 value={volumen}
                 onChange={(e) => setVolumen(e.target.value)}
-                title="Volumen"
+                title="Volumen (m³)"
                 id="idVolumen"
+                type="number"
                 required
               />
               <DropdownButton

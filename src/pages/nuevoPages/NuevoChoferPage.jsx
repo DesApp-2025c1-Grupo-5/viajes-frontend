@@ -167,6 +167,7 @@ const NuevoChoferPage = () => {
               id="idDni"
               required
               value={dni}
+              type="number"
               onChange={(e) => setDni(e.target.value)}
             ></Input>
             <Input

@@ -20,7 +20,7 @@ const DropdownButton = ({
           onChange={onChange}
           required={required}
           disabled={disabled}
-          className={`w-full bg-white shadow-lg font-medium rounded-full text-sm px-5 py-2.5 pr-10 appearance-none
+          className={`w-full bg-white border-1 border-gray-300 shadow-lg font-medium rounded-full text-sm px-5 py-2.5 pr-10 appearance-none
             ${disabled ? "text-gray-400 bg-gray-100 cursor-not-allowed" : "text-gray-700 hover:bg-gray-100 cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300"}
             ${className || ""}
           `}

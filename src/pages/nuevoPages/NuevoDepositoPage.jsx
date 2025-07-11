@@ -147,7 +147,7 @@ const NuevoDepositoPage = () => {
             />
 
             <Input
-              placeholder="Ej: Av. Pronvincial 566"
+              placeholder="Ej: Av. Provincial 566"
               title="Dirección"
               id="idDireccion"
               onChange={(e) => setDireccion(e.target.value)}
