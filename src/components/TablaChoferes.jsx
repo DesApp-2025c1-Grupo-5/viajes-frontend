@@ -102,7 +102,6 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
             </tr>
           </thead>
           <tbody>
-            {/* <td className="px-4 py-2 border-b">{parseFecha(viajes.fecha_salida)}</td> */}
             {choferes.map((chofer) => (
               <tr
                 key={chofer.id}
@@ -122,7 +121,7 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
                   {chofer.dni}
                 </td>
                 <td className="px-4 py-2 border-b border-gray-300">
-                  {chofer.vehiculo?.patente || "Sin vehículo"}
+                  {chofer.vehiculo? `${chofer.vehiculo.marca} (${chofer.vehiculo.patente})` : "Sin vehículo"}
                 </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   {chofer.empresaTransportista?.razon_social || "Sin empresa"}
