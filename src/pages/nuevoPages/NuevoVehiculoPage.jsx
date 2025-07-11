@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
-import Header from "../../components/Header";
-import NavBar from "../../components/NavBar";
+import Layout from "../../components/Layout";
 import TitleNew from "../../components/TitleNew";
 import FormTitle from "../../components/FormTitle";
 import Input from "../../components/Input";
@@ -95,10 +94,8 @@ const NuevoVehiculoPage = () => {
   };
 
   return (
-    <>
-      <Header />
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/vehiculos" />
@@ -189,7 +186,7 @@ const NuevoVehiculoPage = () => {
           </form>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

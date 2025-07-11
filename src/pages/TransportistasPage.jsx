@@ -1,5 +1,4 @@
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
+import Layout from "../components/Layout";
 import Title from "../components/Title";
 import TablaTransportistas from "../components/TablaTransportistas";
 import SearchBar from "../components/SearchBar";
@@ -48,10 +47,8 @@ const TransportistasPage = () => {
   }, [busqueda, transportistas]);
 
   return (
-    <>
-      <Header></Header>
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-purple-400"
@@ -107,7 +104,7 @@ const TransportistasPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

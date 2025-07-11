@@ -1,5 +1,4 @@
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
+import Layout from "../components/Layout";
 import Title from "../components/Title";
 import SearchBar from "../components/SearchBar";
 import TableTitle from "../components/TableTitle";
@@ -18,8 +17,12 @@ const ViajesPage = () => {
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
   
   const [totalViajes, setTotalViajes] = useState(0);
+//<<<<<<< Branch: Services-Error
   const [paginaActual, setPaginaActual] = useState(1);
   const limitePorPagina = 6;
+//=======
+  const [mostrarFiltros, setMostrarFiltros] = useState(false);
+//>>>>>>> Branch: dev
 
   
 
@@ -124,16 +127,18 @@ const ViajesPage = () => {
     setBusqueda("");
   }
 
+  const toggleFiltros = () => {
+    setMostrarFiltros(!mostrarFiltros);
+  }
+
   const viajesPaginados = viajesFiltrado.slice(
     (paginaActual - 1) * limitePorPagina,
     paginaActual * limitePorPagina
   );
 
   return (
-    <>
-      <Header></Header>
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <Title
             color="text-pink-300"
@@ -153,8 +158,36 @@ const ViajesPage = () => {
                 colorHover="hover:bg-pink-400"
               ></New>
             </div>
-            <SearchBar onSearch={setBusqueda} value={busqueda}/>
-            <FilterBar onFilter={filtrarViajes} onClear={limpiarBusqueda} />
+            <div className="flex items-center justify-between mb-4">
+              <SearchBar onSearch={setBusqueda} value={busqueda}/>
+              <button
+                onClick={toggleFiltros}
+                className="px-4 py-2 bg-pink-300 text-white rounded-lg hover:bg-pink-400 transition-colors duration-200 flex items-center gap-2"
+              >
+                {mostrarFiltros ? (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L8.464 8.464M9.878 9.878a3 3 0 010-4.243m7.071 7.071L21 21m-3.5-3.5l-1.293-1.293a1 1 0 00-1.414 0L8.464 8.464" />
+                    </svg>
+                    Ocultar Filtros
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    Mostrar Filtros
+                  </>
+                )}
+              </button>
+            </div>
+            {mostrarFiltros && (
+              <FilterBar 
+                onFilter={filtrarViajes} 
+                onClear={limpiarBusqueda} 
+                filtrosActuales={filtros}
+              />
+            )}
             <TablaViajes
               viajes={viajesPaginados}
               setViaje={setViaje}
@@ -190,7 +223,7 @@ const ViajesPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
