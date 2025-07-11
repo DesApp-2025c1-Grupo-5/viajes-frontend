@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import NavBar from "../../components/NavBar";
@@ -6,17 +7,13 @@ import TitleNew from "../../components/TitleNew";
 import FormTitle from "../../components/FormTitle";
 import Input from "../../components/Input";
 import DropdownButton from "../../components/DropDownButton";
+import DatePicker from "../../components/DatePicker";
 import FormButtonSave from "../../components/FormButtonSave";
 import FormButtonCancel from "../../components/FormButtonCancel";
 import TextArea from "../../components/TextArea";
-import choferesService from "../../services/ChoferesService";
+import {choferesService, vehiculosService, empresasTransportistasService}  from "../../services";
+import { toast } from "react-toastify";
 
-const tiposDeEmpresasTransportistas = [
-  { value: "", label: "Seleccionar" },
-  { value: 2, label: "LogiExpress" },
-  { value: 1, label: "Transportes Rápidos S.A" },
-  { value: 3, label: "CargoMax" },
-];
 
 const tiposDeEstado = [
   { value: "", label: "Seleccionar" },
@@ -26,15 +23,73 @@ const tiposDeEstado = [
 ];
 
 const NuevoChoferPage = () => {
+  const navigate = useNavigate();
+  
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [dni, setDni] = useState("");
   const [licencia, setLicencia] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [fecha_nacimiento, seFechaNacimiento] = useState("");
-  const [id_empresa_transportista, setEmpresaTransportista] = useState(1);
+  const [fecha_nacimiento, setFechaNacimiento] = useState("");
+  const [id_empresa_transportista, setEmpresaTransportista] = useState("");
+  const [id_vehiculo, setVehiculo] = useState("");
   const [estado, setEstado] = useState("");
   const [observaciones, setObservaciones] = useState("");
+
+  const [empresas, setEmpresas] = useState([]);
+  const [opcionesDeEmpresas, setOpcionesEmpresas] = useState([]);
+
+  const [vehiculos, setVehiculos] = useState([]);
+  const [opcionesDeVehiculos, setOpcionesVehiculos] = useState([]);
+
+  useEffect(() => {
+    const obtenerEmpresas = async () => {
+      const empresasData = await empresasTransportistasService.getAll();
+      setEmpresas(empresasData);
+    };
+    obtenerEmpresas();
+
+    const obtenerVehiculos = async () => {
+      const vehiculosData = await vehiculosService.getAll();
+      setVehiculos(vehiculosData);
+    };
+    obtenerVehiculos();
+  }, [])
+  
+  useEffect(() => {
+      const opciones = [
+        { value: "", label: "Seleccionar" },
+        ...empresas.map((e) => ({
+          value: e.id,
+          label: e.razon_social,
+        })),
+      ];
+      setOpcionesEmpresas(opciones);
+    }, [empresas]);
+
+    useEffect(() => {
+      let opciones = [];
+      if (!id_empresa_transportista) {
+        opciones = [{ value: "", label: "Seleccionar" }];
+      } else {
+        opciones = [
+          { value: "", label: "Seleccionar" },
+          ...vehiculos
+          .filter(
+            (v) =>
+              v.id_empresa_transportista.toString() === id_empresa_transportista
+          )
+          .map((v) => ({
+            value: v.id,
+            label: `${v.marca} / ${v.modelo} (${v.patente})`,
+          })),
+        ];
+      }
+      
+      setVehiculo("");
+      setOpcionesVehiculos(opciones);
+    }, [id_empresa_transportista, vehiculos]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,15 +101,31 @@ const NuevoChoferPage = () => {
       telefono,
       fecha_nacimiento,
       id_empresa_transportista,
+      id_vehiculo,
       estado,
       observaciones,
     };
     try {
       await choferesService.post(nuevoChofer);
-      alert("✅ Chofer creado correctamente");
+      toast.success("Chofer creado correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      navigate("/choferes");
     } catch (error) {
       console.error("Error al crear chofer:", error);
-      alert("❌ No se pudo crear el chofer");
+      toast.error("No se pudo crear el chofer", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -117,20 +188,28 @@ const NuevoChoferPage = () => {
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             ></Input>
-            <Input
+            <DatePicker
               placeholder="Ej: 01/01/01"
               title="Fecha de nacimiento"
               id="idFechaDeNacimiento"
               required
               value={fecha_nacimiento}
-              onChange={(e) => seFechaNacimiento(e.target.value)}
-            ></Input>
+              onChange={setFechaNacimiento}
+            />
             <DropdownButton
               titulo="Empresa Transportista"
               required
               onChange={(e) => setEmpresaTransportista(e.target.value)}
               value={id_empresa_transportista}
-              options={tiposDeEmpresasTransportistas}
+              options={opcionesDeEmpresas}
+            ></DropdownButton>
+            <DropdownButton
+              titulo="Vehiculo"
+              required
+              onChange={(e) => setVehiculo(e.target.value)}
+              value={id_vehiculo}
+              options={opcionesDeVehiculos}
+              disabled={!id_empresa_transportista}
             ></DropdownButton>
             <DropdownButton
               titulo="Estado"
@@ -148,7 +227,7 @@ const NuevoChoferPage = () => {
             ></TextArea>
             <div className="col-span-2 flex justify-start w-full gap-8 mt-2">
               <FormButtonCancel to="/choferes" />
-              <FormButtonSave to="/choferes" />
+              <FormButtonSave />
             </div>
           </form>
         </div>

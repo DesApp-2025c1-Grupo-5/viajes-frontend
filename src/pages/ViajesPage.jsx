@@ -16,7 +16,11 @@ const ViajesPage = () => {
   const [busqueda, setBusqueda] = useState("");
   const [filtros, setFiltros] = useState({});
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [limitePorPagina, setLimitePorPagina] = useState(5);
+  const [totalViajes, setTotalViajes] = useState(0);
 
+  
 
   useEffect(() => {
     const obtenerViajes = async () => {
@@ -40,8 +44,8 @@ const ViajesPage = () => {
       viaje.depositoOrigen?.provincia,
       viaje.depositoDestino?.nombre,
       viaje.depositoDestino?.provincia,
-      viaje.fecha_salida,
-      viaje.fecha_llegada,
+      viaje.fecha_desde,
+      viaje.fecha_hasta,
       viaje.chofer?.nombre,
       viaje.chofer?.apellido,
       viaje.empresaTransportista?.razon_social,
@@ -55,8 +59,8 @@ const ViajesPage = () => {
 
     const {
       tipoDeViaje,
-      fecha_salida,
-      fecha_llegada,
+      fecha_desde,
+      fecha_hasta,
       nroViaje,
       empresa,
       chofer,
@@ -66,12 +70,12 @@ const ViajesPage = () => {
       depositoOrigen,
       depositoDestino,
     } = filtros;
-
+    
     return (
       filtradoPorTexto
       && (!tipoDeViaje || match(viaje.tipoDeViaje, tipoDeViaje)) 
-      && (!fecha_salida || fechaPosterior(viaje.fecha_salida, fecha_salida))
-      && (!fecha_llegada || fechaAnterior(viaje.fecha_llegada, fecha_llegada))
+      && (!fecha_desde || fechaPosterior(viaje.fecha_llegada, fecha_desde))
+      && (!fecha_hasta || fechaAnterior(viaje.fecha_salida, fecha_hasta))
       && (!nroViaje || viaje.id.toString().includes(nroViaje))
       && (!empresa || match(viaje.empresaTransportista.razon_social, empresa))
       && (!chofer || include(`${viaje.chofer?.nombre ?? ""} ${viaje.chofer?.apellido}`, chofer))
@@ -86,6 +90,14 @@ const ViajesPage = () => {
     setViajesFiltrado(resultadoFiltro);
   }, [busqueda, viajes, filtros]);
 
+  useEffect(() => {
+    setTotalViajes(viajesFiltrado.length);
+  }, [viajesFiltrado]);
+
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [busqueda, filtros]);
+  
 
   const fechaPosterior = (fechaViaje, fechaFiltro) => {
     if(!fechaFiltro) return true;
@@ -111,6 +123,10 @@ const ViajesPage = () => {
     setBusqueda("");
   }
 
+  const viajesPaginados = viajesFiltrado.slice(
+    (paginaActual - 1) * limitePorPagina,
+    paginaActual * limitePorPagina
+  );
 
   return (
     <>
@@ -139,10 +155,37 @@ const ViajesPage = () => {
             <SearchBar onSearch={setBusqueda} value={busqueda}/>
             <FilterBar onFilter={filtrarViajes} onClear={limpiarBusqueda} />
             <TablaViajes
-              viajes={viajesFiltrado}
+              viajes={viajesPaginados}
               setViaje={setViaje}
               setViajesFiltrados={setViajesFiltrado}
             />
+            {viajesFiltrado.length ? (
+              
+                <div className="flex justify-center items-center mt-4 space-x-2">
+              <button
+                onClick={() => setPaginaActual((prev) => Math.max(prev - 1, 1))}
+                disabled={paginaActual === 1}
+                className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+              >
+                Anterior
+              </button>
+
+              <span className="text-gray-700">
+                Página {paginaActual} de {Math.ceil(totalViajes / limitePorPagina)}
+              </span>
+              <button
+                onClick={() =>
+                setPaginaActual((prev) =>
+                prev < Math.ceil(totalViajes / limitePorPagina) ? prev + 1 : prev
+                )
+                }
+                disabled={paginaActual >= Math.ceil(totalViajes / limitePorPagina)}
+                className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+              >
+                Siguiente
+              </button>
+            </div>
+            ):("")}
           </div>
         </div>
       </div>

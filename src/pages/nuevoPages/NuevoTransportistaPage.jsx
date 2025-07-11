@@ -10,6 +10,7 @@ import TextArea from "../../components/TextArea";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import transportistaService from "../../services/EmpresasTransportistasService";
+import { toast } from "react-toastify";
 
 const NuevoTransportistaPage = () => {
   const navigate = useNavigate();
@@ -36,9 +37,25 @@ const NuevoTransportistaPage = () => {
     e.preventDefault();
     try {
       await transportistaService.create(formData);
+      toast.success("Empresa transportista creada correctamente", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       navigate("/transportistas");
     } catch (error) {
       console.error("No se pudo crear la empresa: ", error);
+      toast.error("No se pudo crear la empresa transportista", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 

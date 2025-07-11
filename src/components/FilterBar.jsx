@@ -1,57 +1,14 @@
 import { useEffect, useState } from "react";
 import { FunnelIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { Combobox } from "@headlessui/react";
+import ComboboxField from "./ComboboxField";
 import {choferesService, depositosService, empresasTransportistasService, vehiculosService} from "../services";
 
-const ComboboxField = ({ label, value, onChange, options }) => {
-  const [query, setQuery] = useState("");
-
-  const filtered =
-    query === ""
-      ? options
-      : options.filter((opt) =>
-          opt.toLowerCase().includes(query.toLowerCase())
-        );
-
-  return (
-    <div className="w-full">
-      <Combobox value={value} onChange={onChange}>
-        <div className="relative">
-          <Combobox.Input
-            className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 w-full"
-            placeholder={label}
-            onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => setQuery("")}
-            displayValue={(val) => val}
-          />
-          {filtered.length > 0 && (
-            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded bg-white shadow-lg">
-              {filtered.map((item, index) => (
-                <Combobox.Option
-                  key={index}
-                  value={item}
-                  className={({ active }) =>
-                    `cursor-pointer px-4 py-2 ${
-                      active ? "bg-blue-400 text-white" : "text-gray-900"
-                    }`
-                  }
-                >
-                  {item}
-                </Combobox.Option>
-              ))}
-            </Combobox.Options>
-          )}
-        </div>
-      </Combobox>
-    </div>
-  );
-};
 
 const FilterBar = ({ onFilter, onClear }) => {
   const [filtros, setFiltros] = useState({
     tipoDeViaje: "",
-    fecha_salida: "",
-    fecha_llegada: "",
+    fecha_desde: "",
+    fecha_hasta: "",
     nroViaje: "",
     empresa: "",
     chofer: "",
@@ -119,127 +76,165 @@ useEffect(() => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 ml-[-16px]" 
-      style={{ maxWidth: "80%" }}
-    >
-      
-      <select
-        value={filtros.tipoDeViaje}
-        onChange={(e) => handleChange("tipoDeViaje", e.target.value)}
-        className="border border-gray-300 rounded-lg px-2 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-400"
+      // className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 ml-[-16px]" 
+      style={{ maxWidth: "100%" }}
       >
-        <option value="">Todos los Viajes</option>
-        <option value="Nacional">Viajes Nacionales</option>
-        <option value="Internacional">Viajes Internacionales</option>
-      </select>
+      <div
+        className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 ml-[-16px]" 
+        // className="flex gap-6"
+        style={{ maxWidth: "100%" }}
+      >
 
-      <input
-        type="date"
-        value={filtros.fecha_salida ? filtros.fecha_salida.split("T")[0] : ""}
-        onChange={(e) =>
-          handleChange(
-            "fecha_salida",
-            e.target.value ? new Date(e.target.value).toISOString() : ""
-          )
-        }   
-      className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-400"
-      />
-
-      <input
-        type="date"
-        value={filtros.fecha_llegada ? filtros.fecha_llegada.split("T")[0] : ""}
-        onChange={(e) =>
-          handleChange(
-            "fecha_llegada",
-            e.target.value ? new Date(e.target.value).toISOString() : ""
-          )
-        }   
-      className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-400"
-      />
-
-      <input
-        type="number"
-        placeholder="N° de viaje"
-        value={filtros.nroViaje}
-        onChange={(e) => handleChange("nroViaje", e.target.value)}
-        className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-      />
-
-      <ComboboxField
-        label="Empresa"
-        value={filtros.empresa}
-        onChange={(val) => handleChange("empresa", val)}
-        options={empresas}
-        
-      />
-
-      <ComboboxField
-        label="Chofer"
-        value={filtros.chofer}
-        onChange={(val) => handleChange("chofer", val === "Todos los choferes" ? "" : val)}
-        options={choferes}
-      />
-      <ComboboxField
-        label="Patente"
-        value={filtros.patente}
-        onChange={(val) => handleChange("patente", val)}
-        options={patentes}
-      />
-      <ComboboxField
-        label="Provincia origen"
-        value={filtros.provinciaOrigen}
-        onChange={(val) => handleChange("provinciaOrigen", val)}
-        options={provincias}
-      />
-      <ComboboxField
-        label="Provincia destino"
-        value={filtros.provinciaDestino}
-        onChange={(val) => handleChange("provinciaDestino", val)}
-        options={provincias}
-      />
-      <ComboboxField
-        label="Depósito origen"
-        value={filtros.depositoOrigen}
-        onChange={(val) => handleChange("depositoOrigen", val)}
-        options={depositos.map((d) => d.nombre)}
-      />
-      <ComboboxField
-        label="Depósito destino"
-        value={filtros.depositoDestino}
-        onChange={(val) => handleChange("depositoDestino", val)}
-        options={depositos.map((d) => d.nombre)}
-      />
-      <div/>
-      <button
-        type="submit"
-        className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        <div className="flex flex-col gap-1">
+        <label className="block text-sm font-medium text-gray-500">
+          Tipo de Viaje:
+        </label>
+        <select
+          value={filtros.tipoDeViaje}
+          onChange={(e) => handleChange("tipoDeViaje", e.target.value)}
+          className={`border border-gray-300 rounded-lg px-2 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 
+            ${!filtros.tipoDeViaje ?  "text-gray-400" : ""}`}
         >
-        <FunnelIcon className="w-4 h-4" />
-        Filtrar
-      </button>
-      <button
-        type="submit"
-        onClick={() => {
-          setFiltros({
-            tipoDeViaje: "",
-            fecha_salida: "",
-            fecha_llegada: "",
-            nroViaje: "",
-            empresa: "",
-            chofer: "",
-            patente: "",
-            provinciaOrigen: "",
-            provinciaDestino: "",
-            depositoOrigen: "",
-            depositoDestino: "",
-          })
-          onClear();
-        }}
-        className="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
->
-  <TrashIcon className="w-4 h-4" />
-        Limpiar
-      </button>
+          <option value="">Todos los Viajes</option>
+          <option value="Nacional">Viajes Nacionales</option>
+          <option value="Internacional">Viajes Internacionales</option>
+        </select>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="block text-sm font-medium text-gray-500">
+            Fecha Desde:
+          </label>
+          <input
+            type="date"
+            value={filtros.fecha_desde ? filtros.fecha_desde.split("T")[0] : ""}
+            onChange={(e) =>
+              handleChange(
+                "fecha_desde",
+                e.target.value ? new Date(e.target.value).toISOString() : ""
+              )
+            }   
+            className={`border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300
+                ${!filtros.fecha_desde ?  "text-gray-400" : ""}`}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="block text-sm font-medium text-gray-500">
+            Fecha Hasta:
+          </label>
+          <input
+            type="date"
+            value={filtros.fecha_hasta ? filtros.fecha_hasta.split("T")[0] : ""}
+            onChange={(e) =>
+              handleChange(
+                "fecha_hasta",
+                e.target.value ? new Date(e.target.value).toISOString() : ""
+              )
+            }   
+          className={`border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300
+              ${!filtros.fecha_hasta ?  "text-gray-400" : ""}`}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="block text-sm font-medium text-gray-500">
+            Número de Viaje:
+          </label>
+          <input
+            type="number"
+            placeholder="N° de viaje"
+            value={filtros.nroViaje}
+            onChange={(e) => handleChange("nroViaje", e.target.value)}
+            className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+        </div>
+
+        <ComboboxField
+          label="Empresa Transportista"
+          placeholder={"Todas las Empresas"}
+          value={filtros.empresa}
+          onChange={(val) => handleChange("empresa", val)}
+          options={empresas}
+          
+        />
+
+        <ComboboxField
+          label="Chofer"
+          placeholder={"Todos los Choferes"}
+          value={filtros.chofer}
+          onChange={(val) => handleChange("chofer", val === "Todos los choferes" ? "" : val)}
+          options={choferes}
+        />
+        <ComboboxField
+          label="Patente"
+          placeholder={"Todas las Patentes"}
+          value={filtros.patente}
+          onChange={(val) => handleChange("patente", val)}
+          options={patentes}
+          />
+        <ComboboxField
+          label="Provincia origen"
+          placeholder={"Todas las Provincias"}
+          value={filtros.provinciaOrigen}
+          onChange={(val) => handleChange("provinciaOrigen", val)}
+          options={provincias}
+          />
+        <ComboboxField
+          label="Provincia destino"
+          placeholder={"Todas las Provincias"}
+          value={filtros.provinciaDestino}
+          onChange={(val) => handleChange("provinciaDestino", val)}
+          options={provincias}
+        />
+        <ComboboxField
+          label="Depósito origen"
+          placeholder={"Todos los Depósitos"}
+          value={filtros.depositoOrigen}
+          onChange={(val) => handleChange("depositoOrigen", val)}
+          options={depositos.map((d) => d.nombre)}
+          />
+        <ComboboxField
+          label="Depósito destino"
+          placeholder={"Todos los Depósitos"}
+          value={filtros.depositoDestino}
+          onChange={(val) => handleChange("depositoDestino", val)}
+          options={depositos.map((d) => d.nombre)}
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-6 py-4 max-w-100">
+        <button
+          type="submit"
+          className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+          >
+          <FunnelIcon className="w-4 h-4" />
+          Filtrar
+        </button>
+        <button
+          type="submit"
+          onClick={() => {
+            setFiltros({
+              tipoDeViaje: "",
+              fecha_desde: "",
+              fecha_hasta: "",
+              nroViaje: "",
+              empresa: "",
+              chofer: "",
+              patente: "",
+              provinciaOrigen: "",
+              provinciaDestino: "",
+              depositoOrigen: "",
+              depositoDestino: "",
+            })
+            onClear();
+          }}
+          className="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
+  >
+          <TrashIcon className="w-4 h-4" />
+            Limpiar
+        </button>
+
+      </div>
 
     </form>
   );

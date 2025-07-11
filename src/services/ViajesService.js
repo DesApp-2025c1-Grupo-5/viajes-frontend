@@ -15,6 +15,7 @@ service.getAll = async () => {
   }
 };
 
+
 service.post = async (nuevoViaje) => {
   try {
     const respuesta = await axios.post(`${API_URL}/viajes`, nuevoViaje);

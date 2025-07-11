@@ -2,15 +2,23 @@ import { Trash2, FilePen } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import vehiculoService from "../services/VehiculosService";
 import { ToastContainer, toast } from "react-toastify";
+import SinResultados from "./SinResultados";
 
 const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
+    const vehiculo = vehiculos.find(v => v.id == id);
+    const nombreVehiculo = 
+      vehiculo 
+      ? `${vehiculo.marca} / ${vehiculo.modelo} (${vehiculo.patente})`
+      : "";
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este vehículo?</p>
+          <p className="mb-2">¿Estás seguro de eliminar este vehículo?
+            <br /><span className="italic font-semibold text-red-400">{nombreVehiculo || ""}</span>
+          </p>
           <div className="flex justify-end gap-2">
             <button
               className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
@@ -55,16 +63,16 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
     <>
       <ToastContainer />
       <div className="overflow-x-auto mt-5">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full bg-white border border-gray-200 text-gray-700">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b">Patente</th>
-              <th className="px-4 py-2 border-b">Modelo</th>
-              <th className="px-4 py-2 border-b">Año</th>
-              <th className="px-4 py-2 border-b">Capacidad</th>
-              <th className="px-4 py-2 border-b">Tipo</th>
-              <th className="px-4 py-2 border-b">Transportista</th>
-              <th className="px-4 py-2 border-b">Acciones</th>
+              <th className="px-4 py-2 border-b border-gray-300">Marca</th>
+              <th className="px-4 py-2 border-b border-gray-300">Modelo</th>
+              <th className="px-4 py-2 border-b border-gray-300">Patente</th>
+              <th className="px-4 py-2 border-b border-gray-300">Transportista</th>
+              <th className="max-w-15 px-4 py-2 border-b border-gray-300">Tipo</th>
+              <th className="text-center px-4 py-2 border-b border-gray-300">Capacidad</th>
+              <th className="px-4 py-2 border-b border-gray-300">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -74,17 +82,17 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
                 className="hover:bg-gray-200 cursor-pointer"
                 onClick={() => navigate(`/vehiculos/${vehiculo.id}`)}
               >
-                <td className="px-4 py-2 border-b">{vehiculo.patente}</td>
-                <td className="px-4 py-2 border-b">{vehiculo.modelo}</td>
-                <td className="px-4 py-2 border-b">{vehiculo.año}</td>
-                <td className="px-4 py-2 border-b">{vehiculo.capacidad}</td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300">{vehiculo.marca}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{vehiculo.modelo}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{vehiculo.patente}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {vehiculo.empresa?.razon_social}
+                </td>
+                <td className="max-w-15 px-4 py-2 border-b border-gray-300">
                   {vehiculo.tipo_de_vehiculo}
                 </td>
-                <td className="px-4 py-2 border-b">
-                  {vehiculo.nombre_transportista}
-                </td>
-                <td className="px-4 py-2 border-b">
+                <td className="px-4 py-2 border-b border-gray-300 text-center">{vehiculo.capacidad}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
                   <Link
                     to={`/nuevoVehiculo`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
@@ -113,6 +121,7 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
             ))}
           </tbody>
         </table>
+        <SinResultados lista={vehiculos}/>
       </div>
     </>
   );
