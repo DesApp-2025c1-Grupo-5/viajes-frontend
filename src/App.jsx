@@ -1,13 +1,9 @@
 import { AppRouter } from "./AppRouter";
-import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function App() {
-  useEffect(() => {
-    document.title = "Logística Acme SRL - Sistema de Gestión de Viajes";
-  }, []);
 
   return (
     <BrowserRouter>
