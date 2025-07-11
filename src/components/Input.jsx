@@ -13,7 +13,7 @@ const Input = (props) => {
           onChange={props.onChange}
           value={props.value}
           id={props.id}
-          type="text"
+          type={props.type || "text"}
           className="w-full  bg-white border-1 border-gray-300 rounded-2xl shadow-lg px-4 py-3 flex items-center justify-between text-gray-900"
         />
       </div>

@@ -15,10 +15,14 @@ const ViajesPage = () => {
   const [busqueda, setBusqueda] = useState("");
   const [filtros, setFiltros] = useState({});
   const [viajesFiltrado, setViajesFiltrado] = useState([]);
-  const [paginaActual, setPaginaActual] = useState(1);
-  const [limitePorPagina, setLimitePorPagina] = useState(5);
+  
   const [totalViajes, setTotalViajes] = useState(0);
+//<<<<<<< Branch: Services-Error
+  const [paginaActual, setPaginaActual] = useState(1);
+  const limitePorPagina = 6;
+//=======
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
+//>>>>>>> Branch: dev
 
   
 
@@ -26,7 +30,7 @@ const ViajesPage = () => {
     const obtenerViajes = async () => {
       try {
         const datos = await viajesService.getAll();
-        setViaje(datos);
+        setViaje(datos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
       } catch (error) {
         console.log(error);
       }

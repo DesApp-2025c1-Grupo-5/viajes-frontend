@@ -49,7 +49,6 @@ const NuevoDepositoPage = () => {
   const handlePaisChange = (selectedPais) => {
     setPais(selectedPais);
     setProvincias(paisesData[selectedPais] || []);
-   
   };
 
 

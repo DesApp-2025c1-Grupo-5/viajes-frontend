@@ -24,6 +24,7 @@ service.create = async (nuevaEmpresa) => {
     return respuesta.data;
   } catch (error) {
     console.error("Error al crear la nueva empresa transportista:", error);
+    throw error;
   }
 };
 
@@ -38,6 +39,7 @@ service.getTransportistaById = async (id) => {
       "No existe empresa transportista con el identificador:",
       error
     );
+    throw error;
   }
 };
 
@@ -50,6 +52,7 @@ service.updateTransportista = async (id, transportista) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe la empresa transportista con el id:", error);
+    throw error;
   }
 };
 
@@ -61,6 +64,7 @@ service.deleteTransportista = async (id) => {
     return respuesta.data;
   } catch (error) {
     console.error("No existe la empresa transportista con el id:", error);
+    throw error;
   }
 };
 

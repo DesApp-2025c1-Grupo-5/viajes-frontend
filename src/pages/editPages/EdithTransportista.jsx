@@ -11,6 +11,8 @@ import FormButtonSave from "../../components/FormButtonSave";
 import TextArea from "../../components/TextArea";
 import transportistasServices from "../../services/EmpresasTransportistasService";
 import { toast } from "react-toastify";
+import DropdownButton from "../../components/DropDownButton";
+import paisesData from "../../data/paises_provincias.json";
 
 const EditarTransportistasPage = () => {
   const { id } = useParams();
@@ -20,10 +22,17 @@ const EditarTransportistasPage = () => {
   const [cuit_rut, setCuitRut] = useState("");
   const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [pais, setPais] = useState("");
-  const [provincia_estado, setProvincia] = useState("");
   const [domicilio_fiscal, setDomicilioFiscal] = useState("");
   const [observaciones, setObservaciones] = useState("");
+  const [provincia_estado, setProvincia] = useState("");
+  const [pais, setPais] = useState("");
+  const [provincias, setProvincias] = useState([]);
+
+  const handlePaisChange = (selectedPais) => {
+      setPais(selectedPais);
+      setProvincias(paisesData[selectedPais] || []);
+  };
+
 
   useEffect(() => {
     transportistasServices.getTransportistaById(id).then((transportista) => {
@@ -31,8 +40,8 @@ const EditarTransportistasPage = () => {
       setCuitRut(transportista.cuit_rut || "");
       setEmail(transportista.email || "");
       setTelefono(transportista.telefono || "");
-      setPais(transportista.pais || "");
       setProvincia(transportista.provincia_estado || "");
+      handlePaisChange(transportista.pais || "");
       setDomicilioFiscal(transportista.domicilio_fiscal || "");
       setObservaciones(transportista.observaciones || "");
     });
@@ -125,20 +134,37 @@ const EditarTransportistasPage = () => {
               id="idTelefono"
               required
             />
-            <Input
+
+            <DropdownButton
+              className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+              titulo="País"
+              required
+              onChange={(e) => handlePaisChange(e.target.value)}
               value={pais}
-              onChange={(e) => setPais(e.target.value)}
-              title="Pais"
-              id="idPais"
-              required
+              options={[
+                { value: "", label: "Seleccionar" },
+                ...Object.keys(paisesData).map((pais) => ({
+                  value: pais,
+                  label: pais,
+                })),
+              ]}
             />
-            <Input
-              value={provincia_estado}
+
+            <DropdownButton
+              className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+              titulo="Provincia"
+              required
               onChange={(e) => setProvincia(e.target.value)}
-              title="Provincia"
-              id="idProvincia"
-              required
+              value={provincia_estado}
+              options={[
+                { value: "", label: "Seleccionar" },
+                ...provincias.map((prov) => ({
+                  value: prov,
+                  label: prov,
+                })),
+              ]}
             />
+
             <Input
               value={domicilio_fiscal}
               onChange={(e) => setDomicilioFiscal(e.target.value)}
