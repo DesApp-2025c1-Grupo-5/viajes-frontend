@@ -3,6 +3,7 @@ import BackButton from "../../components/BackButton";
 import TitleNew from "../../components/TitleNew";
 import ViewTitle from "../../components/ViewTitle";
 import ViewField from "../../components/ViewField";
+import ViewFieldObservaciones from "../../components/ViewFieldObservaciones"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import choferServices from "../../services/ChoferesService";
@@ -90,7 +91,7 @@ const ViewChofer = () => {
               value={vehiculo ? `${vehiculo.marca} ${vehiculo.modelo}` : "Sin vehículo"}
             />
             <ViewField title="Estado" id="idEstado" value={estado} />
-            <ViewField
+            <ViewFieldObservaciones
               title="Observaciones"
               id="idObservaciones"
               value={observaciones}

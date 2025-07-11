@@ -3,6 +3,7 @@ import BackButton from "../../components/BackButton";
 import TitleNew from "../../components/TitleNew";
 import ViewTitle from "../../components/ViewTitle";
 import ViewField from "../../components/ViewField";
+import ViewFieldObservaciones from "../../components/ViewFieldObservaciones"
 import { useEffect, useState } from "react";
 import { depositosService } from "../../services";
 import { useParams } from "react-router-dom";
@@ -81,7 +82,7 @@ const ViewDepositoPage = () => {
               value={restriccionDeAcceso}
             />
             <ViewField title="Contacto" id="idContacto" value={contacto} />
-            <ViewField
+            <ViewFieldObservaciones
               title="Observaciones"
               id="idObservaciones"
               value={observaciones}
