@@ -143,6 +143,7 @@ const NuevoDepositoPage = () => {
                   label: prov,
                 })),
               ]}
+              disabled={pais==""}
             />
 
             <Input

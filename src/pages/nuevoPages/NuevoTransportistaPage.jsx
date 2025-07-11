@@ -148,6 +148,7 @@ const NuevoTransportistaPage = () => {
                   label: prov,
                 })),
               ]}
+              disabled={pais==""}
             />
             <div className="col-span-2">
               <Input

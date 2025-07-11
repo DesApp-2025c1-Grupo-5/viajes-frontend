@@ -163,6 +163,7 @@ const EditarTransportistasPage = () => {
                   label: prov,
                 })),
               ]}
+              disabled={pais==""}
             />
 
             <Input

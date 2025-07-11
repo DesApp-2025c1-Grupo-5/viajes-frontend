@@ -160,6 +160,7 @@ const EditarDepositosPage = () => {
                   label: prov,
                 })),
               ]}
+              disabled={pais==""}
             />
               <Input
                 value={direccion}
