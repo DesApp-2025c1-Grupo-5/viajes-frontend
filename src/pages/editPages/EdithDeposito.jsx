@@ -56,8 +56,8 @@ const EditarDepositosPage = () => {
   useEffect(() => {
     depositosService.getDepositoById(id).then((deposito) => {
       setNombre(deposito.nombre || "");
-      setPais(deposito.pais || "");
       setProvincia(deposito.provincia || "");
+      handlePaisChange(deposito.pais || "");
       setDireccion(deposito.direccion || "");
       setCoordenadas(deposito.coordenadas || "");
       setTipo(deposito.tipo || "");
