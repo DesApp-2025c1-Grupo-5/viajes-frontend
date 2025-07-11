@@ -125,7 +125,7 @@ const EditarChoferesPage = () => {
     const choferActualizado = {
       nombre,
       apellido,
-      DNI: dni,
+      dni,
       licencia,
       telefono,
       fecha_nacimiento,
