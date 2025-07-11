@@ -12,13 +12,16 @@ const TablaTransportistas = ({
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
-    const nombreEmpresa = transportistas.find(t => t.id == id)?.razon_social;
+    const nombreEmpresa = transportistas.find((t) => t.id == id)?.razon_social;
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
           <p className="mb-2">
             ¿Estás seguro de eliminar esta empresa transportista?
-            <br /><span className="italic font-semibold text-purple-400">{nombreEmpresa || ""}</span>
+            <br />
+            <span className="italic font-semibold text-purple-400">
+              {nombreEmpresa || ""}
+            </span>
           </p>
           <div className="flex justify-end gap-2">
             <button
@@ -69,9 +72,13 @@ const TablaTransportistas = ({
         <table className="min-w-full bg-white border border-gray-200 text-gray-700">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b border-gray-300">Razón Social</th>
+              <th className="px-4 py-2 border-b border-gray-300">
+                Razón Social
+              </th>
               <th className="px-4 py-2 border-b border-gray-300">CUIT</th>
-              <th className="px-4 py-2 border-b border-gray-300">Domicilio Fiscal</th>
+              <th className="px-4 py-2 border-b border-gray-300">
+                Domicilio Fiscal
+              </th>
               <th className="px-4 py-2 border-b border-gray-300">Teléfono</th>
               <th className="px-4 py-2 border-b border-gray-300">Email</th>
               <th className="px-4 py-2 border-b border-gray-300">Acciones</th>
@@ -83,22 +90,29 @@ const TablaTransportistas = ({
                 key={transportista.id}
                 className="hover:bg-gray-200 cursor-pointer"
                 onClick={() =>
-                  navigate(`/empresasTransportistas/${transportista.id}`)
+                  navigate(`/transportistas/view/${transportista.id}`)
                 }
               >
                 <td className="px-4 py-2 border-b border-gray-300">
                   {transportista.razon_social}
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300">{transportista.cuit_rut}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {transportista.cuit_rut}
+                </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   {transportista.domicilio_fiscal}
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300">{transportista.telefono}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{transportista.email}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {transportista.telefono}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {transportista.email}
+                </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   <Link
-                    path={`/nuevoTransportista`}
+                    to={`/transportistas/${transportista.id}`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <FilePen
                       size={25}
@@ -123,7 +137,7 @@ const TablaTransportistas = ({
             ))}
           </tbody>
         </table>
-        <SinResultados lista={transportistas}/>
+        <SinResultados lista={transportistas} />
       </div>
     </>
   );

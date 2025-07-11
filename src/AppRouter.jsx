@@ -15,6 +15,13 @@ import EdithChofer from "./pages/editPages/EdithChofer";
 import EditarDepositosPage from "./pages/editPages/EdithDeposito";
 import EditarTransportistasPage from "./pages/editPages/EdithTransportista";
 import EditarViajePage from "./pages/editPages/EdithViajes";
+import ViewVehiculo from "./pages/viewPages/ViewVehiculoPage";
+import ViewChofer from "./pages/viewPages/ViewChoferPage";
+import ViewDeposito from "./pages/viewPages/ViewDepositoPage";
+import ViewEmpresaTransportistasPage from "./pages/viewPages/ViewEmpresaTransportistasPage";
+import ViewViajePage from "./pages/viewPages/ViewViajePage";
+import ViewViaje from "./pages/viewPages/ViewViajePage";
+
 
 export function AppRouter() {
   return (
@@ -33,6 +40,18 @@ export function AppRouter() {
       <Route path="/choferes/:id" element={<EdithChofer />}></Route>
       <Route path="/depositos/:id" element={<EditarDepositosPage />}></Route>
       <Route path="/viajes/:id" element={<EditarViajePage />}></Route>
+      <Route
+        path="/transportistas/:id"
+        element={<EditarTransportistasPage />}
+      ></Route>
+      <Route path="vehiculos/view/:id" element={<ViewVehiculo />}></Route>
+      <Route path="/choferes/view/:id" element={<ViewChofer />}></Route>
+      <Route path="/depositos/view/:id" element={<ViewDeposito />}></Route>
+      <Route path="/viajes/view/:id" element={<ViewViaje/>}></Route>
+      <Route
+        path="transportistas/view/:id"
+        element={<ViewEmpresaTransportistasPage />}
+      ></Route>
       <Route
         path="/empresasTransportistas/:id"
         element={<EditarTransportistasPage />}

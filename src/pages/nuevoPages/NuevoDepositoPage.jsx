@@ -13,6 +13,8 @@ import FormButtonCancel from "../../components/FormButtonCancel";
 import FormButtonSave from "../../components/FormButtonSave";
 import depositosService from "../../services/DepositosService";
 import { toast } from "react-toastify";
+import paisesData from "../../data/paises_provincias.json";
+
 
 const tiposDeDepositos = [
   { value: "", label: "Seleccionar" },
@@ -33,7 +35,6 @@ const NuevoDepositoPage = () => {
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
-  const [pais, setPais] = useState("");
   const [provincia, setProvincia] = useState("");
   const [direccion, setDireccion] = useState("");
   const [coordenadas, setCoordenadas] = useState("");
@@ -43,6 +44,15 @@ const NuevoDepositoPage = () => {
   const [restriccionDeAcceso, setRestriccionDeAcceso] = useState("");
   const [contacto, setContacto] = useState("");
   const [observaciones, setObservaciones] = useState("");
+  const [pais, setPais] = useState("");
+  const [provincias, setProvincias] = useState([]);
+
+  const handlePaisChange = (selectedPais) => {
+    setPais(selectedPais);
+    setProvincias(paisesData[selectedPais] || []);
+   
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,20 +119,36 @@ const NuevoDepositoPage = () => {
               required
               onChange={(e) => setNombre(e.target.value)}
             ></Input>
-            <Input
-              placeholder="Ej: Argentina"
-              title="Pais"
-              id="idPais"
+            <DropdownButton
+              className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+              titulo="País"
               required
-              onChange={(e) => setPais(e.target.value)}
-            ></Input>
-            <Input
-              placeholder="Ej: Tucumán"
-              title="Provincia"
-              id="idProvincia"
+              onChange={(e) => handlePaisChange(e.target.value)}
+              value={pais}
+              options={[
+                { value: "", label: "Seleccionar" },
+                ...Object.keys(paisesData).map((pais) => ({
+                  value: pais,
+                  label: pais,
+                })),
+              ]}
+            />
+
+            <DropdownButton
+              className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+              titulo="Provincia"
               required
               onChange={(e) => setProvincia(e.target.value)}
-            ></Input>
+              value={provincia}
+              options={[
+                { value: "", label: "Seleccionar" },
+                ...provincias.map((prov) => ({
+                  value: prov,
+                  label: prov,
+                })),
+              ]}
+            />
+
             <Input
               placeholder="Ej: Av. Pronvincial 566"
               title="Dirección"

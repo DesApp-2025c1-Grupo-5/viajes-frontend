@@ -3,22 +3,26 @@ import { useNavigate } from "react-router-dom";
 import choferesService from "../services/ChoferesService";
 import { ToastContainer, toast } from "react-toastify";
 import SinResultados from "./SinResultados";
+import { Link } from "react-router-dom";
 
 const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
-    const chofer = choferes.find(c => c.id == id);
-    const nombreChofer = 
-      chofer
+    const chofer = choferes.find((c) => c.id == id);
+    const nombreChofer = chofer
       ? `${chofer.nombre} ${chofer.apellido} (${chofer.licencia})`
       : "";
 
     toast(
       ({ closeToast }) => (
         <div className="flex flex-col">
-          <p className="mb-2">¿Estás seguro de eliminar este chofer?
-            <br /><span className="italic text-emerald-400">{nombreChofer || ""}</span>
+          <p className="mb-2">
+            ¿Estás seguro de eliminar este chofer?
+            <br />
+            <span className="italic text-emerald-400">
+              {nombreChofer || ""}
+            </span>
           </p>
           <div className="flex justify-end gap-2">
             <button
@@ -76,12 +80,24 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
         <table className="min-w-full bg-white border border-gray-200 text-gray-700">
           <thead className="text-left">
             <tr>
-              <th className="px-4 py-2 border-b border-gray-300 text-left">Licencia</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-left">Nombre Completo</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-left">Fecha Nac.</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-left">DNI</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-left">Vehículo</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-left">Transportista</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">
+                Licencia
+              </th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">
+                Nombre Completo
+              </th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">
+                Fecha Nac.
+              </th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">
+                DNI
+              </th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">
+                Vehículo
+              </th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">
+                Transportista
+              </th>
               <th className="px-4 py-2 border-b border-gray-300 ">Acciones</th>
             </tr>
           </thead>
@@ -91,16 +107,20 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
               <tr
                 key={chofer.id}
                 className="hover:bg-gray-200 cursor-pointer"
-                onClick={() => navigate(`/choferes/${chofer.id}`)}
+                onClick={() => navigate(`/choferes/view/${chofer.id}`)}
               >
-                <td className="px-4 py-2 border-b border-gray-300">{chofer.licencia}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {chofer.licencia}
+                </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   {chofer.nombre} {chofer.apellido}
                 </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   {parseFecha(chofer.fecha_nacimiento)}
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300">{chofer.dni}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  {chofer.dni}
+                </td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   {chofer.vehiculo?.patente || "Sin vehículo"}
                 </td>
@@ -108,15 +128,16 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
                   {chofer.empresaTransportista?.razon_social || "Sin empresa"}
                 </td>
                 <td className="px-4 py-2 border-b border-gray-300 ">
-                  <a
-                    path={`/nuevoChofer`}
+                  <Link
+                    to={`/choferes/${chofer.id}`}
                     className="text-blue-600 hover:text-blue-800 mr-4"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <FilePen
                       size={25}
                       className="align-middle cursor-pointer inline-block"
                     />
-                  </a>
+                  </Link>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();

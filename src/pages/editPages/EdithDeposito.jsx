@@ -14,6 +14,7 @@ import depositosService from "../../services/DepositosService";
 import DropdownButton from "../../components/DropDownButton";
 import TimePicker from "../../components/TimePicker";
 import { toast } from "react-toastify";
+import paisesData from "../../data/paises_provincias.json";
 
 const tiposDeDepositos = [
   { value: "", label: "Seleccionar" },
@@ -35,7 +36,6 @@ const EditarDepositosPage = () => {
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
-  const [pais, setPais] = useState("");
   const [provincia, setProvincia] = useState("");
   const [direccion, setDireccion] = useState("");
   const [coordenadas, setCoordenadas] = useState("");
@@ -45,6 +45,13 @@ const EditarDepositosPage = () => {
   const [restriccionDeAcceso, setRestriccionDeAcceso] = useState("");
   const [contacto, setContacto] = useState("");
   const [observaciones, setObservaciones] = useState("");
+  const [pais, setPais] = useState("");
+  const [provincias, setProvincias] = useState([]);
+  
+  const handlePaisChange = (selectedPais) => {
+      setPais(selectedPais);
+      setProvincias(paisesData[selectedPais] || []);
+  };
 
   useEffect(() => {
     depositosService.getDepositoById(id).then((deposito) => {
@@ -128,20 +135,35 @@ const EditarDepositosPage = () => {
                 id="idNombre"
                 required
               />
-              <Input
-                value={pais}
-                onChange={(e) => setPais(e.target.value)}
-                title="Pais"
-                id="idPais"
-                required
-              />
-              <Input
-                value={provincia}
-                onChange={(e) => setProvincia(e.target.value)}
-                title="Provincia"
-                id="idProvincia"
-                required
-              />
+            <DropdownButton
+              className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+              titulo="País"
+              required
+              onChange={(e) => handlePaisChange(e.target.value)}
+              value={pais}
+              options={[
+                { value: "", label: "Seleccionar" },
+                ...Object.keys(paisesData).map((pais) => ({
+                  value: pais,
+                  label: pais,
+                })),
+              ]}
+            />
+
+            <DropdownButton
+              className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-300 transition-all"
+              titulo="Provincia"
+              required
+              onChange={(e) => setProvincia(e.target.value)}
+              value={provincia}
+              options={[
+                { value: "", label: "Seleccionar" },
+                ...provincias.map((prov) => ({
+                  value: prov,
+                  label: prov,
+                })),
+              ]}
+            />
               <Input
                 value={direccion}
                 onChange={(e) => setDireccion(e.target.value)}
