@@ -99,7 +99,6 @@ const NuevoTransportistaPage = () => {
               onChange={(e) => setCuit(e.target.value)}
               value={cuit_rut}
               required={true}
-              type="number"
             ></Input>
             <Input
               placeholder="Ej: abcdefga@hotmail.com"
