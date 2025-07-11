@@ -1,5 +1,4 @@
-import Header from "../../components/Header";
-import NavBar from "../../components/NavBar";
+import Layout from "../../components/Layout";
 import BackButton from "../../components/BackButton";
 import TitleNew from "../../components/TitleNew";
 import ViewTitle from "../../components/ViewTitle";
@@ -49,10 +48,8 @@ const ViewVehiculo = () => {
     return <p className="p-6">Cargando datos del vehículo...</p>;
 
   return (
-    <>
-      <Header />
+    <Layout>
       <div className="flex">
-        <NavBar />
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/vehiculos"></BackButton>
@@ -92,7 +89,7 @@ const ViewVehiculo = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
