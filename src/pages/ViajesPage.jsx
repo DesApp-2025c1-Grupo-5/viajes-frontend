@@ -184,13 +184,19 @@ const ViajesPage = () => {
               </button>
               </div>
             </div>
-            {mostrarFiltros && (
+            <div 
+              className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                mostrarFiltros 
+                  ? 'max-h-96 opacity-100 transform translate-y-0' 
+                  : 'max-h-0 opacity-0 transform -translate-y-2'
+              }`}
+            >
               <FilterBar 
                 onFilter={filtrarViajes} 
                 onClear={limpiarBusqueda} 
                 filtrosActuales={filtros}
               />
-            )}
+            </div>
             <TablaViajes
               viajes={viajesPaginados}
               setViaje={setViaje}
