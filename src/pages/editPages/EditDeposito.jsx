@@ -17,8 +17,8 @@ import paisesData from "../../data/paises_provincias.json";
 
 const tiposDeDepositos = [
   { value: "", label: "Seleccionar" },
-  { value: "propio", label: "Propio" },
-  { value: "tercero", label: "Tercero" },
+  { value: "Propio", label: "Propio" },
+  { value: "Tercero", label: "Tercero" },
 ];
 
 const restriccionesDeAcceso = [

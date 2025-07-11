@@ -88,7 +88,7 @@ const ViewChofer = () => {
              <ViewField
               title="Vehículo"
               id="idVehiculo"
-              value={vehiculo ? `${vehiculo.marca} ${vehiculo.modelo}` : "Sin vehículo"}
+              value={vehiculo ? `${vehiculo.marca} ${vehiculo.modelo} (${vehiculo.patente})` : "Sin vehículo"}
             />
             <ViewField title="Estado" id="idEstado" value={estado} />
             <ViewFieldObservaciones
