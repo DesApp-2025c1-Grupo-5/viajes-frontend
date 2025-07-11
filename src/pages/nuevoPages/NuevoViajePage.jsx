@@ -156,7 +156,7 @@ const NuevoViajePage = () => {
 
   //Validaciones:
   useEffect(()=>{
-    setErrorDepositos(depositoDestino == depositoOrigen);
+    setErrorDepositos(depositoDestino!="" && depositoDestino == depositoOrigen);
   },[depositoOrigen, depositoDestino]);
 
   useEffect(() => {
