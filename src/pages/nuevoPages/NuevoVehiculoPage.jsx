@@ -90,6 +90,7 @@ const NuevoVehiculoPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/vehiculos");
     }
   };
 
@@ -140,6 +141,7 @@ const NuevoVehiculoPage = () => {
               id="idAño"
               required
               value={anio}
+              type="number"
               onChange={(e) => setAnio(e.target.value)}
             />
             <Input
@@ -148,14 +150,16 @@ const NuevoVehiculoPage = () => {
               id="idToneladas"
               required
               value={capacidad}
+              type="number"
               onChange={(e) => setCapacidad(e.target.value)}
             />
             <Input
-              placeholder="Ej: 1000 m3"
-              title="Volumen"
+              placeholder="Ej: 1000"
+              title="Volumen (m³)"
               id="idVolumen"
               required
               value={volumen}
+              type="number"
               onChange={(e) => setVolumen(e.target.value)}
             />
             <DropdownButton

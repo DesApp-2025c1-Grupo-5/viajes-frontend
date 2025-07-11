@@ -13,6 +13,7 @@ const TextArea = (props) => {
           onChange={props.onChange}
           value={props.value}
           required={props.required}
+          maxLength={props.maxLength || 255}
         ></textarea>
       </div>
     </>

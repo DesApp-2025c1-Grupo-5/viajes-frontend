@@ -125,7 +125,7 @@ const EditarChoferesPage = () => {
     const choferActualizado = {
       nombre,
       apellido,
-      DNI: dni,
+      dni,
       licencia,
       telefono,
       fecha_nacimiento,
@@ -155,6 +155,7 @@ const EditarChoferesPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/choferes");
     }
   };
 
@@ -192,6 +193,7 @@ const EditarChoferesPage = () => {
                 onChange={(e) => setDni(e.target.value)}
                 title="Dni"
                 id="idDni"
+                type="number"
                 required
               />
               <Input

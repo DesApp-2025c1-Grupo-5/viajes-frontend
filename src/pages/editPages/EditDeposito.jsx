@@ -17,16 +17,16 @@ import paisesData from "../../data/paises_provincias.json";
 
 const tiposDeDepositos = [
   { value: "", label: "Seleccionar" },
-  { value: "propio", label: "Propio" },
-  { value: "tercero", label: "Tercero" },
+  { value: "Propio", label: "Propio" },
+  { value: "Tercero", label: "Tercero" },
 ];
 
 const restriccionesDeAcceso = [
   { value: "", label: "Seleccionar" },
-  { value: "solo Personal Autorizado", label: "Solo Personal Autorizado" },
+  { value: "Solo Personal Autorizado", label: "Solo Personal Autorizado" },
   {
-    value: "todo el Personal Autorizado",
-    label: "Todo el Personal Autorizado",
+    value: "Todo el Personal",
+    label: "Todo el Personal",
   },
 ];
 
@@ -107,6 +107,7 @@ const EditarDepositosPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/depositos");
     }
   };
 

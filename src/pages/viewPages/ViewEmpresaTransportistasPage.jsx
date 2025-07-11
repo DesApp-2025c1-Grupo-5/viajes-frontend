@@ -3,6 +3,7 @@ import BackButton from "../../components/BackButton";
 import TitleNew from "../../components/TitleNew";
 import ViewTitle from "../../components/ViewTitle";
 import ViewField from "../../components/ViewField";
+import ViewFieldObservaciones from "../../components/ViewFieldObservaciones"
 import { useEffect, useState } from "react";
 import { empresasTransportistasService } from "../../services";
 import { useParams } from "react-router-dom";
@@ -73,7 +74,7 @@ const ViewEmpresaTransportistasPage = () => {
               id="idDomicilioFiscal"
               value={domicilio_fiscal}
             />
-            <ViewField
+            <ViewFieldObservaciones
               title="Observaciones"
               id="idObservaciones"
               value={observaciones}

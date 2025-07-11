@@ -100,7 +100,7 @@ const EditarVehiculoPage = () => {
       navigate("/vehiculos");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("No se pudo crear el vehiculo", {
+      toast.error("No se pudo actualizar el vehiculo", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -108,6 +108,7 @@ const EditarVehiculoPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/vehiculos");
     }
   };
 
@@ -152,6 +153,7 @@ const EditarVehiculoPage = () => {
                 onChange={(e) => setAnio(e.target.value)}
                 title="Año"
                 id="idAño"
+                type="number"
                 required
               />
               <Input
@@ -159,13 +161,15 @@ const EditarVehiculoPage = () => {
                 onChange={(e) => setCapacidad(e.target.value)}
                 title="Capacidad (Toneladas)"
                 id="idToneladas"
+                type="number"
                 required
               />
               <Input
                 value={volumen}
                 onChange={(e) => setVolumen(e.target.value)}
-                title="Volumen"
+                title="Volumen (m³)"
                 id="idVolumen"
+                type="number"
                 required
               />
               <DropdownButton

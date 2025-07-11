@@ -78,7 +78,7 @@ const EditarTransportistasPage = () => {
       navigate("/transportistas");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("No se pudo crear la empresa transportista", {
+      toast.error("No se pudo actualizar la empresa transportista", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -86,6 +86,7 @@ const EditarTransportistasPage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/transportistas");
     }
   };
 
@@ -116,7 +117,7 @@ const EditarTransportistasPage = () => {
             <Input
               value={cuit_rut}
               onChange={(e) => setCuitRut(e.target.value)}
-              title="CuitRut"
+              title="CUIT/RUT"
               id="idCuitRut"
               required
             />
@@ -125,6 +126,7 @@ const EditarTransportistasPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               title="Email"
               id="idEmail"
+              type="email"
               required
             />
             <Input

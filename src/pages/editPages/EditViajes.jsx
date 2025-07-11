@@ -228,7 +228,7 @@ const EditarViajePage = () => {
       navigate("/viajes");
     } catch (error) {
       console.error("Error al actualizar:", error);
-      toast.error("No se pudo grabar el viaje", {
+      toast.error("No se pudo actualizar el viaje", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -236,6 +236,7 @@ const EditarViajePage = () => {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/viajes");
     }
   };
 

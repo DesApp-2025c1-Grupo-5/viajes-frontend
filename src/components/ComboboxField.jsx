@@ -14,7 +14,6 @@ const ComboboxField = ({ label, value, placeholder, onChange, options }) => {
           opt.toLowerCase().includes(query.toLowerCase())
         );
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (comboboxRef.current && !comboboxRef.current.contains(event.target)) {
@@ -40,6 +39,7 @@ const ComboboxField = ({ label, value, placeholder, onChange, options }) => {
           <Combobox.Input
             className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 w-full cursor-pointer"
             placeholder={placeholder}
+            autoComplete="off"
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => {
               setQuery("");

@@ -3,6 +3,7 @@ import BackButton from "../../components/BackButton";
 import TitleNew from "../../components/TitleNew";
 import ViewTitle from "../../components/ViewTitle";
 import ViewField from "../../components/ViewField";
+import ViewFieldObservaciones from "../../components/ViewFieldObservaciones"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import viajesServices from "../../services/ViajesService";
@@ -23,6 +24,11 @@ const ViewViaje = () => {
   const [empresaTransportista, setEmpresaTransportista] = useState("");
   const [vehiculo, setVehiculo] =  useState("");
   const [observaciones, setObservaciones] = useState("");
+
+  const formatDateTime = (dateTimeString) => {
+    if (!dateTimeString) return "";
+    return dateTimeString.replace("T", " - ") + " hs";
+  };
 
   useEffect(() => {
     viajesServices.getViajeById(id).then((viaje) => {
@@ -91,8 +97,8 @@ const ViewViaje = () => {
              id="idDestino" 
              value={destino ? destino.nombre : "Sin depósito de destino"} 
              />
-            <ViewField title="Fecha de salida" id="idFechaSalida" value={fecha_salida} />
-            <ViewField title="Fecha de llegada" id="idFechaLlegada" value={fecha_llegada} />
+            <ViewField title="Fecha de salida" id="idFechaSalida" value={formatDateTime(fecha_salida)} />
+            <ViewField title="Fecha de llegada" id="idFechaLlegada" value={formatDateTime(fecha_llegada)} />
             <ViewField
               title="Chofer"
               id="idChofer"
@@ -113,7 +119,7 @@ const ViewViaje = () => {
               id="idVehiculo"
               value={vehiculo ? `${vehiculo.marca} ${vehiculo.modelo}` : "Sin vehículo"}
             />
-            <ViewField
+            <ViewFieldObservaciones
               title="Observaciones"
               id="idObservaciones"
               value={observaciones}
