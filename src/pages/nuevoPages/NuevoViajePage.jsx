@@ -243,14 +243,14 @@ const NuevoViajePage = () => {
             className="grid grid-cols-2 gap-8 max-w-5xl"
           >
             <DropdownButton
-              titulo="Deposito origen"
+              titulo="Depósito de origen"
               required
               onChange={(e) => setDepositoOrigen( e.target.value)}
             value={depositoOrigen}
             options={opcionesDeDepositos}
             ></DropdownButton>
             <DropdownButton
-              titulo="Deposito Destino"
+              titulo="Depósito de destino"
               required
               onChange={(e) => setDepositoDestino(e.target.value)}
               value={depositoDestino}
@@ -273,7 +273,7 @@ const NuevoViajePage = () => {
               required={true}
             />
             <DropdownButton
-              titulo="EmpresaTransportista"
+              titulo="Empresa Transportista"
               required
               onChange={(e) => setEmpresaTransportista(e.target.value)}
               value={empresaTransportista}
@@ -288,7 +288,7 @@ const NuevoViajePage = () => {
               disabled={empresaTransportista === ""}
             ></DropdownButton>
             <DropdownButton
-              titulo="Vehiculo"
+              titulo="Vehículo"
               required
               onChange={(e) => setVehiculo(e.target.value)}
               value={vehiculo}
@@ -296,7 +296,7 @@ const NuevoViajePage = () => {
               disabled={!empresaTransportista || !chofer}
             ></DropdownButton>
             <TextArea
-              placeholder="Ej: Informacion sobre el viaje"
+              placeholder="Ej: Información sobre el viaje"
               title="Observaciones"
               id="idObservaciones"
               value={observaciones}

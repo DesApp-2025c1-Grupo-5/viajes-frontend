@@ -154,7 +154,7 @@ const NuevoDepositoPage = () => {
               onChange={(e) => setDireccion(e.target.value)}
             ></Input>
             <Input
-              placeholder="-34.6091, -58.3845"
+              placeholder="Ej: -34.6091, -58.3845"
               value={coordenadas}
               onChange={(e) => setCoordenadas(e.target.value)}
               title="Coordenadas"
@@ -184,20 +184,20 @@ const NuevoDepositoPage = () => {
               />
             </div>
             <DropdownButton
-              titulo="Restriccion de acceso"
+              titulo="Restricción de acceso"
               required
               onChange={(e) => setRestriccionDeAcceso(e.target.value)}
               value={restriccionDeAcceso}
               options={restriccionesDeAcceso}
             />
             <Input
-              placeholder="Contacto"
+              placeholder="Ej: +54 299 420-5566"
               title="Contacto "
               id="id_contacto"
               onChange={(e) => setContacto(e.target.value)}
             ></Input>
             <TextArea
-              placeholder="Ej: Informacion sobre el deposito"
+              placeholder="Ej: Información sobre el depósito"
               title="Observaciones"
               id="idObservaciones"
               value={observaciones}

@@ -88,12 +88,12 @@ const ViewViaje = () => {
           />
           <div className="grid grid-cols-2 gap-8 max-w-5xl">
             <ViewField
-              title="Deposito de origen"
+              title="Depósito de origen"
               id="idOrigen"
               value={origen ? origen.nombre : "Sin depósito de origen"}
             />
             <ViewField
-             title="Deposito de destino" 
+             title="Depósito de destino" 
              id="idDestino" 
              value={destino ? destino.nombre : "Sin depósito de destino"} 
              />

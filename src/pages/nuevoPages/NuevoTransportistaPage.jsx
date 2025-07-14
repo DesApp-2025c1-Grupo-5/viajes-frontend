@@ -75,17 +75,17 @@ const NuevoTransportistaPage = () => {
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/transportistas" />
-            <TitleNew color="text-purple-400" title="Nuevo Transportista" />
+            <TitleNew color="text-purple-400" title="Nueva Empresa Transportista" />
           </div>
           <FormTitle
             color="black"
-            title="Información del transportista"
-            description="Ingresa los datos del nuevo transportista a registrar en el sistema"
+            title="Información de las empresas transportistas"
+            description="Ingresa los datos de la nueva empresa transportista a registrar en el sistema"
           ></FormTitle>
           <form onSubmit={submit} className="grid grid-cols-2 gap-8 max-w-5xl">
             <Input
               placeholder="Ej: Transporte rápido S.A"
-              title="Razon social"
+              title="Razón social"
               id="idTransporteRapido"
               name="razon_social"
               onChange={(e) => setRazonSocial(e.target.value)}
@@ -93,7 +93,7 @@ const NuevoTransportistaPage = () => {
               required={true}
             ></Input>
             <Input
-              placeholder="Ej: 2020202020"
+              placeholder="Ej: 27-97847636-4"
               title="CUIT/RUT"
               id="idCuit"
               name="cuit_rut"
@@ -102,7 +102,7 @@ const NuevoTransportistaPage = () => {
               required={true}
             ></Input>
             <Input
-              placeholder="Ej: abcdefga@hotmail.com"
+              placeholder="Ej: correodeprueba@hotmail.com"
               title="E-mail"
               id="idEMail"
               name="email"
@@ -112,8 +112,8 @@ const NuevoTransportistaPage = () => {
               type="email"
             ></Input>
             <Input
-              placeholder="Ej: 1111111111"
-              title="Telefono"
+              placeholder="Ej: +51 945678123"
+              title="Teléfono"
               id="idTelefono"
               name="telefono"
               onChange={(e) => setTelefono(e.target.value)}
@@ -163,7 +163,7 @@ const NuevoTransportistaPage = () => {
             </div>
             <div className="col-span-2">
               <TextArea
-                placeholder="Ej: Informacion sobre el chofer"
+                placeholder="Ej: Informacion sobre la empresa transportista"
                 title="Observaciones"
                 name="observaciones"
                 onChange={(e) => setObservaciones(e.target.value)}

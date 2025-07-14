@@ -54,7 +54,7 @@ const ViewVehiculo = () => {
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/vehiculos"></BackButton>
-            <TitleNew color="text-red-400" title="Vehículo"></TitleNew>
+            <TitleNew color="text-red-400" title="Vehículos"></TitleNew>
           </div>
           <ViewTitle
             color="black"

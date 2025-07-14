@@ -52,15 +52,15 @@ const TransportistasPage = () => {
         <div className="flex-1 p-6">
           <Title
             color="text-purple-400"
-            title="Transportistas"
-            description="Gestiona los transportistas de la empresa"
+            title="Empresas Transportistas"
+            description="Gestiona las empresas transportistas"
           ></Title>
           <div>
             <div className="flex items-center justify-between">
               <TableTitle
                 color="text-gray-700"
-                title="Lista de transportistas"
-                description="Todos los transportistas registrados en el sistema"
+                title="Lista de empresas transportistas"
+                description="Todas las empresas transportistas registradas en el sistema"
               ></TableTitle>
               <New
                 path="/nuevoTransportista"

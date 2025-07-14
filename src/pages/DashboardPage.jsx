@@ -84,7 +84,7 @@ const DashboardPage = () => {
               />
               <Card
                 alto="h-40"
-                tituloDeLaCarta="Choferes disponibles"
+                tituloDeLaCarta="Choferes"
                 cantidad={cantidadDeChoferes}
                 bgIcono="bg-emerald-100"
                 colorBorde="border-emerald-400"

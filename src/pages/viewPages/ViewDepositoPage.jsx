@@ -48,7 +48,7 @@ const ViewDepositoPage = () => {
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
             <BackButton path="/depositos"></BackButton>
-            <TitleNew color="text-orange-400" title="Depositos"></TitleNew>
+            <TitleNew color="text-orange-400" title="Depósitos"></TitleNew>
           </div>
           <ViewTitle
             color="black"
