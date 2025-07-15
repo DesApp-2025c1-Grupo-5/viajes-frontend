@@ -25,6 +25,12 @@ const ViajesPage = () => {
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
 
+  const hayFiltrosAvanzados = () => {
+    return Object.values(filtros).some(
+      (valor) => valor !== null && valor !== "" && valor !== undefined
+    );
+  };
+
   
 
   useEffect(() => {
@@ -161,7 +167,7 @@ const ViajesPage = () => {
             </div>
             <div className="mb-4">
               <SearchBar onSearch={setBusqueda} value={busqueda}/>
-              <div className="mt-4">
+              <div className="mt-4 flex items-center">
                 <button
                   onClick={toggleFiltros}
                   className="px-4 py-2 bg-pink-300 text-white rounded-lg hover:bg-pink-400 transition-colors duration-200 flex items-center gap-2 whitespace-nowrap"
@@ -182,6 +188,9 @@ const ViajesPage = () => {
                   </>
                 )}
               </button>
+              {hayFiltrosAvanzados() && (
+                <p className="px-6 text-amber-500">⚠ Se están aplicando filtros avanzados de búsqueda</p>
+              )}
               </div>
             </div>
             <div 
