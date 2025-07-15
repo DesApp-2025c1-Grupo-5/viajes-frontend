@@ -185,7 +185,7 @@ const ViajesPage = () => {
               </div>
             </div>
             <div 
-              className={`transition-all duration-300 ease-in-out overflow-hidden ${
+              className={`transition-all duration-300 ease-in-out  ${
                 mostrarFiltros 
                   ? 'max-h-96 opacity-100 transform translate-y-0' 
                   : 'max-h-0 opacity-0 transform -translate-y-2'

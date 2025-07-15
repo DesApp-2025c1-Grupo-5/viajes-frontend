@@ -10,7 +10,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
   const handleDelete = async (id) => {
     toast(
       ({ closeToast }) => (
-        <div className="flex flex-col">
+        <div className="flex flex-col z-10">
           <p className="mb-2">¿Estás seguro de eliminar este viaje?
             <br /><span className="italic font-semibold text-pink-300">Viaje con ID: {id}</span>
           </p>

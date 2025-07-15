@@ -50,7 +50,7 @@ const ComboboxField = ({ label, value, placeholder, onChange, options }) => {
           />
           {(isOpen && filtered.length > 0) && (
             <Combobox.Options 
-              className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded bg-white shadow-lg border border-gray-200"
+              className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded bg-white shadow-lg border border-gray-200"
               static
             >
               {filtered.map((item, index) => (
