@@ -5,7 +5,7 @@ const BackButton = (props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(props.path);
+    navigate(-1);
   };
 
   return (

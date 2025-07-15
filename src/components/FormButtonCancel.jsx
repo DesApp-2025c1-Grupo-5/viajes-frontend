@@ -5,7 +5,7 @@ const FormButtonCancel = ({to="/"}) => {
   const navigate = useNavigate();
 
   const cancelar = () => {
-    navigate(to);
+    navigate(-1);
   }
 
   return (
