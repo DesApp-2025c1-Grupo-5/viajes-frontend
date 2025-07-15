@@ -10,6 +10,7 @@ const FormButtonCancel = ({to="/"}) => {
 
   return (
     <button
+      type="button"
       onClick={cancelar}
       className="w-36 bg-white text-red-500 border border-red-500 rounded-2xl shadow-md px-4 py-3 mt-8 cursor-pointer hover:border-red-600 hover:text-red-600 hover:scale-105 transition-all"
     >
