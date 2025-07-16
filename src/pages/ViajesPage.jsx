@@ -189,7 +189,7 @@ const ViajesPage = () => {
                 )}
               </button>
               {hayFiltrosAvanzados() && (
-                <p className="px-6 text-amber-500">⚠ Se están aplicando filtros avanzados de búsqueda</p>
+                <p className="px-6 text-amber-500">⚠ Filtros Aplicados</p>
               )}
               </div>
             </div>
@@ -200,11 +200,13 @@ const ViajesPage = () => {
                   : 'max-h-0 opacity-0 transform -translate-y-2'
               }`}
             >
-              <FilterBar 
-                onFilter={filtrarViajes} 
-                onClear={limpiarBusqueda} 
-                filtrosActuales={filtros}
-              />
+              {mostrarFiltros && (
+                <FilterBar 
+                  onFilter={filtrarViajes} 
+                  onClear={limpiarBusqueda} 
+                  filtrosActuales={filtros}
+                />
+              )}
             </div>
             <TablaViajes
               viajes={viajesPaginados}
