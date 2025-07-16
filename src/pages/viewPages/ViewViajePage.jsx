@@ -78,8 +78,8 @@ const ViewViaje = () => {
       <div className="flex">
         <div className="flex-1 p-6">
           <div className="flex items-center gap-2 mb-6">
-            <BackButton path="/viajes"></BackButton>
-            <TitleNew color="text-pink-300" title="Viajes"></TitleNew>
+            <BackButton />
+            <TitleNew color="text-pink-300" title="Viajes" />
           </div>
           <ViewTitle
             color="black"

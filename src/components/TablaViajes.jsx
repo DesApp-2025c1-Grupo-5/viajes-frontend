@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import viajesServices from "../services/ViajesService";
 import { ToastContainer, toast } from "react-toastify";
 import SinResultados from "./SinResultados";
+import parseFecha from "../utils/parseFecha";
 
 const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
   const navigate = useNavigate();
@@ -52,14 +53,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
     );
   };
 
-  const parseFecha = (isoString) => {
-    const date = new Date(isoString);
-    date.setDate(date.getDate() + 1);
-    const pad = (n) => (n < 10 ? "0" + n : n);
-    return `${pad(date.getDate())}-${pad(
-      date.getMonth() + 1
-    )}-${date.getFullYear()}`;
-  };
+  
 
   return (
     <>
@@ -71,7 +65,7 @@ const TablaViajes = ({ viajes, setViaje, setViajesFiltrados }) => {
               <th className="px-4 py-2 border-b border-gray-300 text-left">ID</th>
               <th className="px-4 py-2 border-b border-gray-300 text-left">Depositos</th>
               <th className="px-4 py-2 border-b border-gray-300 text-left">Fechas</th>
-              <th className="px-4 py-2 border-b border-gray-300 text-left">Empresa</th>
+              <th className="px-4 py-2 border-b border-gray-300 text-left">Empresa Transportista</th>
               <th className="px-4 py-2 border-b border-gray-300 text-left">Chofer</th>
               <th className="px-4 py-2 border-b border-gray-300 text-left ">Vehiculo</th>
               <th className="px-4 py-2 border-b border-gray-300 text-left">Acciones</th>

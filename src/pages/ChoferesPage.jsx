@@ -6,6 +6,7 @@ import TableTitle from "../components/TableTitle";
 import New from "../components/New";
 import { useEffect, useState } from "react";
 import choferesService from "../services/ChoferesService";
+import parseFecha from "../utils/parseFecha";
 
 const ChoferesPage = () => {
   
@@ -41,7 +42,8 @@ const ChoferesPage = () => {
 
   useEffect(() => {
     const resultadoFiltro = choferes.filter((texto) =>
-      `${texto.licencia} ${texto.nombre} ${texto.apellido} ${texto.fecha_nacimiento} ${texto.DNI}`
+      `${texto.licencia} ${texto.nombre} ${texto.apellido} ${parseFecha(texto.fecha_nacimiento)} ${texto.DNI} ${texto.empresaTransportista?.razon_social}
+        ${texto.vehiculo?.marca} ${texto.vehiculo?.patente}`
         .toLowerCase()
         .includes(busqueda.toLowerCase())
     );

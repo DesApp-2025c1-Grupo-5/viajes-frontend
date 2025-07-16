@@ -4,6 +4,7 @@ import choferesService from "../services/ChoferesService";
 import { ToastContainer, toast } from "react-toastify";
 import SinResultados from "./SinResultados";
 import { Link } from "react-router-dom";
+import parseFecha from "../utils/parseFecha";
 
 const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
   const navigate = useNavigate();
@@ -64,14 +65,7 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
     );
   };
 
-  const parseFecha = (isoString) => {
-    const date = new Date(isoString);
-    date.setDate(date.getDate() + 1);
-    const pad = (n) => (n < 10 ? "0" + n : n);
-    return `${pad(date.getDate())}-${pad(
-      date.getMonth() + 1
-    )}-${date.getFullYear()}`;
-  };
+
 
   return (
     <>
@@ -96,7 +90,7 @@ const TablaChoferes = ({ choferes, setChoferes, setChoferesFiltrado }) => {
                 Vehículo
               </th>
               <th className="px-4 py-2 border-b border-gray-300 text-left">
-                Transportista
+                Empresa Transportista
               </th>
               <th className="px-4 py-2 border-b border-gray-300 ">Acciones</th>
             </tr>

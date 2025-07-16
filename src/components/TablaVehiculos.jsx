@@ -73,7 +73,7 @@ const TablaVehiculos = ({ vehiculos, setVehiculos, setVehiculosFiltrado }) => {
               <th className="px-4 py-2 border-b border-gray-300">Modelo</th>
               <th className="px-4 py-2 border-b border-gray-300">Patente</th>
               <th className="px-4 py-2 border-b border-gray-300">
-                Transportista
+                Empresa Transportista
               </th>
               <th className="max-w-15 px-4 py-2 border-b border-gray-300">
                 Tipo

@@ -10,6 +10,7 @@ import FilterBar from "../components/FilterBar";
 import match from "../utils/compararTexto";
 import include from "../utils/includeTexto";
 import { Funnel, EyeOff } from "lucide-react";
+import parseFecha from "../utils/parseFecha";
 
 const ViajesPage = () => {
   const [viajes, setViaje] = useState([]);
@@ -46,21 +47,27 @@ const ViajesPage = () => {
   }, []);
   
 
+  
+
   useEffect(() => {
     const resultadoFiltro = viajes.filter((viaje) => {
-    const textoViaje = [
+      const fecha_salida = parseFecha(viaje.fecha_salida);
+      const fecha_llegada = parseFecha(viaje.fecha_llegada);
+      const textoViaje = [
       viaje.id,
       viaje.tipoDeViaje,
       viaje.depositoOrigen?.nombre,
       viaje.depositoOrigen?.provincia,
       viaje.depositoDestino?.nombre,
       viaje.depositoDestino?.provincia,
-      viaje.fecha_desde,
-      viaje.fecha_hasta,
+      fecha_salida,
+      fecha_llegada,
       viaje.chofer?.nombre,
       viaje.chofer?.apellido,
       viaje.empresaTransportista?.razon_social,
       viaje.vehiculo?.patente,
+      viaje.vehiculo?.marca,
+      viaje.vehiculo?.modelo,
     ]
       .filter(Boolean)
       .join(" ")
