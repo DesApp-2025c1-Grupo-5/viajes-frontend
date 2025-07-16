@@ -41,7 +41,7 @@ const ChoferesPage = () => {
 
   useEffect(() => {
     const resultadoFiltro = choferes.filter((texto) =>
-      `${texto.licencia} ${texto.nombre} ${texto.fecha_nacimiento} ${texto.DNI}`
+      `${texto.licencia} ${texto.nombre} ${texto.apellido} ${texto.fecha_nacimiento} ${texto.DNI}`
         .toLowerCase()
         .includes(busqueda.toLowerCase())
     );
