@@ -82,13 +82,15 @@ const ViajesPage = () => {
       nroViaje,
       empresa,
       chofer,
-      patente,
+      vehiculo,
       provinciaOrigen,
       provinciaDestino,
       depositoOrigen,
       depositoDestino,
     } = filtros;
     
+    const vehiculoNombre = viaje.vehiculo ? `${viaje.vehiculo.marca} ${viaje.vehiculo.modelo} (${viaje.vehiculo.patente})`:""
+
     return (
       filtradoPorTexto
       && (!tipoDeViaje || match(viaje.tipoDeViaje, tipoDeViaje)) 
@@ -97,7 +99,7 @@ const ViajesPage = () => {
       && (!nroViaje || match(viaje.id.toString(), nroViaje))
       && (!empresa || match(viaje.empresaTransportista.razon_social, empresa))
       && (!chofer || include(`${viaje.chofer?.nombre ?? ""} ${viaje.chofer?.apellido}`, chofer))
-      && (!patente || match(viaje.vehiculo?.patente, patente))
+      && (!vehiculo || match(vehiculoNombre, vehiculo)) 
       && (!provinciaOrigen || match(viaje.depositoOrigen?.provincia, provinciaOrigen))
       &&(!provinciaDestino || match(viaje.depositoDestino?.provincia, provinciaDestino))
       && (!depositoOrigen || match(viaje.depositoOrigen?.nombre, depositoOrigen))

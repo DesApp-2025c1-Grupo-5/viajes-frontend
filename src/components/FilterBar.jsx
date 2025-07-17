@@ -12,7 +12,7 @@ const FilterBar = ({ onFilter, onClear, filtrosActuales = {} }) => {
     nroViaje: "",
     empresa: "",
     chofer: "",
-    patente: "",
+    vehiculo: "",
     provinciaOrigen: "",
     provinciaDestino: "",
     depositoOrigen: "",
@@ -22,7 +22,9 @@ const FilterBar = ({ onFilter, onClear, filtrosActuales = {} }) => {
 
   const [empresas, setEmpresas] = useState([]);
   const [choferes, setChoferes] = useState([]);
-  const [patentes, setPatentes] = useState([]);
+  const [choferesNombres, setChoferesNombres] = useState([]);
+  const [vehiculos, setVehiculos] = useState([]);
+  const [vehiculosNombres, setVehiculosNombres] = useState([]);
   const [provincias, setProvincias] = useState([]);
   const [depositos, setDepositos] = useState([]);
 
@@ -45,24 +47,38 @@ useEffect(() => {
 
   const obtenerChoferes = async () => {
     const data = await choferesService.getAll();
-    setChoferes([
-      ...new Set(data.map((c) => c.nombre && c.apellido
-                                  ? `${c.nombre} ${c.apellido}`
-                                  : null
-                          )
-                          .filter(Boolean)),
-    ]);
+    setChoferes(data);
   }
   obtenerChoferes();
 
   const obtenerVehiculos = async () => {
-    const vehiculos = await vehiculosService.getAll();
-    setPatentes(vehiculos.map((v)=>v.patente));
+    const vehiculosData = await vehiculosService.getAll();
+    setVehiculos(vehiculosData);
   }
   obtenerVehiculos();
 
   
 }, []);
+
+useEffect(() => {
+  setVehiculosNombres([
+    ...new Set(
+      vehiculos.map(v => v.marca && v.modelo && v.patente
+        ? `${v.marca} ${v.modelo} (${v.patente})`
+        : ""
+    )
+    .filter(Boolean))
+  ])
+}, [vehiculos])
+
+useEffect(() => {
+  setChoferesNombres([
+    ...new Set(
+            choferes.map(c => c.nombre && c.apellido
+            ? `${c.nombre} ${c.apellido}`
+            : ""
+  ).filter(Boolean))])
+}, [choferes]);
 
 useEffect(() => {
   if (filtrosActuales && Object.keys(filtrosActuales).length > 0) {
@@ -77,6 +93,8 @@ useEffect(() => {
   const handleChange = (field, value) => {
     setFiltros((prev) => ({ ...prev, [field]: value }));
   };
+
+  // console.log(via);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -173,15 +191,19 @@ useEffect(() => {
           label="Chofer"
           placeholder={"Todos los Choferes"}
           value={filtros.chofer}
-          onChange={(val) => handleChange("chofer", val === "Todos los choferes" ? "" : val)}
-          options={choferes}
+          onChange={(val) => handleChange("chofer", val === "Todos los choferesNombres" ? "" : val)}
+          options={filtros.empresa  
+            ? choferes.filter(c => c.empresaTransportista?.razon_social === filtros.empresa).map(c => `${c.nombre} ${c.apellido}`) 
+            : choferesNombres}
         />
         <ComboboxField
-          label="Patente"
-          placeholder={"Todas las Patentes"}
-          value={filtros.patente}
-          onChange={(val) => handleChange("patente", val)}
-          options={patentes}
+          label="Vehículos"
+          placeholder={"Todos los Vehículos"}
+          value={filtros.vehiculo}
+          onChange={(val) => handleChange("vehiculo", val)}
+          options={filtros.empresa 
+            ? vehiculos.filter(v => v.empresa?.razon_social === filtros.empresa).map(v => `${v.marca} ${v.modelo} (${v.patente})`)
+           : vehiculosNombres}
           />
         <ComboboxField
           label="Provincia origen"
@@ -230,7 +252,7 @@ useEffect(() => {
               nroViaje: "",
               empresa: "",
               chofer: "",
-              patente: "",
+              vehiculo: "",
               provinciaOrigen: "",
               provinciaDestino: "",
               depositoOrigen: "",
